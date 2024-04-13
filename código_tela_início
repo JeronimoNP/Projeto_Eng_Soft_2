@@ -1,14 +1,27 @@
 <!DOCTYPEHTML>
-  <html>
+  <html lang= "pt-BR">
   <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content "IE=edge">
+  <meta name="viewport" content ="widht=device-widht, initial-scale=1.0">
+  <link rel="preconnect"
+  href="https://rsms.me/">
+  <link rel="stylesheet"
+  href="https://rsms.me/inter/inter.css">
+ 
+
   <title></title>
   </head>
   
-  <body>
-  <h1> MINHA GESTÃO DE FROTAS/h1>
+  <body style= "justify-content: center;">
+  <p style   = " font-family: Inter, Sans-serif; text-align: center;"> Seja bem-vindo á nossa Plataforma de Gestão de Frotas, 
+  estamos comprometidos em oferecer soluções inteligentes e eficientes para otimizar a gestão dos seus veículos, proporcionando maior
+  controle, segurança e economia para seu negócio.</p>
+  <h1 style   = " font-family: Inter, Sans-serif; text-align: center;"> MINHA GESTÃO DE FROTAS</h1>
   <img></img>
   
-  <button>Acessar</button>
+  <button style = " background-color : #D9D9D9;
+ font-size: 22px; font-family: Inter, Sans-serif; text-align: center; maergin-right: -50%; position: absolute; top: 90%; left: 50%; transform: translate(-50%, -50%);">Acessar</button>
 
 
   </body>
