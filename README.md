@@ -1,1 +1,1 @@
-inicio do progeto
+inicio do projeto
