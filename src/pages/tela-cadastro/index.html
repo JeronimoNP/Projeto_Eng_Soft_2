@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Cadastro</h2>
+        <form id="cadastroForm">
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" required>
+            </div>
+            <div class="form-group">
+                <label for="cnpj">CNPJ:</label>
+                <input type="number" id="cnpj" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" required>
+            </div>
+            <button type="submit" id="cadastrar">Cadastrar</button>
+        </form>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
