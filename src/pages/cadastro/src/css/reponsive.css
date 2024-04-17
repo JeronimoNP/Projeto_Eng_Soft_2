@@ -1,0 +1,23 @@
+@media screen and (min-width: 700px) {
+    .main-page {
+        width: 600px;
+        box-shadow: -1px 1px 1px #e2e2e2;
+        border-radius: 10px;
+    }
+
+    .login-page {
+        width: 45%;
+        border-radius: 10px 0 0 10px;
+        box-shadow: none;
+    }
+
+    .area-cadastro {
+        width: 55%;
+        border-radius: 0 10px 10px 0;
+        box-shadow: none;
+    }
+
+    .icon-format {
+        display: none;
+    }
+}
