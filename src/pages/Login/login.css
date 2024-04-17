@@ -30,11 +30,22 @@ body {
 
 }
 
-.paragrafo{
+ .paragrafo{
     background-color: #5F9F9F ;
+<<<<<<< HEAD
     color:white;
     text-align: center;
 }
+=======
+    text-align: center;
+    /*border: 12px;
+    margin-top: -400px;
+    margin-left: 380px;
+    width: 600px;
+    height: 380px;
+    */
+} 
+>>>>>>> c7ba00d3e1179768fa096aab7938df7c9ea74fad
 
 
     .two{
@@ -50,12 +61,99 @@ body {
     font-size: 24px;
 }
 
+<<<<<<< HEAD
+=======
+.title{
+    color:white;
+    font-size: 32px;
+}
+
+.two{
+    background-color:#5F9F9F;
+    color: white;
+    font-size: 16px;
+    width: 300px;
+    height: 50px;
+    border-radius: 15px;
+}
+
+#login{
+    background-color: white;
+    width: 380px;
+    height: 370px;
+    text-align: center;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+>>>>>>> c7ba00d3e1179768fa096aab7938df7c9ea74fad
 
 .input-container{
     margin-top: 10px;
 }
 
+.campo-email, .campo-senha {
+    border: 1px solid #ccc; 
+}
+.campo-email.invalid, .campo-senha.invalid {
+    border-color: red; 
+}
 
+<<<<<<< HEAD
 .div1{
     margin-top: 80px;
 }
+=======
+body{
+  background-color: #D9D9D9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.email{
+    font-size: 18px;
+}
+
+.senha{
+    font-size: 18px;
+    margin-top: 110px;
+}
+
+.one{
+    margin-top: -150;
+
+    font-size:18px ;
+    margin-top: 125px;
+    width: 300px;
+    height: 50px;
+    background-color: #5F9F9F;
+    color: white;
+    
+}
+/* Estilos para o ícone dentro do input */
+.input-container {
+    position: relative;
+    margin-bottom: 15px; 
+}
+.input-container input {
+    padding-left: 30px; 
+    width: 100%;
+    box-sizing: border-box;
+}
+.input-container i {
+    position: absolute;
+    left: 5px; 
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa; 
+}
+.input-container i.fa-eye {
+    right: 5px; 
+    cursor: pointer; 
+}
+
+@supports (font-variation-settings: normal) {
+    :root { font-family: InterVariable, sans-serif; }
+  }
+>>>>>>> c7ba00d3e1179768fa096aab7938df7c9ea74fad

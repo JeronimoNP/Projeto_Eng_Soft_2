@@ -35,4 +35,12 @@ mostrarSenhaIcon.addEventListener('click', function() {
         mostrarSenhaIcon.classList.remove('fa-eye');
         mostrarSenhaIcon.classList.add('fa-eye-slash');
     }
+<<<<<<< HEAD
 });
+=======
+});
+
+
+
+
+>>>>>>> c7ba00d3e1179768fa096aab7938df7c9ea74fad
