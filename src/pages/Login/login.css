@@ -68,10 +68,3 @@ body{
     
 }
 
-.input-icon {
-    background-image: url('https://cdn-icons-png.flaticon.com/512/3690/3690706.png');
-    background-repeat: no-repeat;
-    background-position: calc(100% - 10px) left;
-    padding-right: 30px;
-  }
-
