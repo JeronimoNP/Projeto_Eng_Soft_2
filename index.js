@@ -65,12 +65,11 @@ permitir o acesso a certas rotas.
 
 let express = require('express');
 let api = express();
-const Routes = ("./routes");
+const cadastromotorista = require('./routes/motoristaRoutes.js');
 
-api.post('/cadastro-motorista', function(req, res){
-    res.send('hellou world');
+//iniciação do codigo
 
-});
+api.post('/cadastro-motorista', cadastromotorista);
 
 api.delete('/deletar-motorista', function(req, res){
     
