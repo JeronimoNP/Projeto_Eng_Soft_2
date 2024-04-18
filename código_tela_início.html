@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://rsms.me/">
+  <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+  <style>
+    :root {
+      font-family: Inter, sans-serif;
+      font-feature-settings: 'liga' 1, 'calt' 1;
+    }
+
+    @supports (font-variation-settings: normal) {
+      :root { font-family: InterVariable, sans-serif; }
+    }
+  </style>
+  <title></title>
+</head>
+<body>
+  <h1>MINHA GESTÃO DE FROTAS</h1>
+  <img src="caminho_para_sua_imagem.jpg" alt="Descrição da imagem">
+  <button id="acessarButton" style="color: #D9D9D9; font-size: 22px;">Acessar</button>
+  <script>
+    document.getElementById("acessarButton").addEventListener("click", function() {
+      window.location.href = "src/pages/cadastro";
+    });
+  </script>
+</body>
+</html>
