@@ -1,8 +1,9 @@
-const login = document.getElementById('login')
+const login = document.getElementById('longin');
+
 login.addEventListener('submit', async (e) => {
     e.preventDefault();
-    const email = document.getElementById('email').value
-    const passsword = document.getElementById('password').value
+    const email = document.getElementById('email').value;
+    const passsword = document.getElementById('password').value;
 
     const response = await fetch('caminho pro back', {
      method: 'POST',
@@ -11,11 +12,11 @@ login.addEventListener('submit', async (e) => {
      },   
      body: JSON.stringify({email, passsword})
     })
-    const data = await response.json()
+    const data = await response.json();
 
     if(response.ok){[
         window.location.href='#'
     ]} else {
-        alert('Senha ou E-mail incorretos')
+        alert('Senha ou E-mail incorretos');
     }
-})
+});
