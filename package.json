@@ -1,0 +1,19 @@
+{
+  "name": "projeto_eng_soft_2",
+  "version": "1.0.0",
+  "description": "Criação de um projeto de engenharia de software 2 onde estamos fazendo um gerenciado de frota",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeronimoNP/Projeto_Eng_Soft_2.git"
+  },
+  "author": "Jerônimo Noleto, Eitiane Borges, Mateus Dos Santos, Jherison Mattheus, Vinicius Nunes, Leonardo Barbosa, Lucas Fontinele",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeronimoNP/Projeto_Eng_Soft_2/issues"
+  },
+  "homepage": "https://github.com/JeronimoNP/Projeto_Eng_Soft_2#readme"
+}
