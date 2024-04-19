@@ -12,23 +12,53 @@ body {
 }
 
 
-
 .home {
+    background-color: #5F9F9F;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
     width: 300px;
     height: 510px;
-    justify-content: center;
-    align-items: center;
+    border-radius: 20px;
+    box-shadow: 1px 1px 1px #243c3c;
 }
 
-#acessarButton{
-    background-color:#5F9F9F;
-    color:white; 
-    font-size: 35px;
-    margin-top: 810px;
-    width: 500px;
-    height: 100px;
-    position: absolute;
-    border-radius: 15px;
+.tela-pequena-texto{
+    width: 100%;
+    text-align: center;
+    padding: 80px 20px 0 20px;
+}
 
+.tela-pequena-texto h1{
+    font-size: 2em;
+    font-weight: 900;
+    text-shadow: 1px 1px 1px #2e2e2e;
+}
+
+.tela-pequena-texto img{
+    max-width: 100%;
+}
+
+.home button{
+    background-color:#F0F8FF;
+    width: 60%;
+    height: 40px;
+    color: #000; 
+    font-size: 1em;
+    font-weight: 700;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 1px 1px #3e6868;
+    margin-bottom: 10px;
+}
+
+.home button:hover{
+    background-color: #e6ecf4;
+    color:rgb(26, 26, 26);
+}
+
+.home button:active{
+    background-color: #dbe2e9;
+    color:rgb(37, 36, 36);
 }

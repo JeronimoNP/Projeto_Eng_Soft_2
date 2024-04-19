@@ -11,6 +11,10 @@
         box-shadow: none;
     }
 
+    .form-area .button-cadastro {
+        display: none;
+    }
+
     .cadastro-page {
         display: block;
         width: 55%;

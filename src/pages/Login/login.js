@@ -22,3 +22,10 @@ loginForm.addEventListener('submit', async (e) => {
     }
 });
 
+document.getElementById('path-cadastro-cadastro').addEventListener('click',()=>{
+    window.location.href = '../cadastro/index.html';
+});
+
+document.getElementById('path-login-cadastro').addEventListener('click',()=>{
+    window.location.href = '../cadastro/index.html';
+});

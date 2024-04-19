@@ -82,4 +82,9 @@ const mostrarSenha = (event) => {
     document.getElementById('mostrar-senha').addEventListener("click", mostrarSenha);
     window.addEventListener('resize', removerAdicionarClasses);
 
+    document.getElementById('path-login').addEventListener('click',()=>{
+        window.location.href = '../login/login.html';
+    });
+    
+
     removerAdicionarClasses();
