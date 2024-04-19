@@ -69,11 +69,8 @@ const cadastromotorista = require('./routes/motoristaRoutes.js');
 
 //iniciação do codigo
 
-api.post('/cadastro-motorista', cadastromotorista);
+api.use('/motorista', cadastromotorista);
 
-api.delete('/deletar-motorista', function(req, res){
-    
-});
 
 
 
