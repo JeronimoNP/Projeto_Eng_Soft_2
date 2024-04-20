@@ -65,11 +65,14 @@ permitir o acesso a certas rotas.
 
 let express = require('express');
 let api = express();
-const cadastromotorista = require('./routes/motoristaRoutes.js');
+const motorista = require('./routes/motoristaRoutes.js');
+const motorista = require('./routes/empresaRoutes.js');
 
 //iniciação do codigo
 
-api.use('/motorista', cadastromotorista);
+api.use('/motorista', motorista);
+
+api.use('/empresa')
 
 
 

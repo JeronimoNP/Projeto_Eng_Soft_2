@@ -13,6 +13,7 @@ const sequelize = new Sequelize(DataBase, User, Password, {
 sequelize.authenticate().then(function(){
     console.log("Conexão com o banco de dados concluido!");
 }).catch(function(error){
+    console.clear();
     console.log("Erro na conexão ao banco de dados!!");
     console.error(error);
 });

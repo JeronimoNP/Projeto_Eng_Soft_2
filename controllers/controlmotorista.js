@@ -1,4 +1,8 @@
 const initdbmotorista = require('../models/Motorista');
 
+function cadastromoto(nome, celular, cnh, cpf, endereco){
+    
+}
 
-export.module = 
+
+module.exports = cadastromoto;

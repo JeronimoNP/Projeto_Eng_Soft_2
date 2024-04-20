@@ -13,6 +13,7 @@ const db = require('./db');
     Retorno: (true caso concluido com sucesso, false caso tenha erro)
 */
 const Motoristadb = db.define('motorista', {
+
     id:{
         type: Sequelize.DataTypes.UUID,
         autoIncrement: true,
@@ -20,13 +21,18 @@ const Motoristadb = db.define('motorista', {
         primarykey: true
     },
 
-    nome:{
-        type: Sequelize.DataTypes.STRING,
-        allowNull: false,
+    imagem:{
+        type: Sequelize.DataTypes.BLOB('long'),
+        allowNull: true
     },
 
-    celular:{
-        type: Sequelize.DataTypes.NUMBER,
+    nome:{
+        type: Sequelize.DataTypes.STRING(10),
+        allowNull: false
+    },
+
+    email:{
+        type: Sequelize.DataTypes.STRING(10),
         allowNull: false
     },
 
@@ -40,11 +46,16 @@ const Motoristadb = db.define('motorista', {
         allowNull: false
     },
 
-    Endereço:{
+    endereço:{
         type: Sequelize.DataTypes.STRING(50),
         allowNull: false
+    },
+
+    celular:{
+        type: Sequelize.DataTypes.NUMBER,
+        allowNull: false
     }
+
 });
 
-Motoristadb.sync();
 module.exports = Motoristadb;
