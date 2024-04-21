@@ -91,4 +91,5 @@ formAction.addEventListener('submit', (event) => {
     localStorage.setItem('id-unico', cpfCnpj);
     localStorage.setItem('endereço', endereco);
     localStorage.setItem('senha', senha);
+    window.location.href = '../login/login.html';
 });
