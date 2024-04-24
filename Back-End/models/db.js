@@ -3,18 +3,24 @@ require('dotenv').config();
 const DataBase = process.env.DATABASE;
 const User = process.env.USER;
 const Password = process.env.PASSWORD;
-const Host = process.env.LOCALHOST;
+const nomedb = process.env.NOMEDB;
 
-const sequelize = new Sequelize(DataBase, User, Password, {
-    host: Host,
-    dialect: 'mysql'
+
+const sequelize = new Sequelize({
+    dialect: 'mssql',
+    host: DataBase,
+    port: 1433,
+    database: nomedb,
+    username: User,
+    password: Password,
 });
 
-sequelize.authenticate().then(function(){
+sequelize.authenticate()
+.then(() => {
     console.log("Conexão com o banco de dados concluido!");
 }).catch(function(error){
     console.clear();
-    console.log("Erro na conexão ao banco de dados!!");
+    console.error("Erro na conexão ao banco de dados!!", error);
     console.error(error);
 });
 

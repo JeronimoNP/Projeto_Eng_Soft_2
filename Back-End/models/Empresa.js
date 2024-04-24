@@ -1,38 +1,47 @@
 const Sequelize = require('sequelize');
-const sequelize = require("./db");
+const db = require("./db");
 
 const Empresadb = db.define('empresa', {
 
     id:{
-        type:Sequelize.DataTypes.UUID,
+        type:Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
-        primarykey: true
+        primaryKey: true
     },
 
     nome:{
-        type: Sequelize.DataTypes.STRING(10),
+        type: Sequelize.STRING(100),
         allowNull: false
     },
 
+    email:{
+        type: Sequelize.STRING(255),
+        allowNull: false
+    },
+    
     celular:{
-        type: Sequelize.DataTypes.NUMBER,
+        type: Sequelize.STRING(15),
         allowNull: false
     },
 
     cnpj:{
-        type: Sequelize.DataTypes.NUMBER,
+        type: Sequelize.STRING(14),
         allowNull: false
     },
 
     endereco:{
-        type: Sequelize.DataTypes.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: false
     },
 
     senha:{
-        type: Sequelize.DataTypes.STRING,
+        type: Sequelize.STRING(60),
         allowNull: false
     }
 
 })
+
+Empresadb.sync();
+
+module.exports = Empresadb;

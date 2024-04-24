@@ -67,8 +67,11 @@ let express = require('express');
 let api = express();
 const motorista = require('./routes/motoristaRoutes.js');
 const empresa = require('./routes/empresaRoutes.js');
+const bodyParser = require('body-parser');
 
 //iniciação do codigo
+
+api.use(bodyParser.json());
 
 api.use('/motorista', motorista);
 

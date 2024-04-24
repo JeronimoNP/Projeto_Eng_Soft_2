@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const db = require('./db');
+const Empresadb = require('./Empresa');
 
 /*
 * modelo do banco de dados
@@ -15,47 +16,50 @@ const db = require('./db');
 const Motoristadb = db.define('motorista', {
 
     id:{
-        type: Sequelize.DataTypes.UUID,
+        type: Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
-        primarykey: true
+        primaryKey: true
     },
 
     imagem:{
-        type: Sequelize.DataTypes.BLOB('long'),
+        type: Sequelize.BLOB('long'),
         allowNull: true
     },
 
     nome:{
-        type: Sequelize.DataTypes.STRING(10),
+        type: Sequelize.STRING(10),
         allowNull: false
     },
 
     email:{
-        type: Sequelize.DataTypes.STRING(10),
+        type: Sequelize.STRING(10),
         allowNull: false
     },
 
     cnh:{
-        type: Sequelize.DataTypes.NUMBER,
+        type: Sequelize.STRING,
         allowNull: false
     },
 
     cpf:{
-        type: Sequelize.DataTypes.NUMBER,
+        type: Sequelize.STRING,
         allowNull: false
     },
 
     endereço:{
-        type: Sequelize.DataTypes.STRING(50),
+        type: Sequelize.STRING(50),
         allowNull: false
     },
 
     celular:{
-        type: Sequelize.DataTypes.NUMBER,
+        type: Sequelize.STRING,
         allowNull: false
     }
 
 });
+
+Motoristadb.belongsTo(Empresadb);
+Motoristadb.sync();
 
 module.exports = Motoristadb;
