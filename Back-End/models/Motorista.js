@@ -38,16 +38,16 @@ const Motoristadb = db.define('motorista', {
     },
 
     cnh:{
-        type: Sequelize.STRING(9),
-        allowNull: false
-    },
-
-    cpf:{
         type: Sequelize.STRING(11),
         allowNull: false
     },
 
-    endereço:{
+    cpf:{
+        type: Sequelize.STRING(14),
+        allowNull: false
+    },
+
+    endereco:{
         type: Sequelize.STRING(255),
         allowNull: false
     },

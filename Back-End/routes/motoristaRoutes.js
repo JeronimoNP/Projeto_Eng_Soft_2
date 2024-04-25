@@ -8,22 +8,10 @@ routes.post('/cadastro', (req, res) => {
     //puxando dados necessarios do front-end
     const dadoscadastro = req.body;
 
-    //redirecionando para arquivo control para o tratamento de dados é salvamento
-    const statuscad = motoristaController.cadastromoto(dadoscadastro, res); 
+    //redirecionando para arquivo control para o tratamento de dados é cadastro
+    motoristaController.cadastromoto(dadoscadastro, res); 
 
-    //condição para verificar se o cadastro foi bem sucedido;
-    if(statuscad === 1){
-        console.log("Erro ao cadastrar. Erro 500");//reportando erro no terminal
-        return res.status(500).json({   //retornando protocola http
-            erro: true,
-            mensagem: "Erro interno no servidor, contate o administrador"
-        });
-    }else{
-        return res.status(200).json({
-            erro: false,
-            mensagem: "Cadastro motorista concluido com sucesso!"
-        });
-    }
+
 });
 
 module.exports = routes;

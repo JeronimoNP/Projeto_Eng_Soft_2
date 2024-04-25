@@ -1,3 +1,6 @@
+const Motorista = require('../models/Motorista.js');
+const empresas = require('../models/Empresa.js');
+
 function verificaemail(email){
     const dominio = /^[a-zA-Z0-9.-]+@gmail.com$/;
     const validade = dominio.test(email);
@@ -30,8 +33,31 @@ function verificacpf(cpf){
     return validade;
 }
 
+async function buscaremailbd(email, idEmpresa) {
+
+    try {
+        // Buscar o motorista pelo e-mail e pelo ID da empresa
+        const motorista = await Motorista.findOne({
+            
+            where: { 
+                email: email 
+            },
+            include: [{
+                model: empresas,
+                where: { id: idEmpresa }
+            }]
+        });
+
+        return motorista; // Retorna o motorista encontrado
+    } catch (error) {
+        console.error('Erro ao buscar motorista:', error);
+        throw new Error('Erro ao buscar motorista');
+    }
+}
+
 module.exports = {
     verificaemail,
     verificatelefone,
-    verificacpf
+    verificacpf,
+    buscaremailbd
 }

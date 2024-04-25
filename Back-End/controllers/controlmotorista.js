@@ -1,4 +1,4 @@
-const {verificaemail, verificacpf, verificatelefone} = require('../middleware/motoristamiddle.js')
+const {verificaemail, verificacpf, verificatelefone, buscaremailbd} = require('../middleware/motoristamiddle.js')
 const Motoristadb = require('../models/Motorista.js');
 
 async function cadastromoto(dados, res){
@@ -9,6 +9,7 @@ async function cadastromoto(dados, res){
     //criando uma variavel para armazena erros de dados
     let errors = [];
     //condição para informar erros
+
     if (resultemail === false) {
         errors.push("Email com o domínio incorreto.");
     }
@@ -29,39 +30,76 @@ async function cadastromoto(dados, res){
         });
     }
     //verificando se já existe um email cadastrado no bd, caso tenha retorna true
-    const emailexiste = await Motoristadb.findOne({where: {email: dados.email}});
-    //condição para verificar email existente, caso não tenha ele cadastra motorista
-    if(!emailexiste){
+    const emailexiste = await buscaremailbd(dados.email, dados.empresaId);
+
+
+    // if (!emailexiste) {
+    //     await Motoristadb.create({
+    //         imagem: dados.imagem,
+    //         nome: dados.nome,
+    //         email: dados.email,
+    //         cnh: dados.cnh,
+    //         cpf: dados.cpf,
+    //         endereço: dados.endereco,
+    //         celular: dados.celular,
+    //         empresaId: dados.empresaId
+    //     }).then(() => {
+    //         return res.status(201).json({
+    //             erro: false,
+    //             mensagem: "Usuário cadastrado com sucesso!!",
+    //             nome: dados.nome,
+    //             email: dados.email
+    //         });
+    //     }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
+    //         console.error("Erro ao cadastrar usuário:", error); // Exibir o erro no console para depuração
+    //         return res.status(400).json({
+    //             erro: true,
+    //             mensagem: "Erro ao cadastrar usuário!"
+    //         });
+    //     });
+    // } else {
+    //     return res.status(406).json({
+    //         erro: true,
+    //         mensagem: "Email já existente no banco de dados!"
+    //     });
+    // }
+
+    if (!emailexiste) {
+        // Adicione um console.log aqui para verificar os dados antes de criar o usuário
+        console.log("Dados do usuário:", dados);
+        
         await Motoristadb.create({
             imagem: dados.imagem,
             nome: dados.nome,
             email: dados.email,
             cnh: dados.cnh,
             cpf: dados.cpf,
-            endereço: dados.endereco,
+            endereco: dados.endereco, // Corrigido para endereco
             celular: dados.celular,
-            empresaID: dados.empresaID
+            empresaId: dados.empresaId
         }).then(() => {
             return res.status(201).json({
                 erro: false,
-                mensagem: "Motorista cadastrado com sucesso!!",
+                mensagem: "Usuário cadastrado com sucesso!!",
                 nome: dados.nome,
                 email: dados.email
             });
-        }).catch((error) => {
-            console.error("Erro ao cadastrar motorista");
+        }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
+            console.error("Erro ao cadastrar usuário:", error); // Exibir o erro no console para depuração
             return res.status(400).json({
                 erro: true,
-                mensagem: "Erro ao cadastrar motorista!"
+                mensagem: "Erro ao cadastrar usuário!"
             });
         });
-    }else{
+    } else {
         return res.status(406).json({
             erro: true,
-            mensagem: "Email já existe no banco de dados"
+            mensagem: "Email já existente no banco de dados!"
         });
     }
-}
+
+};
+
 
 
 module.exports = {cadastromoto};
