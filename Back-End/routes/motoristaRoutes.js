@@ -6,10 +6,10 @@ const motoristaController = require('../controllers/controlmotorista.js');
 routes.post('/cadastro', (req, res) => {
     
     //puxando dados necessarios do front-end
-    const dadoscadastro = {nome, celular, cnh, cpf, endereco} = req.body;
+    const dadoscadastro = req.body;
 
     //redirecionando para arquivo control para o tratamento de dados é salvamento
-    const statuscad = motoristaController.cadastromoto(dadoscadastro); 
+    const statuscad = motoristaController.cadastromoto(dadoscadastro, res); 
 
     //condição para verificar se o cadastro foi bem sucedido;
     if(statuscad === 1){

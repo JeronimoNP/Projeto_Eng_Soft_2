@@ -23,37 +23,37 @@ const Motoristadb = db.define('motorista', {
     },
 
     imagem:{
-        type: Sequelize.BLOB('long'),
+        type: Sequelize.BLOB,
         allowNull: true
     },
 
     nome:{
-        type: Sequelize.STRING(10),
+        type: Sequelize.STRING(100),
         allowNull: false
     },
 
     email:{
-        type: Sequelize.STRING(10),
+        type: Sequelize.STRING(255),
         allowNull: false
     },
 
     cnh:{
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(9),
         allowNull: false
     },
 
     cpf:{
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(11),
         allowNull: false
     },
 
     endereço:{
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(255),
         allowNull: false
     },
 
     celular:{
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(15),
         allowNull: false
     }
 

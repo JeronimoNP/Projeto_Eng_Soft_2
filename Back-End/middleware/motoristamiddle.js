@@ -17,12 +17,12 @@ function verificatelefone(celular){
     return validade;
 }
 
-function verificacnpj(cnpj){
+function verificacpf(cpf){
     const numero = /^[0-9]{9}$/;
-    const validade = !numero.test(cnpj);
+    const validade = !numero.test(cpf);
 
     if(validade === true){
-        const quantidadenumber = cnpj.toString().length;
+        const quantidadenumber = cpf.toString().length;
         if(quantidadenumber != 14){
             return false;
         }
@@ -33,5 +33,5 @@ function verificacnpj(cnpj){
 module.exports = {
     verificaemail,
     verificatelefone,
-    verificacnpj
+    verificacpf
 }

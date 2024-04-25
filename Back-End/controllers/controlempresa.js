@@ -1,6 +1,4 @@
-const { error } = require('console');
 const { verificaemail, verificacnpj, verificatelefone } = require('../middleware/empresamiddle.js');
-
 const Empresadb = require('../models/Empresa.js');
 
 
@@ -27,7 +25,7 @@ async function cadastroempresa(dados, res){
 
 
     if (errors.length > 0) {
-        console.log("Erro no formato dos dados:", errors.join(" "));
+        //console.log("Erro no formato dos dados:", errors.join(" ")); teste de dev
         return res.status(203).json({
             erro: "true code 203",
             info: errors
