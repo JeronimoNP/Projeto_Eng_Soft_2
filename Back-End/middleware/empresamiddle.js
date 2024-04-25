@@ -1,5 +1,3 @@
-
-
 function verificaemail(email){
     const dominio = /^[a-zA-Z0-9.-]+@gmail.com$/;
     const validade = dominio.test(email);
