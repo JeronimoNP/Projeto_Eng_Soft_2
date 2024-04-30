@@ -1,4 +1,4 @@
-const {verificaemail, verificacpf, verificatelefone, buscaremailbd} = require('../middleware/motoristamiddle.js')
+const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd} = require('../middleware/motoristamiddle.js')
 const Motoristadb = require('../models/Motorista.js');
 
 async function cadastromoto(dados, res){
@@ -32,38 +32,6 @@ async function cadastromoto(dados, res){
     //verificando se já existe um email cadastrado no bd, caso tenha retorna true
     const emailexiste = await buscaremailbd(dados.email, dados.empresaId);
 
-
-    // if (!emailexiste) {
-    //     await Motoristadb.create({
-    //         imagem: dados.imagem,
-    //         nome: dados.nome,
-    //         email: dados.email,
-    //         cnh: dados.cnh,
-    //         cpf: dados.cpf,
-    //         endereço: dados.endereco,
-    //         celular: dados.celular,
-    //         empresaId: dados.empresaId
-    //     }).then(() => {
-    //         return res.status(201).json({
-    //             erro: false,
-    //             mensagem: "Usuário cadastrado com sucesso!!",
-    //             nome: dados.nome,
-    //             email: dados.email
-    //         });
-    //     }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
-    //         console.error("Erro ao cadastrar usuário:", error); // Exibir o erro no console para depuração
-    //         return res.status(400).json({
-    //             erro: true,
-    //             mensagem: "Erro ao cadastrar usuário!"
-    //         });
-    //     });
-    // } else {
-    //     return res.status(406).json({
-    //         erro: true,
-    //         mensagem: "Email já existente no banco de dados!"
-    //     });
-    // }
-
     if (!emailexiste) {
         // Adicione um console.log aqui para verificar os dados antes de criar o usuário
         console.log("Dados do usuário:", dados);
@@ -76,6 +44,7 @@ async function cadastromoto(dados, res){
             cpf: dados.cpf,
             endereco: dados.endereco, // Corrigido para endereco
             celular: dados.celular,
+            ativo: dados.ativo,
             empresaId: dados.empresaId
         }).then(() => {
             return res.status(201).json({
@@ -100,6 +69,27 @@ async function cadastromoto(dados, res){
 
 };
 
+async function listarmotorista(empresaId, res){
+    const listaMotoristas = await listarmotoristabd(empresaId.empresaId);
+    return res.status(200).json(listaMotoristas);
 
 
-module.exports = {cadastromoto};
+    // const listaencontrada = await listarmotoristabd(empresaId);
+
+    // if(listaencontrada === NULL){
+    //     return res.status(404).json({
+    //         erro: true,
+    //         info: "Erro ao encontrar lista de motorista vinculado a empresa"
+    //     });
+    // }
+    // return res.status(200).json({
+    //     lista: listaencontrada
+    // });
+};
+
+
+
+module.exports = {
+    cadastromoto,
+    listarmotorista
+};

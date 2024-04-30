@@ -1,5 +1,6 @@
 const Motorista = require('../models/Motorista.js');
 const empresas = require('../models/Empresa.js');
+const { where } = require('sequelize');
 
 function verificaemail(email){
     const dominio = /^[a-zA-Z0-9.-]+@gmail.com$/;
@@ -55,9 +56,24 @@ async function buscaremailbd(email, idEmpresa) {
     }
 }
 
+async function listarmotoristabd(empresaId) {
+    try {
+        let listamotorista = await Motorista.findAll({
+            attributes: ['imagem', 'nome', 'email', 'celular', 'ativo'],
+            where: { empresaId: empresaId }
+        }); 
+
+        return listamotorista;
+    } catch (error) {
+        console.error('Erro ao listar motoristas do banco de dados:', error);
+        throw error; // Lança o erro para ser tratado onde a função for chamada
+    }
+}
+
 module.exports = {
     verificaemail,
     verificatelefone,
     verificacpf,
-    buscaremailbd
+    buscaremailbd,
+    listarmotoristabd
 }

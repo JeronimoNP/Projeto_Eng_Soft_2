@@ -1,6 +1,10 @@
 const express = require('express');
 const routes = express.Router();
+const cors = require('cors');
 const cadastroempresa1 = require('../controllers/controlempresa.js');
+
+routes.use(cors());3
+
 
 routes.post('/cadastro', (req, res) =>{
     //puxando dados cadastrais da empresa
