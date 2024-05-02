@@ -61,6 +61,17 @@ permitir o acesso a certas rotas.
         Cpf: int
         Endereço: string[50]
     Retorno: (true caso concluido com sucesso, false caso tenha erro)
+
+    URl: http://localhost:3000/...
+        (cadastrar empresa)     empresa/cadastro
+        (deletar empresa)       -------/deletar
+
+        (cadastrar motorista)   motorista/cadastro
+        (listar motorista)      ---------/listar
+        (editar motorista)      ---------/editar
+        (deletar motorista)     ---------/
+        
+
 */
 
 let express = require('express');

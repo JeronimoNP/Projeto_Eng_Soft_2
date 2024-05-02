@@ -59,6 +59,42 @@ async function buscaremailbd(email, idEmpresa) {
     }
 }
 
+//função para cadastrar motorista
+async function cadastrarmotoristabd(dados, emailexiste,  res){
+    if (!emailexiste) {
+        
+        await Motorista.create({
+            imagem: dados.imagem,
+            nome: dados.nome,
+            email: dados.email,
+            cnh: dados.cnh,
+            cpf: dados.cpf,
+            endereco: dados.endereco, // Corrigido para endereco
+            celular: dados.celular,
+            ativo: dados.ativo,
+            empresaId: dados.empresaId
+        }).then(() => {
+            return res.status(201).json({
+                erro: false,
+                mensagem: "Usuário cadastrado com sucesso!!",
+                nome: dados.nome,
+                email: dados.email
+            });
+        }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
+            console.error("Erro ao cadastrar usuário:", error); // Exibir o erro no console para depuração
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Erro ao cadastrar usuário!"
+            });
+        });
+    } else {
+        return res.status(406).json({
+            erro: true,
+            mensagem: "Email já existente no banco de dados!"
+        });
+    }
+}
+
 //função para listar os motoristar cadastrados no db
 async function listarmotoristabd(empresaId) {
     try {
@@ -72,6 +108,49 @@ async function listarmotoristabd(empresaId) {
         console.error('Erro ao listar motoristas do banco de dados:', error);
         throw error; // Lança o erro para ser tratado onde a função for chamada
     }
+};
+
+
+//função para editar dados de motorista
+async function editarmotoristacmiddle(dados, res){
+    const empresaId = dados.empresaId;
+
+    await Motorista.update(dados, {
+        where: { email: dados.email, empresaId: empresaId }
+
+    }).then(() => {
+    
+        return res.status(200).json({
+            erro: false,
+            info: "motorista editado com sucessor"
+        })
+    }).catch(error => {
+        return res.status(400).json({
+            erro: true,
+            info: "erro ao editar motorista",
+            "console log": error
+        })
+    });
+};
+
+
+//função para deletar motorista do banco de dados.
+async function deletarmotoristadb(dados, res){
+    
+await Motorista.destroy({
+        where: { email: dados.email, empresaId: dados.empresaId }
+    }).then(() => {
+        return res.status(200).json({
+            erro: false,
+            info: "motorista excluido com sucesso"
+        })
+    }).catch(error =>{
+        return res.status(400).json({
+            erro: true,
+            info: "erro ao excluir motorista",
+            "console log": error
+        })
+    })
 }
 
 module.exports = {
@@ -79,5 +158,8 @@ module.exports = {
     verificatelefone,
     verificacpf,
     buscaremailbd,
-    listarmotoristabd
+    listarmotoristabd,
+    cadastrarmotoristabd,
+    editarmotoristacmiddle,
+    deletarmotoristadb
 }

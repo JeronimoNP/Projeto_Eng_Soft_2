@@ -16,5 +16,15 @@ routes.get('/listar', (req, res) => {
     motoristaController.listarmotorista(empresaId, res);
 });
 
+routes.post('/editar', (req, res) => {
+    const dados = req.body;
+    motoristaController.editarmotorista(dados, res);
+});
+
+routes.delete('/deletar', (req, res) => {
+    const dados = req.body;
+    motoristaController.deletarmotorista(dados, res);
+});
+
 
 module.exports = routes;
