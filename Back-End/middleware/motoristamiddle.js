@@ -1,5 +1,6 @@
 const Motorista = require('../models/Motorista.js');
 const empresas = require('../models/Empresa.js');
+const jwt = require('jsonwebtoken');
 
 //verificar se o dominio do gmail está correto
 function verificaemail(email){
@@ -59,8 +60,15 @@ async function buscaremailbd(email, idEmpresa) {
     }
 }
 
+//função para decodificar token
+async function decodetoken(dados, senhatoken){
+
+    const decoded = await jwt.verify(dados.token, senhatoken);
+    return decoded;
+};
+
 //função para cadastrar motorista
-async function cadastrarmotoristabd(dados, emailexiste,  res){
+async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
     if (!emailexiste) {
         
         await Motorista.create({
@@ -72,7 +80,7 @@ async function cadastrarmotoristabd(dados, emailexiste,  res){
             endereco: dados.endereco, // Corrigido para endereco
             celular: dados.celular,
             ativo: dados.ativo,
-            empresaId: dados.empresaId
+            empresaId: decoded.empresaId
         }).then(() => {
             return res.status(201).json({
                 erro: false,
@@ -112,8 +120,9 @@ async function listarmotoristabd(empresaId) {
 
 
 //função para editar dados de motorista
-async function editarmotoristacmiddle(dados, res){
-    const empresaId = dados.empresaId;
+async function editarmotoristacmiddle(dados, id, res){
+    
+    const empresaId = id.empresaId;
 
     await Motorista.update(dados, {
         where: { email: dados.email, empresaId: empresaId }
@@ -135,10 +144,10 @@ async function editarmotoristacmiddle(dados, res){
 
 
 //função para deletar motorista do banco de dados.
-async function deletarmotoristadb(dados, res){
+async function deletarmotoristadb(dados, empresaId, res){
     
 await Motorista.destroy({
-        where: { email: dados.email, empresaId: dados.empresaId }
+        where: { email: dados.email, empresaId: empresaId.empresaId }
     }).then(() => {
         return res.status(200).json({
             erro: false,
@@ -161,5 +170,6 @@ module.exports = {
     listarmotoristabd,
     cadastrarmotoristabd,
     editarmotoristacmiddle,
-    deletarmotoristadb
+    deletarmotoristadb,
+    decodetoken
 }

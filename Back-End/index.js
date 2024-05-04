@@ -1,8 +1,9 @@
 /*
 * Tecnologias utilizadas
     express         (para criação da api que sera consumida pelo front)
-    jsonwebtoken    (para adição de camanda de criptografia)
+    jsonwebtoken    (criador de token para o front)
     Sequelize       (para linkagem do back com o bd)
+    bcrypt          (para criptografar a senha)
 
 * Escorpo de organização de pastas
 
@@ -79,6 +80,7 @@ let api = express();
 const motorista = require('./routes/motoristaRoutes.js');
 const empresa = require('./routes/empresaRoutes.js');
 const bodyParser = require('body-parser');
+
 
 //iniciação do codigo
 
