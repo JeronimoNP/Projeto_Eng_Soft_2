@@ -1,5 +1,5 @@
-const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb} = require('../middleware/motoristamiddle.js')
-
+const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
+const senhatoken = process.env.KEYTOKENSECRET;
 
 
 //função para cadastrar motorista
@@ -31,15 +31,26 @@ async function cadastromoto(dados, res){
             info: errors
         });
     }
-    //verificando se já existe um email cadastrado no bd, caso tenha retorna true
-    const emailexiste = await buscaremailbd(dados.email, dados.empresaId);
 
-    await cadastrarmotoristabd(dados, emailexiste, res);
+
+    //a variavel token2 é onde tera o descriptografia do token
+    const token2 = await decodetoken(dados, senhatoken, res);
+
+
+    //verificando se já existe um email cadastrado no bd, caso tenha retorna true
+    const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
+
+    
+    // const emp = await jwt.verify()
+
+    await cadastrarmotoristabd(dados, emailexiste, token2, res);
 };
 
-
 //função para listar os motoristas do db.
-async function listarmotorista(empresaId, res){
+async function listarmotorista(token, res){
+
+    //a variavel empresaId é onde tera o descriptografia do token
+    const empresaId = await decodetoken(token, senhatoken, res); 
 
     //variabel contendo a lista de motoristas.
     const listaMotoristas = await listarmotoristabd(empresaId.empresaId);
@@ -50,8 +61,11 @@ async function listarmotorista(empresaId, res){
 //função para editar motorista
 async function editarmotorista(dados, res){
 
+    //a variavel empresaId é onde tera o descriptografia do token
+    const empresaId = await decodetoken(dados, senhatoken, res);     
+    
     //verificar email existente.
-    const emailexiste = await buscaremailbd(dados.email, dados.empresaId);
+    const emailexiste = await buscaremailbd(dados.email, empresaId.empresaId);
     //retorno caso motorista não encontrado no db.
     if(!emailexiste){
         return res.status(404).json({
@@ -60,13 +74,17 @@ async function editarmotorista(dados, res){
         })
     }
 
-    await editarmotoristacmiddle(dados, res);
+    await editarmotoristacmiddle(dados, empresaId, res);
 };
 
 
 //função para deletar motorista do bd
 async function deletarmotorista(dados, res){
-    await deletarmotoristadb(dados, res);
+
+    //a variavel empresaId é onde tera o descriptografia do token
+    const empresaId = await decodetoken(dados, senhatoken, res); 
+
+    await deletarmotoristadb(dados, empresaId, res);
     
 };
 
