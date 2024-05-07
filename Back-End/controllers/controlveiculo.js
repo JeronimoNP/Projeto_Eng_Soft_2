@@ -1,4 +1,4 @@
-const {verificamodelo, verificaCrlv, verificaplaca, buscarplacabd, listarveiculobd, cadastrarveiculobd, editarveiculocmiddle, deletarveiculodb} = require('../middleware/veiculomiddle.js')
+const {verificamodelo, verificaCrlv, verificaplaca, buscarplacabd, listarveiculobd, cadastrarveiculobd, editarveiculomiddle, deletarveiculodb} = require('../middleware/veiculomiddle.js')
 
 
 
