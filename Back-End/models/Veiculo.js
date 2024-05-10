@@ -3,7 +3,7 @@ const db = require('./db');
 const Empresadb = require("./Empresa");
 const Motoristadb = require("./Motorista");
 
-const VeiculoDb = db.define('veiculo', {
+const Veiculodb = db.define('veiculo', {
     id:{
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -50,5 +50,8 @@ const VeiculoDb = db.define('veiculo', {
 
 });
 
-VeiculoDb.belongsTo(Empresadb);
-VeiculoDb.belongsTo(Motoristadb, { allowNull: true });
+Veiculodb.belongsTo(Empresadb);
+Veiculodb.belongsTo(Motoristadb, { allowNull: true });
+Veiculodb.sync();
+
+module.exports = {Veiculodb};

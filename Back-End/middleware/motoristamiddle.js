@@ -62,9 +62,12 @@ async function buscaremailbd(email, idEmpresa) {
 
 //função para decodificar token
 async function decodetoken(dados, senhatoken){
-
-    const decoded = await jwt.verify(dados.token, senhatoken);
-    return decoded;
+    try{
+        const decoded = await jwt.verify(dados.token, senhatoken);
+        return decoded;
+    }catch(error){
+        return decoded = "erro";
+    }
 };
 
 //função para cadastrar motorista
@@ -107,7 +110,7 @@ async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
 async function listarmotoristabd(empresaId) {
     try {
         let listamotorista = await Motorista.findAll({
-            attributes: ['imagem', 'nome', 'email', 'celular', 'ativo'],
+            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo'],
             where: { empresaId: empresaId }
         }); 
         return listamotorista;      //retornar uma lista com os motoristas cadastrados
