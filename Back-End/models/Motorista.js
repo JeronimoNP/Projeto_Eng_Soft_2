@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('./db');
 const Empresadb = require('./Empresa');
 const { type } = require('os');
-const sequelize = require('./db');
+// const sequelize = require('./db');
 
 /*
 * modelo do banco de dados

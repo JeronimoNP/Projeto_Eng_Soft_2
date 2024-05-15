@@ -37,8 +37,6 @@ function verificacpf(cpf){
     return validade;
 }
 
-
-
 //buscar email no banco de dados para validade se já existe o email cadastrado
 async function buscaremailbd(email, idEmpresa) {
     try {
