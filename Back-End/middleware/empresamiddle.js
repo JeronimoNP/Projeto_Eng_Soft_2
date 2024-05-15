@@ -84,7 +84,7 @@ async function login(logindados, emailexiste, res){
             };
             
             const token = jwt.sign({empresaId: emailexiste.id}, senhatoken, options);
-            return res.status(200).json({
+            return res.status(202).json({
                 erro: false,
                 info: "login feito com sucesso",
                 token: token
