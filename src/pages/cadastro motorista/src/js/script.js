@@ -59,7 +59,7 @@ entradaDado.addEventListener('submit', (event)=>{
     criarDriver();
 });
 
-function criarDriver() {
+async function criarDriver() {
     const camposInput = entradaDado.querySelectorAll('#entrada-dados input[type="text"], #entrada-dados input[type="file"]');
     let validarDados = true;
     const formData = new FormData();
@@ -90,31 +90,54 @@ function criarDriver() {
             }
         }
 
-    if(validarDados){
-        
-        const token = sessionStorage.getItem('token');
+        if(validarDados){
+            sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
+            const token = sessionStorage.getItem('token');
+            console.log(formData);
 
-        fetch('http://localhost:3000/motorista/cadastro',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: formData
-        })
-        .then(response => {
-            if(!response.ok){
-                throw new Error('Erro na aquisição');
+            try{
+                const response = await fetch('http://localhost:3000/motorista/cadastro', {
+                    method: 'POST',
+                    body: JSON.stringify(formData)
+                });
+                if(response.ok){
+                    const data = await response.json();
+                    console.log('motorista cadastrada com sucesso', data);
+                }else{
+                    const errorData = await response.json();
+                    console.error('ERRO ao cadastrar motorista', errorData);
+                }
+                
+            }catch (error){
+                console.error("Erro de rede", error);
             }
-            return response.json();
-        })
-        .then(data =>{
-            console.log('Reposta do servidor: ', data);
-        })
-        .catch(error => {
-            console.error('Erro: ', error);
-        });
-    }
+        }
+
+    // if(validarDados){
+    //     sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
+    //     const token = sessionStorage.getItem('token');
+
+    //     fetch('http://localhost:3000/motorista/cadastro',{
+    //         method: 'POST',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': `Bearer ${token}`
+    //         },
+    //         body: formData
+    //     })
+    //     .then(response => {
+    //         if(!response.ok){
+    //             throw new Error('Erro na aquisição');
+    //         }
+    //         return response.json();
+    //     })
+    //     .then(data =>{
+    //         console.log('Reposta do servidor: ', data);
+    //     })
+    //     .catch(error => {
+    //         console.error('Erro: ', error);
+    //     });
+    // }
 }
 
 function listarDriver() {

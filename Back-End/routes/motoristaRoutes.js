@@ -1,6 +1,9 @@
 const express = require('express');
 const routes = express.Router();
+const cors = require('cors');
 const motoristaController = require('../controllers/controlmotorista.js');
+
+routes.use(cors());
 
 
 routes.post('/cadastro', (req, res) => {
