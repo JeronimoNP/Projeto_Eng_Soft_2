@@ -7,7 +7,7 @@ const Veiculodb = db.define('veiculo', {
     id:{
         type: Sequelize.INTEGER,
         allowNull: false,
-        autoIncrement: false,
+        autoIncrement: true,
         primaryKey: true
     },
 
@@ -22,6 +22,11 @@ const Veiculodb = db.define('veiculo', {
 
     },
 
+    crlv:{
+        type: Sequelize.STRING(50),
+        allowNull: false
+    },
+
     modelo:{
         type: Sequelize.STRING(50),
         allowNull: false
@@ -29,11 +34,6 @@ const Veiculodb = db.define('veiculo', {
 
     tipo:{
         type: Sequelize.STRING(50),
-        allowNull: false
-    },
-     
-    cor:{
-        type: Sequelize.STRING(20),
         allowNull: false
     },
 
@@ -54,4 +54,4 @@ Veiculodb.belongsTo(Empresadb);
 Veiculodb.belongsTo(Motoristadb, { allowNull: true });
 Veiculodb.sync();
 
-module.exports = {Veiculodb};
+module.exports = Veiculodb;

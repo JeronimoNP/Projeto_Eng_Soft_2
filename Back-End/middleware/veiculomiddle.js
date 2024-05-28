@@ -1,5 +1,6 @@
-const veiculo = require('../models/veiculo.js');
+const Veiculodb = require('../models/Veiculo.js');
 const empresas = require('../models/Empresa.js');
+const jwt = require('jsonwebtoken');
 
 //verificar se o dominio do gmail está correto
 // function verificamodelo(email){
@@ -28,7 +29,7 @@ function verificaplaca(placa){
     const validade = !numero.test(placa);
 
     if(validade === true){
-        const quantidadenumber = cpf.toString().length;
+        const quantidadenumber = placa.toString().length;
         if(quantidadenumber != 7){
             return false;
         }
@@ -51,7 +52,7 @@ async function decodetoken(dados, senhatoken){
 async function buscarplacabd(placa, idEmpresa) {
     try {
         // Buscar o veículo pela placa e pelo ID da empresa
-        const veiculo = await veiculo.findOne({
+        const veiculo = await Veiculodb.findOne({
             where: { 
                 placa: placa 
             },
@@ -71,14 +72,17 @@ async function buscarplacabd(placa, idEmpresa) {
 //função para cadastrar veículo
 async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
     if (!placaexiste) {
-        
-        await veiculo.create({
+        console.log(dados);
+        await Veiculodb.create({
             imagem: dados.imagem,
+            marca: dados.marca,
             modelo: dados.modelo,
-            Crlv: dados.Crlv,
+            crlv: dados.crlv,
             placa: dados.placa,
             ativo: dados.ativo,
-            empresaId: decoded.empresaId
+            tipo: dados.tipo,
+            empresaId: decoded.empresaId,
+            motoristumId: dados.motoristumId
         }).then(() => {
             return res.status(201).json({
                 erro: false,
@@ -104,7 +108,7 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
 //função para listar os veículos cadastrados no db
 async function listarveiculobd(empresaId) {
     try {
-        let listaveiculo = await veiculo.findAll({
+        let listaveiculo = await Veiculodb.findAll({
             attributes: ['imagem', 'id', 'modelo', 'Crlv', 'placa', 'ativo'],
             where: { empresaId: empresaId }
         }); 
@@ -167,5 +171,6 @@ module.exports = {
     listarveiculobd,
     cadastrarveiculobd,
     editarveiculomiddle,
-    deletarveiculodb
+    deletarveiculodb,
+    decodetoken
 }

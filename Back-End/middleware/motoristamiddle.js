@@ -81,7 +81,7 @@ async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
             endereco: dados.endereco, // Corrigido para endereco
             celular: dados.celular,
             ativo: dados.ativo,
-            empresaId: decoded.empresaId
+            empresaId: decoded.empresaId//token
         }).then(() => {
             return res.status(201).json({
                 erro: false,

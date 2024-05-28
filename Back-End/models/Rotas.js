@@ -2,7 +2,6 @@ const Sequelize = require('sequelize');
 const db = require('./db');
 const Empresadb = require('./Empresa');
 const Motoristadb = require('./Motorista');
-const VeiculoDb = require('./Veiculo');
 const sequelize = require('./db');
 
 const RotasDb = db.define('rotas', {
@@ -63,8 +62,8 @@ const RotasDb = db.define('rotas', {
 
 RotasDb.belongsTo(Empresadb);
 RotasDb.belongsTo(Motoristadb);
-RotasDb.belongsTo(VeiculoDb);
+RotasDb.belongsTo(require('./Veiculo'));
 
-RotasDb.sync();
+// RotasDb.sync();
 
 module.exports = RotasDb;

@@ -1,4 +1,5 @@
-const { verificaCrlv, verificaplaca, buscarplacabd, listarveiculobd, cadastrarveiculobd, editarveiculomiddle, deletarveiculodb} = require('../middleware/veiculomiddle.js');
+const { verificaCrlv, verificaplaca, buscarplacabd, listarveiculobd, cadastrarveiculobd, editarveiculomiddle, deletarveiculodb, decodetoken} = require('../middleware/veiculomiddle.js');
+// import("../middleware/veiculomiddle.js");
 const senhatoken = process.env.KEYTOKENSECRET;
 
 
@@ -38,7 +39,7 @@ async function cadastroveic(dados, res){
     //verificando se já existe placa cadastrado no bd, caso tenha retorna true
     const placaexiste = await buscarplacabd(dados.placa, token2.empresaId);
 
-    await cadastrarveiculobd(dados, placaexiste, res);
+    await cadastrarveiculobd(dados, placaexiste, token2, res);
 };
 
 
