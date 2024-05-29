@@ -77,6 +77,7 @@ async function criarDriver() {
                     campo.style.border = 'none';
                     //jogar os dados na api
                     formData.append(campo.name, campo.value);
+                    console.log(`Adicionado ao FormData: ${campo.name} = ${campo.value}`);
                 }
             }else if(campo.type === 'file'){
                 if(campo.files.length === 0){
@@ -90,28 +91,35 @@ async function criarDriver() {
             }
         }
 
-        if(validarDados){
+        if (validarDados) {
             sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
             const token = sessionStorage.getItem('token');
-            console.log(formData);
-
-            try{
+    
+            // Verificando o conteúdo do formData
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+    
+            try {
                 const response = await fetch('http://localhost:3000/motorista/cadastro', {
                     method: 'POST',
-                    body: JSON.stringify(formData)
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
                 });
-                if(response.ok){
+                if (response.ok) {
                     const data = await response.json();
-                    console.log('motorista cadastrada com sucesso', data);
+                    console.log('Motorista cadastrado com sucesso', data);
                 }else{
                     const errorData = await response.json();
                     console.error('ERRO ao cadastrar motorista', errorData);
                 }
-                
-            }catch (error){
+            } catch (error) {
                 console.error("Erro de rede", error);
             }
         }
+    }
 
     // if(validarDados){
     //     sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
@@ -138,7 +146,7 @@ async function criarDriver() {
     //         console.error('Erro: ', error);
     //     });
     // }
-}
+
 
 function listarDriver() {
     const token = sessionStorage.getItem('token'); 
@@ -151,7 +159,7 @@ function listarDriver() {
         }
     })
     .then(response => {
-        if(!response){
+        if(!response.ok){
             throw new Error('Erro na aquisição');
         }
         return response.json();
