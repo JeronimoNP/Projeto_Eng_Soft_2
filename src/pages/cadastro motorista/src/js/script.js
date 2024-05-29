@@ -59,59 +59,62 @@ entradaDado.addEventListener('submit', (event)=>{
     criarDriver();
 });
 
-async function criarDriver() {
-    const camposInput = entradaDado.querySelectorAll('#entrada-dados input[type="text"], #entrada-dados input[type="file"]');
-    let validarDados = true;
-    const formData = new FormData();
+document.addEventListener('DOMContentLoaded', function() {
+    const entradaDado = document.getElementById('vehicleForm');
+
+    entradaDado.addEventListener('submit', (event) => {
+        event.preventDefault();
+        criarDriver();
+    });
+
+    async function criarDriver() {
+        const camposInput = entradaDado.querySelectorAll('input[type="text"], input[type="email"]');
+        let validarDados = true;
+        const vehicleData = {};
+
         for (let campo of camposInput) {
             const placeholder = campo.placeholder;
-            if(campo.type === 'text'){
-                if(campo.value === '') {
-                    if(!campo.placeholder.includes(': campo vazio!'))
-                        campo.placeholder = placeholder + ': campo vazio!';
-                        campo.style.border = '1px solid red';
-                        validarDados = false;
-                }
-                else{
-                    campo.placeholder = placeholder.replace(new RegExp(': campo vazio!','g'),'');
-                    campo.style.border = 'none';
-                    //jogar os dados na api
-                    formData.append(campo.name, campo.value);
-                    console.log(`Adicionado ao FormData: ${campo.name} = ${campo.value}`);
-                }
-            }else if(campo.type === 'file'){
-                if(campo.files.length === 0){
-                    document.querySelector('.image').style.border = '1px solid red';
+            if (campo.value === '') {
+                if (!campo.placeholder.includes(': campo vazio!')) {
+                    campo.placeholder = placeholder + ': campo vazio!';
+                    campo.style.border = '1px solid red';
                     validarDados = false;
-                }else {
-                    document.querySelector('.image').style.border = 'none';
-                    //jogar os dados na api
-                    formData.append(campo.name, campo.value);
                 }
+            } else {
+                campo.placeholder = placeholder.replace(new RegExp(': campo vazio!', 'g'), '');
+                campo.style.border = 'none';
+                vehicleData[campo.name] = campo.value;
+                console.log(`Adicionado ao vehicleData: ${campo.name} = ${campo.value}`);
             }
         }
 
         if (validarDados) {
-            sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
+            
+            
+            sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjk5NDk4MSwiZXhwIjoxNzE3MDM4MTgxfQ.Nt0CMPL2WL2T5cTmI6AocfVpObZGGVdmWqhfY5EDVmY');
             const token = sessionStorage.getItem('token');
-    
-            // Verificando o conteúdo do formData
-            for (let pair of formData.entries()) {
-                console.log(pair[0] + ': ' + pair[1]);
+            if (!token) {
+                console.error('Token não encontrado');
+                return;
             }
-    
+            vehicleData.token = token;
+
+            // Verificando o conteúdo de vehicleData
+            console.log(vehicleData);
+
             try {
                 const response = await fetch('http://localhost:3000/motorista/cadastro', {
                     method: 'POST',
                     headers: {
+                        'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
-                    body: formData
+                    body: JSON.stringify(vehicleData)
                 });
                 if (response.ok) {
                     const data = await response.json();
                     console.log('Motorista cadastrado com sucesso', data);
-                }else{
+                } else {
                     const errorData = await response.json();
                     console.error('ERRO ao cadastrar motorista', errorData);
                 }
@@ -120,9 +123,11 @@ async function criarDriver() {
             }
         }
     }
+});
+
 
     // if(validarDados){
-    //     sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
+    //     ('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjkzNzA2NiwiZXhwIjoxNzE2OTgwMjY2fQ.bVOajTJtc1xpp24llATt6JIuzAyynHW2SLGm2ifUgRs');
     //     const token = sessionStorage.getItem('token');
 
     //     fetch('http://localhost:3000/motorista/cadastro',{
