@@ -30,7 +30,7 @@ function verificacpf(cpf){
 
     if(validade === true){
         const quantidadenumber = cpf.toString().length;
-        if(quantidadenumber != 14){
+        if(quantidadenumber != 11){
             return false;
         }
     }

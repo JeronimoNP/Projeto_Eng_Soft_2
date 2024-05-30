@@ -15,7 +15,10 @@ routes.post('/cadastro', (req, res) => {
 });
 
 routes.get('/listar', (req, res) => {
-    const empresaId = req.body; // Obtem o empresaId da consulta na URL
+    const empresaId = {
+        "token": req.query.token
+    } // Obtem o empresaId da consulta na URL
+    console.log(empresaId);
     motoristaController.listarmotorista(empresaId, res);
 });
 

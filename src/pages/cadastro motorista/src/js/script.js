@@ -14,6 +14,8 @@ resizeTela();
 buttonCadastro.addEventListener('click', formMobile);
 window.addEventListener('resize', resizeTela);
 
+sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNzA3OTQ2NiwiZXhwIjoxNzE3MTIyNjY2fQ.TNDTfQ7rH8lYA5eIVjnOYnNFKYKpv6eIfL0UT2sycQo');
+
 function resizeTela(){
 
     if(window.innerWidth >= 700){
@@ -53,10 +55,10 @@ function formMobile(){
     }
 
 }
-
+listarDriver();
 entradaDado.addEventListener('submit', (event)=>{
     event.preventDefault();
-    criarDriver();
+    // criarDriver();
 });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -70,6 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
     async function criarDriver() {
         const camposInput = entradaDado.querySelectorAll('input[type="text"], input[type="email"]');
         let validarDados = true;
+        const token = sessionStorage.getItem('token');
         const vehicleData = {};
 
         for (let campo of camposInput) {
@@ -91,8 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (validarDados) {
             
             
-            sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNjk5NDk4MSwiZXhwIjoxNzE3MDM4MTgxfQ.Nt0CMPL2WL2T5cTmI6AocfVpObZGGVdmWqhfY5EDVmY');
-            const token = sessionStorage.getItem('token');
+            
             if (!token) {
                 console.error('Token não encontrado');
                 return;
@@ -153,29 +155,30 @@ document.addEventListener('DOMContentLoaded', function() {
     // }
 
 
-function listarDriver() {
-    const token = sessionStorage.getItem('token'); 
+async function listarDriver() {
+     // Obter o token do sessionStorage
+     const token = sessionStorage.getItem('token'); 
+        
+     if (!token) {
+         console.error('Token não encontrado');
+         return;
+     }
 
-    fetch('http://localhost:3000/motorista/cadastro', {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        }
-    })
-    .then(response => {
-        if(!response.ok){
-            throw new Error('Erro na aquisição');
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('data:', data);
-    })
-    .catch(error => {
-        console.error('Erro: ', error);
-    });
+     // Realizar a requisição GET com o token como parâmetro na URL
+     try {
+         const response = await fetch(`http://localhost:3000/motorista/listar?token=${encodeURIComponent(token)}`, {
+             method: 'GET'
+         });
 
+         if (!response.ok) {
+             throw new Error('Erro na aquisição');
+         }
+
+         const data = await response.json();
+         console.log('data:', data);
+     } catch (error) {
+         console.error('Erro: ', error);
+     }
 
     // const section = document.createElement('section');
     //     const titulo = ['Nome: ', 'Email: ', 'CNH: ', 'CPF: ', 'Endereço: ', 'Veículo: '];

@@ -1,3 +1,4 @@
+const { isUndefined } = require('util');
 const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
 const senhatoken = process.env.KEYTOKENSECRET;
 
@@ -56,7 +57,7 @@ async function cadastromoto(dados, res){
 async function listarmotorista(token, res){
 
      //a variavel token2 é onde tera o descriptografia do token
-    const token2 = await decodetoken(dados, senhatoken);
+    const token2 = await decodetoken(token, senhatoken);
     if(token2 === "erro"){
         return res.status(203).json({
             erro: true,
@@ -65,7 +66,7 @@ async function listarmotorista(token, res){
     }
     
     //variabel contendo a lista de motoristas.
-    const listaMotoristas = await listarmotoristabd(empresaId.empresaId);
+    const listaMotoristas = await listarmotoristabd(token2.empresaId);
     return res.status(200).json(listaMotoristas);
 };
 
