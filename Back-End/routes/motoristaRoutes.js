@@ -7,19 +7,22 @@ routes.use(cors());
 
 
 routes.post('/cadastro', (req, res) => {
+
     //puxando dados necessarios do front-end
     const dadoscadastro = req.body;
 
+    //condição para verificar se não está passando um indefinido
+    
     //redirecionando para arquivo control para o tratamento de dados é cadastro
     motoristaController.cadastromoto(dadoscadastro, res); 
 });
 
 routes.get('/listar', (req, res) => {
-    const empresaId = {
+    //obtem o token
+    const token = {
         "token": req.query.token
     } // Obtem o empresaId da consulta na URL
-    console.log(empresaId);
-    motoristaController.listarmotorista(empresaId, res);
+    motoristaController.listarmotorista(token, res);
 });
 
 routes.post('/editar', (req, res) => {

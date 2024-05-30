@@ -11,7 +11,7 @@ resizeTela();
 let dados = '';
 buttonCadastro.addEventListener('click', formMobile);
 window.addEventListener('resize', resizeTela);
-sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZXNhSWQiOjUsImlhdCI6MTcxNzA3OTQ2NiwiZXhwIjoxNzE3MTIyNjY2fQ.TNDTfQ7rH8lYA5eIVjnOYnNFKYKpv6eIfL0UT2sycQo');
+
 
     function resizeTela(){
 
@@ -129,6 +129,7 @@ sessionStorage.setItem('token', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbXByZX
     async function listarDriver() {
         // Obter o token do sessionStorage
         const token = sessionStorage.getItem('token'); 
+        console.log(token);
             
         if (!token) {
             console.error('Token não encontrado');
