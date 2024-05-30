@@ -30,14 +30,12 @@ function verificacpf(cpf){
 
     if(validade === true){
         const quantidadenumber = cpf.toString().length;
-        if(quantidadenumber != 14){
+        if(quantidadenumber != 11){
             return false;
         }
     }
     return validade;
 }
-
-
 
 //buscar email no banco de dados para validade se já existe o email cadastrado
 async function buscaremailbd(email, idEmpresa) {
@@ -62,9 +60,12 @@ async function buscaremailbd(email, idEmpresa) {
 
 //função para decodificar token
 async function decodetoken(dados, senhatoken){
-
-    const decoded = await jwt.verify(dados.token, senhatoken);
-    return decoded;
+    try{
+        const decoded = await jwt.verify(dados.token, senhatoken);
+        return decoded;
+    }catch(error){
+        return decoded = "erro";
+    }
 };
 
 //função para cadastrar motorista
@@ -80,7 +81,7 @@ async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
             endereco: dados.endereco, // Corrigido para endereco
             celular: dados.celular,
             ativo: dados.ativo,
-            empresaId: decoded.empresaId
+            empresaId: decoded.empresaId//token
         }).then(() => {
             return res.status(201).json({
                 erro: false,
@@ -107,7 +108,7 @@ async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
 async function listarmotoristabd(empresaId) {
     try {
         let listamotorista = await Motorista.findAll({
-            attributes: ['imagem', 'nome', 'email', 'celular', 'ativo'],
+            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh'],
             where: { empresaId: empresaId }
         }); 
         return listamotorista;      //retornar uma lista com os motoristas cadastrados

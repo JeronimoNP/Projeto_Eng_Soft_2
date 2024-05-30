@@ -77,19 +77,23 @@ permitir o acesso a certas rotas.
 
 let express = require('express');
 let api = express();
+const cors = require('cors');
+const bodyParser = require('body-parser');
 const motorista = require('./routes/motoristaRoutes.js');
 const empresa = require('./routes/empresaRoutes.js');
-const bodyParser = require('body-parser');
+const veiculo = require('./routes/veiculoRoutes.js');
+
 
 
 //iniciação do codigo
-
+api.use(cors());
 api.use(bodyParser.json());
 
 api.use('/motorista', motorista);
 
 api.use('/empresa', empresa);
 
+api.use('/veiculo', veiculo);
 
 
 

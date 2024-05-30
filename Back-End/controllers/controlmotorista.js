@@ -1,3 +1,4 @@
+const { isUndefined } = require('util');
 const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
 const senhatoken = process.env.KEYTOKENSECRET;
 
@@ -34,7 +35,13 @@ async function cadastromoto(dados, res){
 
 
     //a variavel token2 é onde tera o descriptografia do token
-    const token2 = await decodetoken(dados, senhatoken, res);
+    const token2 = await decodetoken(dados, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
 
 
     //verificando se já existe um email cadastrado no bd, caso tenha retorna true
@@ -49,11 +56,17 @@ async function cadastromoto(dados, res){
 //função para listar os motoristas do db.
 async function listarmotorista(token, res){
 
-    //a variavel empresaId é onde tera o descriptografia do token
-    const empresaId = await decodetoken(token, senhatoken, res); 
-
+     //a variavel token2 é onde tera o descriptografia do token
+    const token2 = await decodetoken(token, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
+    
     //variabel contendo a lista de motoristas.
-    const listaMotoristas = await listarmotoristabd(empresaId.empresaId);
+    const listaMotoristas = await listarmotoristabd(token2.empresaId);
     return res.status(200).json(listaMotoristas);
 };
 
@@ -61,8 +74,14 @@ async function listarmotorista(token, res){
 //função para editar motorista
 async function editarmotorista(dados, res){
 
-    //a variavel empresaId é onde tera o descriptografia do token
-    const empresaId = await decodetoken(dados, senhatoken, res);     
+    //a variavel token2 é onde tera o descriptografia do token
+    const token2 = await decodetoken(dados, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
     
     //verificar email existente.
     const emailexiste = await buscaremailbd(dados.email, empresaId.empresaId);
@@ -81,8 +100,14 @@ async function editarmotorista(dados, res){
 //função para deletar motorista do bd
 async function deletarmotorista(dados, res){
 
-    //a variavel empresaId é onde tera o descriptografia do token
-    const empresaId = await decodetoken(dados, senhatoken, res); 
+    //a variavel token2 é onde tera o descriptografia do token
+    const token2 = await decodetoken(dados, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }x   
 
     await deletarmotoristadb(dados, empresaId, res);
     
