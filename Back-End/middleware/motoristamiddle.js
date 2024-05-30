@@ -108,7 +108,7 @@ async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
 async function listarmotoristabd(empresaId) {
     try {
         let listamotorista = await Motorista.findAll({
-            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo'],
+            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh'],
             where: { empresaId: empresaId }
         }); 
         return listamotorista;      //retornar uma lista com os motoristas cadastrados
