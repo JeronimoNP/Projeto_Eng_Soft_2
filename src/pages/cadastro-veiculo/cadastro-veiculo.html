@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de veículos</title>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" type="text/css" href="reset.css"  />
+    <link rel="stylesheet" type="text/css" href="style-header.css"  />
+    <link rel="stylesheet" type="text/css" href="style-menu.css"  />
+    <link rel="stylesheet" type="text/css" href="responsive-header.css"  />
+    <link rel="stylesheet" type="text/css" href="responsive-menu.css"  />
+    <link rel="stylesheet" type="text/css" href="cadastro.css"  />
+
+</head>
+<body>
+
+    <header class="init-header"></header>
+    
+<main class="main-container">
+    <section class="main-content" >
+        <p class="paragraph">Gerenciar Veículo</p><br>
+        <br>
+        <p >Mostrar veículos</p>
+        
+        <form action="/upload" class="input-class" method="post" enctype="multipart/form-data" >
+            <button class="add">Adicionar</button>
+
+            <label for="file-upload" class="custom-file-upload">Imagem do veiculo</label>
+            <input type="file" id="file-upload" name="file"  >
+            
+            
+            <label for="model">
+                <input type="text" id="text" name="model" placeholder="Modelo" class="input1">
+            </label>
+            
+            <label for="type">
+                <input type="text" id="type" name="type" placeholder="Tipo" class="input1">
+            </label>
+            
+            <label for="color">
+                <input type="text" id="color" name="color" placeholder="Cor" class="input1">
+            </label>
+            
+            <label for="plate">
+                <input type="text" id="plate" name="plate" placeholder="Placa" class="input1">
+            </label>
+            
+            <label for="group">
+                <input type="text" id="group" name="group" placeholder="Grupo" class="input1">
+            </label>
+             
+            <label for="services">
+                <input type="text" id="services" name="services" placeholder="Em serviço" class="input1">
+            </label>
+            
+            <label for="driver" id="driver" name="driver" >
+                <select  class="driver">
+                    <option value="driver">Driver...</option>
+                    <option value="driver1">Driver1</option>
+                    <option value="driver2">Driver2</option>
+                    <option value="driver3">Driver3</option>
+                </select>
+                
+            </label>
+            
+        </form>
+
+    </section>
+</main>
+
+<script src="componente-header.js"></script>
+<script src="componente-menu.js"></script>
+</body>
+</html>
