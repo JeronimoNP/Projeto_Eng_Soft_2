@@ -90,7 +90,7 @@ document.getElementById("super-adm").addEventListener("click", function(e) {
 
 document.getElementById("veiculos").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = '../cadastro veiculo/gerencia-veiculos.html';
+    window.location.href = "https://chat.openai.com/";
   });
 document.getElementById("drivers").addEventListener("click", function(e) {
     e.preventDefault();

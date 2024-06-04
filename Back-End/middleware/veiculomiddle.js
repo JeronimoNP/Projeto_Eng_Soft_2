@@ -1,5 +1,6 @@
 const Veiculodb = require('../models/Veiculo.js');
 const empresas = require('../models/Empresa.js');
+const Motoristadb = require('../models/Motorista.js');
 const jwt = require('jsonwebtoken');
 
 //verificar se o dominio do gmail está correto
@@ -73,8 +74,25 @@ async function buscarplacabd(placa, idEmpresa) {
 async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
     if (!placaexiste) {
         console.log(dados);
+        let motoristaExiste = null;
+        if (dados.motoristumId) {
+            motoristaExiste = await Motoristadb.findOne({
+                where: {
+                    id: dados.motoristumId,
+                    empresaId: decoded.empresaId
+                }
+            });
+        }
+
+        if (dados.motoristumId && !motoristaExiste) {
+            return res.status(400).json({
+                erro: true,
+                mensagem: "Motorista fornecido não existe ou não pertence à sua empresa!"
+            });
+        }
+
         await Veiculodb.create({
-            imagem: dados.imagem,
+           // imagem: dados.imagem, comentando pois está com bug de imagem
             marca: dados.marca,
             modelo: dados.modelo,
             crlv: dados.crlv,
@@ -82,7 +100,7 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
             ativo: dados.ativo,
             tipo: dados.tipo,
             empresaId: decoded.empresaId,
-            motoristumId: dados.motoristumId
+            motoristumId: dados.motoristumId ||null
         }).then(() => {
             return res.status(201).json({
                 erro: false,
