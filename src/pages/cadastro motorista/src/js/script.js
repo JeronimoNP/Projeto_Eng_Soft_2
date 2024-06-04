@@ -90,8 +90,6 @@ window.addEventListener('resize', resizeTela);
 
             if (validarDados) {
                 
-                
-                
                 if (!token) {
                     console.error('Token não encontrado');
                     return;

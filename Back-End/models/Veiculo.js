@@ -51,7 +51,7 @@ const Veiculodb = db.define('veiculo', {
 });
 
 Veiculodb.belongsTo(Empresadb);
-Veiculodb.belongsTo(Motoristadb, { allowNull: true });
+Veiculodb.belongsTo(Motoristadb, { foreignKey: { allowNull: true } });
 Veiculodb.sync();
 
 module.exports = Veiculodb;

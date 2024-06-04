@@ -59,9 +59,11 @@ entradaDado.addEventListener('submit', (event)=>{
     criarDriver();
 });
 
-function criarDriver() {
+async function criarDriver() {
+    const vehicleData = {};
     const camposInput = entradaDado.querySelectorAll('#entrada-dados input[type="text"], #entrada-dados input[type="file"]');
     let validarDados = true;
+    const token = sessionStorage.getItem('token');
     const formData = new FormData();
         for (let campo of camposInput) {
             const placeholder = campo.placeholder;
@@ -71,12 +73,12 @@ function criarDriver() {
                         campo.placeholder = placeholder + ': campo vazio!';
                         campo.style.border = '1px solid red';
                         validarDados = false;
-                }
-                else{
+                }else{
                     campo.placeholder = placeholder.replace(new RegExp(': campo vazio!','g'),'');
                     campo.style.border = 'none';
                     //jogar os dados na api
                     formData.append(campo.name, campo.value);
+                    vehicleData[campo.name] = campo.value;
                 }
             }else if(campo.type === 'file'){
                 if(campo.files.length === 0){
@@ -89,7 +91,36 @@ function criarDriver() {
                 }
             }
         }
-
+        try {
+            
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ', ' + pair[1]); 
+            }
+            //inserindo token na variavel de envio para a api
+            vehicleData.token = token;
+            //verificação de prototipagem de link a api retirar depois
+            console.log(vehicleData);
+            const response = await fetch('http://localhost:3000/veiculo/cadastro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(vehicleData)
+            });
+            //verificando se o veiculo foi cadastrado com sucesso
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Veiculo cadastrado com sucesso', data);
+                
+            } else {
+                const errorData = await response.json();
+                console.error('ERRO ao veiculo', errorData);
+            }
+        } catch (error) {
+            console.error("Erro de rede", error);
+        }
+    
     if(validarDados){
         
         listarDriver(camposInput);
