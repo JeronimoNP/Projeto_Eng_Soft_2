@@ -160,45 +160,97 @@ window.addEventListener('resize', resizeTela);
             return;
         }
 
-        // Criar a tabela e o cabeçalho
-        const tabela = document.createElement('table');
-        const cabecalho = `
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Email</th>
-                    <th>CNH</th>
-                    <th>Celular</th>
-                </tr>
-            </thead>
-        `;
-        tabela.innerHTML = cabecalho;
-        const corpoTabela = document.createElement('tbody');
-        tabela.appendChild(corpoTabela);
-        saidaDado.appendChild(tabela);
 
         // Adicionar os dados dos motoristas à tabela
         dados.forEach(campo => {
+            const section = document.createElement('section');
+            const titulo = ['ID: ', 'Nome: ', 'Email: ', 'CNH: ', 'CPF: ', 'Endereço: ', 'Veículo: '];
+            const propriedade = ['imagem', 'id','nome', 'email', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
+            let count = 0;
+
+            section.classList.add('section-saida');
+            saidaDado.appendChild(section);
+
+            propriedade.forEach(propriedade => {
+                console.log('Tipo: ');
+                console.log(typeof campo[propriedade]);
+                console.log('----');
+                if(typeof campo[propriedade] === 'string' || typeof campo[propriedade === 'number']){
+                    const div = document.createElement('div');
+                    section.appendChild(div);
+                    const p1 = document.createElement('p');
+                    p1.textContent = titulo[count];
+                    console.log(titulo[count]);
+                    div.appendChild(p1);
+                    const p2 = document.createElement('p');
+                    p2.textContent = campo[propriedade];  //aqui é onde recebe os dados da api
+                    console.log(campo[propriedade]);
+                    div.appendChild(p2);
+                    div.classList.add(`item${count}`);
+                    count++;
+                }else if(campo[propriedade] instanceof File){
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(campo[propriedade]); // aqui é onde recebe a imagem da api
+                    section.appendChild(img);
+                    img.classList.add(`item${count}`);
+                }
+            });
+
+            const div = document.createElement('div');
+            const img = document.createElement('img');
+            div.classList.add('item8');
+            img.src = './src/img/engrenagem.png';
+            section.appendChild(div);
+            div.appendChild(img);
+        });
+    }
+            // colunaNome.textContent = campo.nome || 'N/A';
+
+
+
+            // colunaEmail.textContent = campo.email || 'N/A';
+
+
+            // colunaCNH.textContent = campo.cnh || 'N/A';
             
-            colunaNome.textContent = campo.nome || 'N/A';
 
-
-
-            colunaEmail.textContent = campo.email || 'N/A';
-
-
-            colunaCNH.textContent = campo.cnh || 'N/A';
-            
-
-            colunaCelular.textContent = campo.celular || 'N/A';
+            // colunaCelular.textContent = campo.celular || 'N/A';
 
 
             // Adicionar a linha ao corpo da tabela
 
-            
-        });
         
-    }
+        
+    //     for(let campo of camposInput){
+    //         count++;
+    //         if(campo.type === 'text'){
+    //             const div = document.createElement('div');
+    //             section.appendChild(div);
+    //             const p1 = document.createElement('p');
+    //             p1.textContent = titulo[count-2];
+    //             div.appendChild(p1);
+    //             const p2 = document.createElement('p');
+    //             p2.textContent = campo.value;  //aqui é onde recebe os dados da api
+    //             div.appendChild(p2);
+    //             div.classList.add(`item${count}`);
+    //             campo.value = '';
+    //         }else if(campo.type === 'file'){
+    //             const img = document.createElement('img');
+    //             img.src = URL.createObjectURL(campo.files[0]); // aqui é onde recebe a imagem da api
+    //             section.appendChild(img);
+    //             img.classList.add(`item${count}`);
+    //             campo.value = '';
+    //         }
+    //     }
+    //     const div = document.createElement('div');
+    //     const img = document.createElement('img');
+    //     div.classList.add('item8');
+    //     img.src = './src/img/engrenagem.png';
+    //     section.appendChild(div);
+    //     div.appendChild(img);
+    //     });
+        
+    // }
 
     //bugs, a tabela não atualiza
     //imagem não está sendo enviado para a api
