@@ -1,21 +1,16 @@
-const {verificamodelo, verificaCrlv, verificaplaca, buscarplacabd, listarveiculobd, cadastrarveiculobd, editarveiculocmiddle, deletarveiculodb} = require('../middleware/veiculomiddle.js')
-
+const { verificaCrlv, verificaplaca, buscarplacabd, listarveiculobd, cadastrarveiculobd, editarveiculomiddle, deletarveiculodb} = require('../middleware/veiculomiddle.js');
+const senhatoken = process.env.KEYTOKENSECRET;
 
 
 //função para cadastrar veiculo
 async function cadastroveic(dados, res){
-    //mandando dados para o middleware para a validação de dados
-    const resultmodelo = verificamodelo(dados.modelo);
-    const resultCrlv = verificaCrlv(dados.Crlv);
+    //exportando para functions para o devido tratamento de dados
+    const resultCrlv = verificaCrlv(dados.crlv);
     const resultplaca = verificaplaca(dados.placa);
     //criando uma variavel para armazena erros de dados
     let errors = [];
-    //condição para informar erros
 
-    if (resultmodelo === false) {
-        errors.push("Modelo com o domínio incorreto.");
-    }
-
+    //condições para pegar os erros de dados
     if (resultCrlv === false) {
         errors.push("Formato Crlv incorreto.");
     }
@@ -31,8 +26,17 @@ async function cadastroveic(dados, res){
             info: errors
         });
     }
+
+    const token2 = await decodetoken(dados, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
+
     //verificando se já existe placa cadastrado no bd, caso tenha retorna true
-    const placaexiste = await buscarplacabd(dados.placa, dados.empresaId);
+    const placaexiste = await buscarplacabd(dados.placa, token2.empresaId);
 
     await cadastrarveiculobd(dados, placaexiste, res);
 };
@@ -42,7 +46,7 @@ async function cadastroveic(dados, res){
 async function listarveiculo(empresaId, res){
 
     //variabel contendo a lista de veiculo.
-    const listaveiculo = await listarveiculobd(empresaId.empresaId);
+    const listaveiculo = await listarveiculobd(empresaId.token);
     return res.status(200).json(listaveiculo);
 };
 

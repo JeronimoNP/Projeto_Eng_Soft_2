@@ -2,11 +2,11 @@ const veiculo = require('../models/veiculo.js');
 const empresas = require('../models/Empresa.js');
 
 //verificar se o dominio do gmail está correto
-function verificamodelo(email){
-    const dominio = /^[a-zA-Z0-9.-]+@gmail.com$/;
-    const validade = dominio.test(email);
-    return validade;
-}
+// function verificamodelo(email){
+//     const dominio = /^[a-zA-Z0-9.-]+@gmail.com$/;
+//     const validade = dominio.test(email);
+//     return validade;
+// }
 
 //verifirar se o Crlv tem os 12 numeros
 function verificaCrlv(Crlv){
@@ -36,6 +36,15 @@ function verificaplaca(placa){
     return validade;
 }
 
+//função para decodificar token
+async function decodetoken(dados, senhatoken){
+    try{
+        const decoded = await jwt.verify(dados.token, senhatoken);
+        return decoded;
+    }catch(error){
+        return decoded = "erro";
+    }
+};
 
 
 //buscar placa no banco de dados para validade se já existe a placa cadastrada
@@ -60,7 +69,7 @@ async function buscarplacabd(placa, idEmpresa) {
 }
 
 //função para cadastrar veículo
-async function cadastrarveiculobd(dados, placaexiste,  res){
+async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
     if (!placaexiste) {
         
         await veiculo.create({
@@ -68,9 +77,8 @@ async function cadastrarveiculobd(dados, placaexiste,  res){
             modelo: dados.modelo,
             Crlv: dados.Crlv,
             placa: dados.placa,
-            
             ativo: dados.ativo,
-            empresaId: dados.empresaId
+            empresaId: decoded.empresaId
         }).then(() => {
             return res.status(201).json({
                 erro: false,
@@ -97,7 +105,7 @@ async function cadastrarveiculobd(dados, placaexiste,  res){
 async function listarveiculobd(empresaId) {
     try {
         let listaveiculo = await veiculo.findAll({
-            attributes: ['imagem', 'modelo', 'Crlv', 'placa', 'ativo'],
+            attributes: ['imagem', 'id', 'modelo', 'Crlv', 'placa', 'ativo'],
             where: { empresaId: empresaId }
         }); 
         return listaveiculo;      //retornar uma lista com os veículos cadastrados
@@ -152,7 +160,7 @@ await veiculo.destroy({
 }
 
 module.exports = {
-    verificamodelo,
+    // verificamodelo,
     verificaCrlv,
     verificaplaca,
     buscarplacabd,

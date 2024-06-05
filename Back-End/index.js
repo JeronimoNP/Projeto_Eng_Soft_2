@@ -1,8 +1,9 @@
 /*
 * Tecnologias utilizadas
     express         (para criação da api que sera consumida pelo front)
-    jsonwebtoken    (para adição de camanda de criptografia)
+    jsonwebtoken    (criador de token para o front)
     Sequelize       (para linkagem do back com o bd)
+    bcrypt          (para criptografar a senha)
 
 * Escorpo de organização de pastas
 
@@ -61,13 +62,27 @@ permitir o acesso a certas rotas.
         Cpf: int
         Endereço: string[50]
     Retorno: (true caso concluido com sucesso, false caso tenha erro)
+
+    URl: http://localhost:3000/...
+        (cadastrar empresa)     empresa/cadastro
+        (deletar empresa)       -------/deletar
+
+        (cadastrar motorista)   motorista/cadastro
+        (listar motorista)      ---------/listar
+        (editar motorista)      ---------/editar
+        (deletar motorista)     ---------/
+        
+
 */
 
 let express = require('express');
 let api = express();
+const bodyParser = require('body-parser');
 const motorista = require('./routes/motoristaRoutes.js');
 const empresa = require('./routes/empresaRoutes.js');
-const bodyParser = require('body-parser');
+const veiculo = require('./routes/veiculoRoutes.js');
+
+
 
 //iniciação do codigo
 
@@ -77,6 +92,7 @@ api.use('/motorista', motorista);
 
 api.use('/empresa', empresa);
 
+api.use('/veiculo', veiculo);
 
 
 
