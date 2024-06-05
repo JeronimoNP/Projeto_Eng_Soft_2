@@ -54,17 +54,14 @@ window.addEventListener('resize', resizeTela);
     }
     listarDriver();
     entradaDado.addEventListener('submit', (event)=>{
-        event.preventDefault();
+        // event.preventDefault();
         // criarDriver();
     });
 
-    document.addEventListener('DOMContentLoaded', function() {
+    entradaDado.addEventListener('submit', function(event) {
+        event.preventDefault();
         const entradaDado = document.getElementById('vehicleForm');
-
-        entradaDado.addEventListener('submit', (event) => {
-            event.preventDefault();
-            criarDriver();
-        });
+        criarDriver();
 
         async function criarDriver() {
             const camposInput = entradaDado.querySelectorAll('input[type="text"], input[type="email"]');
@@ -95,6 +92,7 @@ window.addEventListener('resize', resizeTela);
                     return;
                 }
                 vehicleData.token = token;
+                console.log(token);
 
                 // Verificando o conteúdo de vehicleData
                 console.log(vehicleData);
@@ -111,6 +109,7 @@ window.addEventListener('resize', resizeTela);
                     if (response.ok) {
                         const data = await response.json();
                         console.log('Motorista cadastrado com sucesso', data);
+                        listarDriver();
                         
                     } else {
                         const errorData = await response.json();
@@ -148,7 +147,7 @@ window.addEventListener('resize', resizeTela);
             console.log('data:', data);
 
             // Chamar a função para renderizar os dados
-            renderizarDados(data);
+            renderizarDados(data);    
         } catch (error) {
             console.error('Erro: ', error);
         }
@@ -180,27 +179,25 @@ window.addEventListener('resize', resizeTela);
 
         // Adicionar os dados dos motoristas à tabela
         dados.forEach(campo => {
-            const linha = document.createElement('tr');
-
-            const colunaNome = document.createElement('td');
+            
             colunaNome.textContent = campo.nome || 'N/A';
-            linha.appendChild(colunaNome);
 
-            const colunaEmail = document.createElement('td');
+
+
             colunaEmail.textContent = campo.email || 'N/A';
-            linha.appendChild(colunaEmail);
 
-            const colunaCNH = document.createElement('td');
+
             colunaCNH.textContent = campo.cnh || 'N/A';
-            linha.appendChild(colunaCNH);
+            
 
-            const colunaCelular = document.createElement('td');
             colunaCelular.textContent = campo.celular || 'N/A';
-            linha.appendChild(colunaCelular);
+
 
             // Adicionar a linha ao corpo da tabela
-            corpoTabela.appendChild(linha);
+
+            
         });
+        
     }
 
     //bugs, a tabela não atualiza
