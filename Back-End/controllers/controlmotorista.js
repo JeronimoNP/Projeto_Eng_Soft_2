@@ -1,5 +1,4 @@
-const { isUndefined } = require('util');
-const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
+const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken, verificacnh} = require('../middleware/motoristamiddle.js')
 const senhatoken = process.env.KEYTOKENSECRET;
 
 
@@ -9,9 +8,15 @@ async function cadastromoto(dados, res){
     const resultemail = verificaemail(dados.email);
     const resultcelular = verificatelefone(dados.celular);
     const resultcpf = verificacpf(dados.cpf);
+    const resultcnh = verificacnh(dados.cnh);
+
     //criando uma variavel para armazena erros de dados
     let errors = [];
+
     //condição para informar erros
+    if(resultcnh === false){
+        errors.push("Cnh incorreto");
+    }
 
     if (resultemail === false) {
         errors.push("Email com o domínio incorreto.");
@@ -47,8 +52,6 @@ async function cadastromoto(dados, res){
     //verificando se já existe um email cadastrado no bd, caso tenha retorna true
     const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
 
-    
-    // const emp = await jwt.verify()
 
     await cadastrarmotoristabd(dados, emailexiste, token2, res);
 };
@@ -107,7 +110,7 @@ async function deletarmotorista(dados, res){
             erro: true,
             info: "token invalido ou expirado"
         });
-    }x   
+    }   
 
     await deletarmotoristadb(dados, empresaId, res);
     

@@ -1,4 +1,4 @@
-const Motorista = require('../models/Motorista.js');
+const Equipedb = require('../models/Equipe.js');
 const empresas = require('../models/Empresa.js');
 const jwt = require('jsonwebtoken');
 
@@ -14,6 +14,7 @@ const jwt = require('jsonwebtoken');
         const numero = /^[0-9]{9}$/;
         const validade = !numero.test(celular);
 
+
         if(validade === true){
             const quantidadenumber = celular.toString().length;
             if(quantidadenumber != 11){
@@ -23,7 +24,7 @@ const jwt = require('jsonwebtoken');
         return validade;
     }
 
-//verificar se tem os 11 numeros de cpf é que não contenha string
+//verificar se tem os 14 numeros de cpf é que não contenha string
     function verificacpf(cpf){
         const numero = /^[0-9]{9}$/;
         const validade = !numero.test(cpf);
@@ -37,25 +38,11 @@ const jwt = require('jsonwebtoken');
         return validade;
     }
 
-//verificar se tem os 11 numeros da cnh é que não contenha string
-    function verificacnh(cnh){
-        const numero = /^[0-9]{9}$/;
-        const validade = !numero.test(cnh);
-
-        if(validade === true){
-            const quantidadenumber = cnh.toString().length;
-            if(quantidadenumber != 11){
-                return false;
-            }
-        }
-        return validade;
-    }
-
 //buscar email no banco de dados para validade se já existe o email cadastrado
     async function buscaremailbd(email, idEmpresa) {
         try {
             // Buscar o motorista pelo e-mail e pelo ID da empresa
-            const motorista = await Motorista.findOne({
+            const motorista = await Equipedb.findOne({
                 where: { 
                     email: email 
                 },
@@ -82,28 +69,28 @@ const jwt = require('jsonwebtoken');
         }
     };
 
-//função para cadastrar motorista
-    async function cadastrarmotoristabd(dados, emailexiste, decoded,  res){
-        if (!emailexiste) {
-            
-            await Motorista.create({
-                imagem: dados.imagem,
+    async function cadastrarequipebd(dados, emailexiste, decoded, res){
+        if(!emailexiste){
+
+            await Equipedb.create({
                 nome: dados.nome,
                 email: dados.email,
-                cnh: dados.cnh,
                 cpf: dados.cpf,
-                endereco: dados.endereco, // Corrigido para endereco
                 celular: dados.celular,
-                ativo: dados.ativo,
-                empresaId: decoded.empresaId//token
-            }).then(() => {
-                return res.status(201).json({
-                    erro: false,
-                    mensagem: "Usuário cadastrado com sucesso!!",
-                    nome: dados.nome,
-                    email: dados.email
-                });
-            }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
+                endereco: dados.endereco,
+                sexo:dados.sexo,
+                login: dados.login,
+                senha: dados.senha,
+                funcao: dados.funcao,
+                empresaId: decoded.empresaId
+        }).then(() => {
+            return res.status(201).json({
+                erro: false,
+                mensagem: "usuário cadastrado com sucesso!!",
+                nome: dados.nome,
+                email: dados.email
+            });
+        }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
                 console.error("Erro ao cadastrar usuário:", error); // Exibir o erro no console para depuração
                 return res.status(400).json({
                     erro: true,
@@ -113,37 +100,42 @@ const jwt = require('jsonwebtoken');
         } else {
             return res.status(406).json({
                 erro: true,
-                mensagem: "Email já existente no banco de dados!"
+                menagem: "Erro ao cadastrar equipe!, erro no tratamento de dados api ou bd"
             });
         }
     }
 
-//função para listar os motoristar cadastrados no db
-    async function listarmotoristabd(empresaId) {
+//função para listar as equipes cadastradas no db
+    async function listarequipedb(empresaId){
         try {
-            let listamotorista = await Motorista.findAll({
-                attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'endereco', 'cpf'],
+            let listamotorista = await Equipedb.findAll({
+                attributes: ['id', 'nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'],
                 where: { empresaId: empresaId }
             }); 
             return listamotorista;      //retornar uma lista com os motoristas cadastrados
-
+    
         } catch (error) {
             console.error('Erro ao listar motoristas do banco de dados:', error);
             throw error; // Lança o erro para ser tratado onde a função for chamada
         }
-    };
+    }
 
-
-//função para editar dados de motorista
-    async function editarmotoristacmiddle(dados, id, res){
-        
+    async function editarEquipemiddle(dados, id, res){
         const empresaId = id.empresaId;
 
-        await Motorista.update(dados, {
-            where: { email: dados.email, empresaId: empresaId }
+        const emailbd = await buscaremailbd(dados.emailid, id.empresaId);
 
+        if(!emailbd){
+            return res.status(404).json({
+                erro: true,
+                info: "Equipe não encontrada no bd"
+            })
+        }
+
+        await Equipedb.update(dados, {
+            where: { email: dados.emailid, empresaId: empresaId }
         }).then(() => {
-        
+    
             return res.status(200).json({
                 erro: false,
                 info: "motorista editado com sucessor"
@@ -157,47 +149,42 @@ const jwt = require('jsonwebtoken');
         });
     };
 
-
-//função para deletar motorista do banco de dados.
-    async function deletarmotoristadb(dados, empresaId, res){
+//função para deletar funcionario do banco de dados.
+    async function deletarfuncionariodb(dados, empresaId, res){
         
-
-        //verificar se tem email cadastrado no db
         const emailbd = await buscaremailbd(dados.email, empresaId.empresaId);
-        console.log(emailbd);
+
         if(!emailbd){
             return res.status(404).json({
                 erro: true,
-                info: "motorista não encontrada no bd"
+                info: "Equipe não encontrada no bd"
             })
         }
-    
-        
-        await Motorista.destroy({
+
+        await Equipedb.destroy({
                 where: { email: dados.email, empresaId: empresaId.empresaId }
             }).then(() => {
                 return res.status(200).json({
                     erro: false,
-                    info: "motorista excluido com sucesso"
+                    info: "funcionario excluido com sucesso"
                 })
             }).catch(error =>{
                 return res.status(400).json({
                     erro: true,
-                    info: "erro ao excluir motorista",
+                    info: "erro ao excluir funcionario",
                     "console log": error
                 })
             })
-    }
+    };
 
-    module.exports = {
-        verificaemail,
-        verificatelefone,
-        verificacpf,
-        verificacnh,
-        buscaremailbd,
-        listarmotoristabd,
-        cadastrarmotoristabd,
-        editarmotoristacmiddle,
-        deletarmotoristadb,
-        decodetoken
-    }
+module.exports = {
+    verificaemail,
+    verificatelefone,
+    verificacpf,
+    buscaremailbd,
+    decodetoken,
+    cadastrarequipebd,
+    listarequipedb,
+    editarEquipemiddle,
+    deletarfuncionariodb
+}
