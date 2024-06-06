@@ -2,7 +2,7 @@
     /* container principal */
     .main-container{
         min-width: 700px;
-        width: 100%;
+        width: 100dvw;
     }
 
     /* menu lateral */
@@ -10,6 +10,7 @@
     .menu-bar{
         width: 220px;
         text-align: none;
+       overflow-y: auto;
     }
     
     .menu-bar ul li a{

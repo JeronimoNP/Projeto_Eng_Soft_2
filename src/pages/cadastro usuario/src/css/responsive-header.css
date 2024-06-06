@@ -1,6 +1,6 @@
 @media screen and (min-width: 700px) {
     .init-header{
-        width: 100%;
+        width: 100dvw;
         min-width: 700px;
        
     }
@@ -11,7 +11,8 @@
     }
 
     .init-header nav{
-        width: calc(100dvw - 220px);
+        width: calc(100% - 220px);
         min-width: 480px;
+        margin-right: 15px;
     }
 }

@@ -48,12 +48,9 @@
 
 .init-header ul{
     display: flex;
-    width: 100px;
-    justify-content: center;
+    width: 70px;
+    justify-content: space-between;
     align-items: center;
     font-size: 2.05em;
 }
 
-.init-header li:last-of-type{
-    margin: 0 0px 0 10px;
-}
