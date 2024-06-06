@@ -71,15 +71,19 @@
     }
 
     .section-saida {
-        grid-template-columns: 80px minmax(120px, auto) minmax(280px, auto) 120px 100px minmax(250px, auto) 100px 50px;
+        grid-template-columns: 80px minmax(40px, auto) minmax(300px, auto) minmax(300px, auto) 110px 100px 100px 200px 30px 50px;
         grid-template-rows: auto;
-        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8";
+        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8 item9 item10";
+        justify-content: start;
+        align-items: start;
+        padding-top: 10px;
+        padding-right: 10px;
         font-size: 1.3em;
         overflow-x: auto;
     }
 
-    .item8 {
-        width: 40px;
-        height: 40px;
+    .item10 {
+        width: 30px;
+        min-height: 30px;
     }
 }

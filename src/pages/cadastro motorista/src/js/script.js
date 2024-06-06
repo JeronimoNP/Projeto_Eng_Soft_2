@@ -152,6 +152,14 @@ window.addEventListener('resize', resizeTela);
         }
     }
 
+    function isBase64Image(str) {
+        if(str.length % 4 === 0 && (/^[A-Za-z0-9+/]+={0,2}$/).test(str)){
+            const img = new Image();
+            img.src = "data:image/jpg;base64," + str;
+            return img.complete && img.naturalWidth !== 0;
+        } 
+    }
+
     function renderizarDados(dados) {
         const saidaDado = document.getElementById('saidaDado'); // Certifique-se de que o elemento existe
         if (!saidaDado) {
@@ -163,24 +171,20 @@ window.addEventListener('resize', resizeTela);
         }
 
                 // Adicionar os dados dos motoristas à tabela
+        
         dados.forEach(campo => {
             const section = document.createElement('section');
-            const titulo = [ 'ID: ', 'Nome: ', 'Email: ', 'CNH: ', 'CPF: ', 'Celular: ', 'Endereço: ', 'Ativo: '];
+            const titulo = ['', 'ID: ', 'Nome: ', 'Email: ', 'CNH: ', 'CPF: ', 'Celular: ', 'Endereço: ', 'Ativo: '];
             const propriedade = ['imagem', 'id','nome', 'email', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
             let count = 0;
+            
 
             section.classList.add('section-saida');
             saidaDado.appendChild(section);
 
-            propriedade.forEach(propriedade => {    
-                console.log(typeof campo[propriedade]);
-                console.log('--'); 
-                console.log(campo[propriedade]);
-                console.log('--');          
-                if(typeof campo[propriedade] === 'string' && campo[propriedade].length > 50){
-                    console.log('sou uma imagem ou era pra ser');
+            propriedade.forEach(propriedade => {            
+                if((typeof campo[propriedade] === 'string') && isBase64Image(campo[propriedade])){
                     const img = document.createElement('img');
-                    
                     img.src = "data:image/jpg;base64," + campo[propriedade]; // aqui é onde recebe a imagem da api
                     section.appendChild(img);
                     img.classList.add(`item${count+1}`);
@@ -195,15 +199,85 @@ window.addEventListener('resize', resizeTela);
                     const p2 = document.createElement('p');
                     p2.textContent = campo[propriedade];  //aqui é onde recebe os dados da api
                     div.appendChild(p2);
-                    }                  
-                    count++;       
+                } else if(typeof campo[propriedade] === 'boolean'){
+                    const div = document.createElement('div');
+                    div.classList.add(`item${count+1}`);
+                    section.appendChild(div);
+                    const p1 = document.createElement('p');
+                    p1.textContent = titulo[count];
+                    div.appendChild(p1);
+                    const p2 = document.createElement('p');
+                    if(campo[propriedade]) p2.textContent = 'SIM'; //aqui é onde recebe os dados da api
+                    else p2.textContent = 'NÃO'
+                    div.appendChild(p2);
+                }          
+                count++;       
                 });
 
             const div = document.createElement('div');
             const img = document.createElement('img');
-            div.classList.add('item8');
+            const combobox = document.createElement('div');
+            const editar = document.createElement('p');
+            const deletar = document.createElement('p');
+            div.classList.add('item10');
+            combobox.classList.add('opcao');
+            editar.classList.add('editar');
+            editar.textContent = 'Editar';
+            deletar.classList.add('deletar');
+            deletar.textContent = 'Deletar';
             img.src = './src/img/engrenagem.png';
             section.appendChild(div);
             div.appendChild(img);
+            div.appendChild(combobox);
+            combobox.appendChild(editar);
+            combobox.appendChild(deletar);
+            
+            div.addEventListener('mouseenter', configHover);
+            div.addEventListener('mouseleave', configLeave);
+            editar.addEventListener('click', ()=> editarMotorista(campo));
+            deletar.addEventListener('click', ()=> deletarMotorista(campo));
         });
     }
+
+function configHover (event){
+    const combobox = event.currentTarget.querySelector('.opcao')
+     combobox.style.display = 'block';
+}
+
+function configLeave (event){
+    const combobox = event.currentTarget.querySelector('.opcao')
+     combobox.style.display = 'none';
+}
+
+function editarMotorista (campo){
+    console.log(campo);
+    let count;
+    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const name = ['imagem', 'nome', 'email', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
+    const placeholder = ['', 'Nome', 'Email', 'CNH', 'CPF', 'Celular', 'Endereco', 'Ativo'];
+    const form = document.createElement('form');
+    form.classList.add('formEditar');
+    for(let i=0;i < 8;i++){
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+        input.type = tipo[i];
+        input.name = name[i];
+        input.placeholder = placeholder[i];
+        input.value = campo[name[i]];
+        if(input.type === 'file'){
+            const pimagem = document.createElement('p');
+            pimagem.textContent = 'Imagem do Motorista';
+            input.style.display = 'none';
+            label.appendChild(pimagem);
+
+        }
+        form.appendChild(label);
+        label.appendChild(input);
+        document.querySelector('.main-content').appendChild(form);
+    }
+
+}
+
+function deletarMotorista (id){
+    console.log(id);
+}
