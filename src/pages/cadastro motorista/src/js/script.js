@@ -82,7 +82,7 @@ async function envioDados() {
                     campo.style.border = 'none';
                     formData.append(campo.name, campo.value); // Adicione os campos ao FormData
                     console.log(`Adicionado ao formData: ${campo.name} = ${campo.value}`);
-                } else if(campo.type === 'file'){
+                } else if(campo.type === 'file' && campo.files.length > 0){
                     formData.append(campo.name, campo.files[0]); // Adicione os arquivos ao FormData
                     console.log(`Adicionado ao formData: ${campo.name} = ${campo.files[0]}`);
                 }
