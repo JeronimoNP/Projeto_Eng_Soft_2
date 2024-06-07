@@ -16,5 +16,20 @@
 }
 #search-icon {
     cursor: pointer;
-    margin-left: 10px;
+}
+
+.busca {
+    display: flex;
+
+    width: 140px;
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.busca input {
+    width: 110px;
+    padding-left: 5px;
+    border: none;
+    outline: none;
 }

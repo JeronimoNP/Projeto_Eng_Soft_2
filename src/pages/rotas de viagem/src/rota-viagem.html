@@ -11,11 +11,14 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" >
     <link rel="stylesheet" href="https://unpkg.com/leaflet-routing-machine/dist/leaflet-routing-machine.css" />
-    <link rel="stylesheet" href="css/style.css" >
-    <link rel="stylesheet" href="css/responsive-header.css" >
-    <link rel="stylesheet" href="css/responsive-menu.css" >
+    <link rel="stylesheet" href="css/reset.css">
+    
+    
     <link rel="stylesheet" href="css/style-header.css">
     <link rel="stylesheet" href="css/style-menu.css">
+    <link rel="stylesheet" href="css/responsive-header.css" >
+    <link rel="stylesheet" href="css/responsive-menu.css" >
+    <link rel="stylesheet" href="css/style.css" >
 </head>
 <body>
     <!-- iniciar componente-header -->
@@ -28,14 +31,17 @@
                 <h2>Historico de rotas</h2>
             </header>
     <div id="controls">
-        <label for="route-id"></label>
-        <input type="text" id="route-id" name="route-id" placeholder="id da rota">
-        <img id="search-icon" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Pesquisar" width="20" height="20" onclick="fetchRouteAndShowMap()">
-       <!--  <label for="cep1">CEP 1:</label>
+        <label class="busca">
+            <input type="text" id="route-id" name="route-id" placeholder="id da rota">
+            <img id="search-icon" src="https://img.icons8.com/ios-filled/50/000000/search.png" alt="Pesquisar" width="20" height="20" onclick="fetchRouteAndShowMap()">
+        </label>
+        
+        
+        <!-- <label for="cep1">CEP 1:</label>
         <input type="text" id="cep1" name="cep1" placeholder="Ex: 65900-000">
         <label for="cep2">CEP 2:</label> 
-        <input type="text" id="cep2" name="cep2" placeholder="Ex: 65901-000"
-        <button onclick="calculateDistanceAndShowRoute()">Verificar rota</button>>-->
+        <input type="text" id="cep2" name="cep2" placeholder="Ex: 65901-0000">
+        <button onclick="calculateDistanceAndShowRoute()">Verificar rota</button> -->
     </div>
     <p id="distance"></p>
     <div id="map"></div>

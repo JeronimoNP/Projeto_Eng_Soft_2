@@ -3,6 +3,7 @@
 .main-container{
     position: relative;
     display:flex;
+    flex-direction: row-reverse;
     width: 340px;  
     height: calc(100dvh - 60px);
 }
@@ -11,9 +12,9 @@
 
 .menu-bar{
     background-color: #d9d9d9;
-    position: absolute;
+    /* position: absolute; */
     z-index: 2;
-    opacity: 0;
+    opacity: 1;
     pointer-events: none;
     width: 65px;
     height: 100%;
@@ -58,6 +59,10 @@
 }
 
 .hide{
-    opacity: 1;
+    opacity: 0;
     pointer-events: initial;
+}
+
+.none {
+    display: none;
 }
