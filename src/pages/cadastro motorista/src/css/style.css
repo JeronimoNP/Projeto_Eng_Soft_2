@@ -296,5 +296,61 @@
 .formEditar {
     background-color: #D9D9D9;
     position: absolute;
-    top: 100px;
+    top: 110px;
+    width: 100%;
+    height: 350px;
+    box-shadow: 0 0 1px #3b3b3b;
+}
+
+.formImagem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.formImagem p {
+    background-color: #fff;
+    margin: 10px 7px;
+    padding: 5px;
+    width: 100%;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #878787;
+    cursor: pointer;
+}
+
+
+.formEditar input[type='text'] {
+    width: 160px;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    margin-left: 7px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 1px #878787;
+}
+
+.formEditar button {
+    background-color: #fff;
+    display: block;
+    width: 200px;
+    height: 40px;   
+    margin: auto;
+    margin-top: 90px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #878787;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.formEditar button:hover {
+    background-color: #f4f4f4;
+}
+
+.formEditar button:active {
+    background-color: #ececec;
 }

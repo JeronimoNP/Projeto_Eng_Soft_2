@@ -1,7 +1,6 @@
 /* main */
 
 .main-container{
-    position: relative;
     display:flex;
     width: 340px;  
     height: calc(100dvh - 60px);
