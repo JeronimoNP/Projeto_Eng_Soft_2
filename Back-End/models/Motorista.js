@@ -4,17 +4,7 @@ const Empresadb = require('./Empresa');
 const { type } = require('os');
 // const sequelize = require('./db');
 
-/*
-* modelo do banco de dados
 
-    Dados de entrada:
-        Nome:String
-        Celular: String
-        Cnh: int
-        Cpf: int
-        Endereço: string[50]
-    Retorno: (true caso concluido com sucesso, false caso tenha erro)
-*/
 const Motoristadb = db.define('motorista', {
 
     id:{

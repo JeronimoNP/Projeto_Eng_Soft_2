@@ -82,6 +82,7 @@ const bodyParser = require('body-parser');
 const motorista = require('./routes/motoristaRoutes.js');
 const empresa = require('./routes/empresaRoutes.js');
 const veiculo = require('./routes/veiculoRoutes.js');
+const equipe = require('./routes/equipeRoutes.js');
 
 
 
@@ -94,6 +95,8 @@ api.use('/motorista', motorista);
 api.use('/empresa', empresa);
 
 api.use('/veiculo', veiculo);
+
+api.use('/equipe', equipe);
 
 
 
