@@ -135,27 +135,47 @@ const jwt = require('jsonwebtoken');
 
 
 //função para editar dados de motorista
-    async function editarmotoristacmiddle(dados, id, res){
-        
-        const empresaId = id.empresaId;
+async function editarmotoristacmiddle(dados, id, res) {
+    console.log(dados, id);
+    const empresaId = id.empresaId;
 
-        await Motorista.update(dados, {
+    // Verificar se todos os campos obrigatórios estão presentes
+    const requiredFields = ['nome', 'email', 'cnh', 'cpf', 'endereco', 'celular', 'ativo'];
+    const missingFields = requiredFields.filter(field => !dados[field]);
+
+    if (missingFields.length > 0) {
+        return res.status(400).json({
+            erro: true,
+            info: `Campos obrigatórios ausentes: ${missingFields.join(', ')}`
+        });
+    }
+
+    try {
+        // Tentar atualizar os dados do motorista
+        const [updated] = await Motorista.update(dados, {
             where: { email: dados.email, empresaId: empresaId }
+        });
 
-        }).then(() => {
-        
+        if (updated) {
             return res.status(200).json({
                 erro: false,
-                info: "motorista editado com sucessor"
-            })
-        }).catch(error => {
-            return res.status(400).json({
+                info: "Motorista editado com sucesso"
+            });
+        } else {
+            return res.status(404).json({
                 erro: true,
-                info: "erro ao editar motorista",
-                "console log": error
-            })
+                info: "Motorista não encontrado"
+            });
+        }
+    } catch (error) {
+        return res.status(400).json({
+            erro: true,
+            info: "Erro ao editar motorista",
+            "console log": error
         });
-    };
+    }
+}
+
 
 
 //função para deletar motorista do banco de dados.

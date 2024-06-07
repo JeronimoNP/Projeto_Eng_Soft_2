@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const cors = require('cors');
-const motoristaController = require('../controllers/controlservico.js');
+const servicoController = require('../controllers/controlservico.js');
 
 routes.use(cors());
 
@@ -12,4 +12,7 @@ routes.post('./cadastro', (req, res) => {
 
 
     //redirecionando para arquivo
+    servicoController.cadastroserve(dadoscadastro, res);
 })
+
+module.exports = routes;

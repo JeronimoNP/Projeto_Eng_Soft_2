@@ -75,29 +75,29 @@ async function listarmotorista(token, res){
 
 
 //função para editar motorista
-async function editarmotorista(dados, res){
-
-    //a variavel token2 é onde tera o descriptografia do token
+async function editarmotorista(dados, res) {
+    // Verificar se o token é válido
     const token2 = await decodetoken(dados, senhatoken);
-    if(token2 === "erro"){
+    if (token2 === "erro") {
         return res.status(203).json({
             erro: true,
-            info: "token invalido ou expirado"
+            info: "Token inválido ou expirado"
         });
     }
-    
-    //verificar email existente.
-    const emailexiste = await buscaremailbd(dados.email, empresaId.empresaId);
-    //retorno caso motorista não encontrado no db.
-    if(!emailexiste){
+
+    // Verificar se o email existe no banco de dados
+    const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
+    if (!emailexiste) {
         return res.status(404).json({
             erro: true,
             info: "Motorista não encontrado"
-        })
+        });
     }
 
-    await editarmotoristacmiddle(dados, empresaId, res);
-};
+    // Chamar a função para editar o motorista
+    await editarmotoristacmiddle(dados, token2, res);
+}
+
 
 
 //função para deletar motorista do bd
@@ -112,7 +112,7 @@ async function deletarmotorista(dados, res){
         });
     }   
 
-    await deletarmotoristadb(dados, empresaId, res);
+    await deletarmotoristadb(dados, token2, res);
     
 };
 
