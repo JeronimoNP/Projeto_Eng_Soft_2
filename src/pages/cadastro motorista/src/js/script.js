@@ -248,14 +248,14 @@ function configLeave (event){
 function editarMotorista (campo){
     let campoAlterado = [];
     let count;
-    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['imagem', 'nome', 'email', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
-    const placeholder = ['', 'Nome', 'Email', 'CNH', 'CPF', 'Celular', 'Endereco', 'Ativo'];
+    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const name = ['imagem', 'nome', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
+    const placeholder = ['', 'Nome', 'CNH', 'CPF', 'Celular', 'Endereco', 'Ativo'];
     const form = document.createElement('form');
     const buttonForm = document.createElement('button');
     buttonForm.textContent = 'Alterar';
     form.classList.add('formEditar');
-    for(let i=0;i < 8;i++){
+    for(let i=0;i < 7;i++){
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];
