@@ -92,10 +92,15 @@
         top: 48px;
         height: 80dvh;
     }
+
+    .formEditar-on {
+        width: calc(100% - 220px);
+    }
     
     .formImagem {
         width: 100%;
     }
+    
     .formEditar label:nth-of-type(even) input[type='text'] {
         margin-right: 10px;
     }

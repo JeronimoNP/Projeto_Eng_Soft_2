@@ -13,10 +13,15 @@ buttonCadastro.addEventListener('click', formMobile);
 window.addEventListener('resize', resizeTela);
 
 function menuBarAlt() {
+    const formEditar = document.querySelector('.formEditar');
     entradaDado.classList.toggle('entrada-dados-on');
     buttonCadastro.classList.toggle('button-cadastro-on');
     saidaDado.classList.toggle('saida-dados-on');
-
+    if(entradaDado.classList.contains('entrada-dados-on')){
+        formEditar.classList.add('formEditar-on');
+    } else {
+        formEditar.classList.remove('formEditar-on');
+    }
     
 }
 
@@ -264,6 +269,9 @@ function editarMotorista (campo){
     const buttonForm = document.createElement('button');
     buttonForm.textContent = 'Alterar';
     form.classList.add('formEditar');
+    if(entradaDado.classList.contains('entrada-dados-on')){
+        form.classList.add('formEditar-on');
+    }
     for(let i=0;i < 7;i++){
         const label = document.createElement('label');
         const input = document.createElement('input');
