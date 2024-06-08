@@ -1,6 +1,6 @@
 const buttonCadastro = document.getElementById('button-cadastro');
 const entradaDado = document.getElementById('entrada-dados');
-const saidaDado = document.getElementById('saida-dados');
+const saidaDado = document.getElementById('saidaDado');
 let novoIcone = document.createElement('i');
 let novoParagrafo = document.createElement('p');
 buttonCadastro.appendChild(novoIcone);
@@ -11,6 +11,19 @@ resizeTela();
 let dados = '';
 buttonCadastro.addEventListener('click', formMobile);
 window.addEventListener('resize', resizeTela);
+
+function menuBarAlt() {
+    const formEditar = document.querySelector('.formEditar');
+    entradaDado.classList.toggle('entrada-dados-on');
+    buttonCadastro.classList.toggle('button-cadastro-on');
+    saidaDado.classList.toggle('saida-dados-on');
+    if(entradaDado.classList.contains('entrada-dados-on')){
+        formEditar.classList.add('formEditar-on');
+    } else {
+        formEditar.classList.remove('formEditar-on');
+    }
+    
+}
 
 
     function resizeTela(){
@@ -51,14 +64,17 @@ window.addEventListener('resize', resizeTela);
 
     }
     listarDriver();
-
-    entradaDado.addEventListener('submit', function(event) {
+    entradaDado.addEventListener('submit', async function(event){
         event.preventDefault();
+        setTimeout(() => {
+            envioDados();
+        }, 100);
+    });
+
+async function envioDados() {
+
         const formDado = document.getElementById('vehicleForm');        
 
-        criarDriver();
-
-        async function criarDriver() {
             const camposInput = formDado.querySelectorAll('input[type="text"], input[type="email"], input[type="file"]');
             let validarDados = true;
             const token = sessionStorage.getItem('token');
@@ -67,7 +83,6 @@ window.addEventListener('resize', resizeTela);
             formData.append('token', token);
         
             for (let campo of camposInput) {
-                console.log(campo.type);
                 const placeholder = campo.placeholder;
                 if (campo.value === '') {
                     if (!campo.placeholder.includes(': campo vazio!')) {
@@ -78,11 +93,9 @@ window.addEventListener('resize', resizeTela);
                 } else if(campo.type === 'text') {
                     campo.placeholder = placeholder.replace(new RegExp(': campo vazio!', 'g'), '');
                     campo.style.border = 'none';
-                    console.log(campo.name, campo.value);
                     formData.append(campo.name, campo.value); // Adicione os campos ao FormData
                     console.log(`Adicionado ao formData: ${campo.name} = ${campo.value}`);
-                    console.log('oi');
-                } else if(campo.type === 'file'){
+                } else if(campo.type === 'file' && campo.files.length > 0){
                     formData.append(campo.name, campo.files[0]); // Adicione os arquivos ao FormData
                     console.log(`Adicionado ao formData: ${campo.name} = ${campo.files[0]}`);
                 }
@@ -95,7 +108,6 @@ window.addEventListener('resize', resizeTela);
                     return;
                 }
                 formData.append('token', token);
-                console.log(token);
         
                 try {
                     const response = await fetch('http://localhost:3000/motorista/cadastro', {
@@ -119,13 +131,12 @@ window.addEventListener('resize', resizeTela);
                     console.error("Erro de rede", error);
                 }
             }
-        }
-    });
+        
+    }
     
     async function listarDriver() {
         // Obter o token do sessionStorage
         const token = sessionStorage.getItem('token'); 
-        console.log(token);
             
         if (!token) {
             console.error('Token não encontrado');
@@ -143,7 +154,6 @@ window.addEventListener('resize', resizeTela);
             }
 
             const data = await response.json();
-            console.log('data:', data);
 
             // Chamar a função para renderizar os dados
             renderizarDados(data);    
@@ -161,7 +171,6 @@ window.addEventListener('resize', resizeTela);
     }
 
     function renderizarDados(dados) {
-        const saidaDado = document.getElementById('saidaDado'); // Certifique-se de que o elemento existe
         if (!saidaDado) {
             console.error('Elemento saidaDado não encontrado');
             return;
@@ -250,32 +259,96 @@ function configLeave (event){
 }
 
 function editarMotorista (campo){
-    console.log(campo);
+    let campoAlterado = [];
     let count;
-    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['imagem', 'nome', 'email', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
-    const placeholder = ['', 'Nome', 'Email', 'CNH', 'CPF', 'Celular', 'Endereco', 'Ativo'];
+    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const name = ['imagem', 'nome', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
+    const placeholder = ['', 'Nome', 'CNH', 'CPF', 'Celular', 'Endereco', 'Ativo'];
     const form = document.createElement('form');
+    form.enctype = 'multipart/form-data';
+    const buttonForm = document.createElement('button');
+    buttonForm.textContent = 'Alterar';
     form.classList.add('formEditar');
-    for(let i=0;i < 8;i++){
+    if(entradaDado.classList.contains('entrada-dados-on')){
+        form.classList.add('formEditar-on');
+    }
+    for(let i=0;i < 7;i++){
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];
         input.name = name[i];
         input.placeholder = placeholder[i];
-        input.value = campo[name[i]];
+        
         if(input.type === 'file'){
             const pimagem = document.createElement('p');
             pimagem.textContent = 'Imagem do Motorista';
             input.style.display = 'none';
             label.appendChild(pimagem);
+            input.files[0] = campo[name[i]];
+            label.classList.add('formImagem');
 
+        }else {
+            input.value = campo[name[i]];
         }
         form.appendChild(label);
         label.appendChild(input);
         document.querySelector('.main-content').appendChild(form);
     }
+    form.appendChild(buttonForm);
 
+
+    buttonForm.addEventListener('click', (event) => {
+        event.preventDefault();
+        name.forEach(nome =>{
+            const input = form.querySelector(`input[name="${nome}"]`);
+            if(input.type === 'file'){
+                campoAlterado.push({name: input.name, value: input.files[0]});
+            }else{
+                campoAlterado.push({name: input.name, value: input.value});
+            }
+        });
+
+        saidaDado.innerHTML = '';
+        document.querySelector('.main-content').removeChild(form);
+        alterarDados(campoAlterado);
+        listarDriver();
+    });
+
+}
+
+//ESSA FUNÇÃO JOGAR OS DADOS ALTERADOS PARA UMA VARIAVEL FORMDATA E ENVIA PARA A API
+function alterarDados(campoAlterado) {
+    const token = sessionStorage.getItem('token');
+    const formData = new FormData();
+
+    formData.append('token', token);
+
+    campoAlterado.forEach(campo => {
+            formData.append(campo.name, campo.value);
+    });
+
+    console.log('formData:');
+    for (let pair of formData.entries()) {
+        console.log(pair[0]+ ': ' + pair[1]);
+    }
+    //aqui vai ficar o fetch de update da api
+
+    fetch('http://localhost:3000/motorista/editar', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => {
+        if(!response.ok){
+            throw new Error('Erro ao atualizar os dados do motorista');
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Dados do motorista atualizados: ', data);
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+    });
 }
 
 function deletarMotorista (id){

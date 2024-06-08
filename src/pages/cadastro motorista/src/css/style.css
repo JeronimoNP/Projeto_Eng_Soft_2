@@ -12,6 +12,7 @@
 /* conteudo prinicipal */
 
 .main-section{
+    position: relative;
     padding: 10px;
 }
 
@@ -23,21 +24,30 @@
 
 .entrada-dados{
     display: flex;
-    z-index: 0;
+    z-index: 1;
+    top: 40px;
+    left: 50px;
     position: absolute;
     justify-content: center;    
     align-items: center;
-    margin: 30px 40px 0 40px;
+}
+
+.entrada-dados-on {
+    left: 20px;
 }
 
 .button-cadastro{
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    z-index: 1;
-    top: 98px;
+    z-index: 2;
+    top: 42px;
     left: 52px;
     border: none;
     cursor: pointer;
+}
+
+.button-cadastro-on {
+    left: 22px;
 }
 
 .button-cadastro p {
@@ -48,7 +58,7 @@
     background-color: #FF2000;
     padding: 5px;
     border-radius: 16px;
-    top: 72px;
+    top: 22px;
     left: 10px;
     box-shadow: 1px 1px 1px #b3b3b3;
 }
@@ -81,7 +91,7 @@
     justify-content: center;
     align-items: center;
     width: 240px;
-    height: 260px;
+    height: 280px;
     border-radius: 5px;
 }
 
@@ -150,9 +160,13 @@
 
 .saida-dados {
     width: 320px;
-    height: 340px;
-    margin-top: 50px;
-    overflow-y: auto;   
+    height: 500px;
+    margin-top: 60px;
+    overflow-y: overlay;   
+}
+
+.saida-dados-on {
+    width: 265px;
 }
 
 .section-saida {
@@ -175,7 +189,7 @@
     margin-bottom: 10px;
     padding: 5px 0 5px 0;
     box-shadow: 0px 0px 1px #7a7a7a;
-    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 .section-saida div p:first-of-type {
@@ -273,28 +287,71 @@
 .hide-main{
     display: none;
 }
-
-::-webkit-scrollbar {
-    width: 10px; /* Largura da scrollbar */
-    height: 10px;
-    scrollbar-color: #5F9F9F #D9D9D9;
-  }
-  
-  ::-webkit-scrollbar-track {
-    background: #D9D9D9;
-  }
-  
-  ::-webkit-scrollbar-thumb {
-    background: #5F9F9F; /* Cor da thumb (o botão da scrollbar que o usuário pode arrastar) */
-    border-radius: 5px;
-  }
-  
-  ::-webkit-scrollbar-thumb:hover {
-    background: #599494; /* Cor da thumb quando hover */
-  }
   
 .formEditar {
     background-color: #D9D9D9;
     position: absolute;
-    top: 100px;
+    z-index: 2;
+    top: 50px;
+    width: 100%;
+    height: calc(100% - 50px);
+    padding: 0 10px;
+    box-shadow: 0 0 1px #3b3b3b;
+}
+
+.formEditar-on {
+    width: calc(100% - 65px);
+}
+
+.formImagem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.formImagem p {
+    background-color: #fff;
+    margin: 10px 0;
+    padding: 5px;
+    width: 100%;
+    border-radius: 2px;
+    box-shadow: 1px 1px 1px #878787;
+    cursor: pointer;
+}
+
+.formEditar input[type='text'] {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 1px #878787;
+}
+
+.formEditar button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #fff;
+    display: block;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #878787;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.formEditar button:hover {
+    background-color: #f4f4f4;
+}
+
+.formEditar button:active {
+    background-color: #ececec;
 }

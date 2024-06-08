@@ -1,7 +1,6 @@
 /* main */
 
 .main-container{
-    position: relative;
     display:flex;
     width: 340px;  
     height: calc(100dvh - 60px);
@@ -53,6 +52,7 @@
 /* conteudo principal */
 
 .main-content{
+    position: relative;
     width: 340px;
     box-shadow: 1px 0px 1px #7c7c7c;
 }
