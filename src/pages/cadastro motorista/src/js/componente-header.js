@@ -37,19 +37,29 @@ function criarComponente() {
 criarComponente();
 
 const buttonMenuBar = document.getElementById('buttonMenuBar');
-
+//TRABALHO QUE A EITIANE ME DEU
 buttonMenuBar.addEventListener('click', () => {
     const menuBar = document.getElementById('menu-bar');
+    
+    if(!menuBar.classList.contains('none')) {
+        menuBar.classList.add('hide')
+        setTimeout(() => {
+            menuBar.classList.add('none');
+        }, 100);
+    }
+    else {
+        menuBar.classList.remove('hide');
+        menuBar.classList.remove('none');
+    }
 
-    menuBar.classList.toggle('hide');
-    setTimeout(() => {
-        menuBar.classList.toggle('none');
-        if(!menuBar.classList.contains('hide')){
-            document.querySelector('.main-content').classList.add('main-content-on');
-        }else {
-            document.querySelector('.main-content').classList.remove('main-content-on');
-        }
-    }, 100);
+    if(menuBar.classList.contains('width')) menuBar.classList.remove('width');
+    else menuBar.classList.add('width');
+
+    if(!menuBar.classList.contains('width')){
+        document.querySelector('.main-content').classList.add('main-content-on');
+    }else {
+        document.querySelector('.main-content').classList.remove('main-content-on');
+    }
 
     menuBarAlt();
 

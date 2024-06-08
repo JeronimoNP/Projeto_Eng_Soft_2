@@ -9,8 +9,9 @@ function criarComponente() {
     main.appendChild(nav);
     nav.id = 'menu-bar'
     nav.classList.add('menu-bar');
-    nav.classList.add('hide');
+    nav.classList.add('width');
     nav.classList.add('none');
+
     nav.appendChild(ul);
     
     for (let index = 0; index < 11; index++) {

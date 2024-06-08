@@ -38,11 +38,10 @@
     /* section apenas estilizada */
 
     .main-content{
-        min-width: 700px;
         width: 100%;
     }
 
     .main-content-on {
-        width: calc(100%- 220px);
+        width: calc(100% - 220px);
     }
 }

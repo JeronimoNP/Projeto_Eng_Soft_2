@@ -24,21 +24,30 @@
 
 .entrada-dados{
     display: flex;
-    z-index: 0;
+    z-index: 1;
+    top: 40px;
+    left: 50px;
     position: absolute;
     justify-content: center;    
     align-items: center;
-    margin: 30px 40px 0 40px;
+}
+
+.entrada-dados-on {
+    left: 20px;
 }
 
 .button-cadastro{
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    z-index: 1;
-    top: 44px;
+    z-index: 2;
+    top: 42px;
     left: 52px;
     border: none;
     cursor: pointer;
+}
+
+.button-cadastro-on {
+    left: 22px;
 }
 
 .button-cadastro p {
@@ -154,6 +163,10 @@
     height: 500px;
     margin-top: 60px;
     overflow-y: overlay;   
+}
+
+.saida-dados-on {
+    width: 265px;
 }
 
 .section-saida {
