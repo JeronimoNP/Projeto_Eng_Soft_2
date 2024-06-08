@@ -42,6 +42,16 @@ buttonMenuBar.addEventListener('click', () => {
     const menuBar = document.getElementById('menu-bar');
 
     menuBar.classList.toggle('hide');
+    setTimeout(() => {
+        menuBar.classList.toggle('none');
+        if(!menuBar.classList.contains('hide')){
+            document.querySelector('.main-content').classList.add('main-content-on');
+        }else {
+            document.querySelector('.main-content').classList.remove('main-content-on');
+        }
+    }, 100);
+
+    menuBarAlt();
 
 });
 

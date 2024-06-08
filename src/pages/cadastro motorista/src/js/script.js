@@ -12,6 +12,10 @@ let dados = '';
 buttonCadastro.addEventListener('click', formMobile);
 window.addEventListener('resize', resizeTela);
 
+function menuBarAlt() {
+    buttonCadastro
+}
+
 
     function resizeTela(){
 
