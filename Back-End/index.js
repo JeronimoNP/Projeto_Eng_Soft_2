@@ -83,6 +83,7 @@ const motorista = require('./routes/motoristaRoutes.js');
 const empresa = require('./routes/empresaRoutes.js');
 const veiculo = require('./routes/veiculoRoutes.js');
 const equipe = require('./routes/equipeRoutes.js');
+const servico = require('./routes/servicoRoutes.js');
 
 
 
@@ -98,6 +99,7 @@ api.use('/veiculo', veiculo);
 
 api.use('/equipe', equipe);
 
+api.use('/servico', servico);
 
 
 api.listen(3000, () => {

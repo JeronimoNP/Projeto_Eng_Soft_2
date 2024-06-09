@@ -123,7 +123,7 @@ const jwt = require('jsonwebtoken');
     async function editarEquipemiddle(dados, id, res){
         const empresaId = id.empresaId;
 
-        const emailbd = await buscaremailbd(dados.emailid, id.empresaId);
+        const emailbd = await buscaremailbd(dados.email, id.empresaId);
 
         if(!emailbd){
             return res.status(404).json({
@@ -133,7 +133,7 @@ const jwt = require('jsonwebtoken');
         }
 
         await Equipedb.update(dados, {
-            where: { email: dados.emailid, empresaId: empresaId }
+            where: { email: dados.email, empresaId: empresaId }
         }).then(() => {
     
             return res.status(200).json({
