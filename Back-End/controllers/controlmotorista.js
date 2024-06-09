@@ -35,7 +35,7 @@ async function cadastromoto(dados, imagemB, res){
             info: errors
         });
     }
-    console.log(dados);
+    
 
     //a variavel token2 é onde tera o descriptografia do token
     const token2 = await decodetoken(dados, senhatoken);
