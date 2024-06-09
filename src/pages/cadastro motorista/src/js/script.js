@@ -244,7 +244,7 @@ async function envioDados() {
             div.addEventListener('mouseenter', configHover);
             div.addEventListener('mouseleave', configLeave);
             editar.addEventListener('click', ()=> editarMotorista(campo));
-            deletar.addEventListener('click', ()=> deletarMotorista(campo));
+            deletar.addEventListener('click', ()=> deletarMotorista(campo.email));
         });
     }
 
@@ -351,6 +351,31 @@ function alterarDados(campoAlterado) {
     });
 }
 
-function deletarMotorista (id){
-    console.log(id);
+async function deletarMotorista (email){
+    const token = sessionStorage.getItem('token');
+    const dell = [];
+    dell.push({name: "token",value: token});
+    dell.push({name: "email",value: email});
+    console.log(dell);
+
+    await fetch('http://localhost:3000/deletar', {
+        method: 'DELETE', // Método HTTP
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(dell) // Corpo da requisição com JSON stringificado
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro ao deletar os dados'); // Lançar erro se a resposta não for OK
+        }
+        return response.json(); // Parsear a resposta como JSON
+    })
+    .then(data => {
+        console.log('Dados deletados com sucesso: ', data); // Manipular os dados retornados
+    })
+    .catch(error => {
+        console.error('Erro:', error); // Manipular erros
+    });
+    
 }

@@ -116,7 +116,7 @@ async function deletarmotorista(dados, res){
             erro: true,
             info: "token invalido ou expirado"
         });
-    }x   
+    }  
 
     await deletarmotoristadb(dados, empresaId, res);
     
