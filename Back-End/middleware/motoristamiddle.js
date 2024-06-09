@@ -119,13 +119,13 @@ const jwt = require('jsonwebtoken');
     }
 
 //função para listar os motoristar cadastrados no db
-    async function listarmotoristabd(empresaId) {
-        try {
-            let listamotorista = await Motorista.findAll({
-                attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'endereco', 'cpf'],
-                where: { empresaId: empresaId }
-            }); 
-            return listamotorista;      //retornar uma lista com os motoristas cadastrados
+async function listarmotoristabd(empresaId) {
+    try {
+        let listamotorista = await Motorista.findAll({
+            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'cpf', 'endereco'],
+            where: { empresaId: empresaId }
+        }); 
+        return listamotorista;      //retornar uma lista com os motoristas cadastrados
 
         } catch (error) {
             console.error('Erro ao listar motoristas do banco de dados:', error);
@@ -136,27 +136,28 @@ const jwt = require('jsonwebtoken');
 
 //função para editar dados de motorista
 async function editarmotoristacmiddle(dados, id, res) {
-    console.log(dados, id);
+
     const empresaId = id.empresaId;
-
-    // Verificar se todos os campos obrigatórios estão presentes
-    const requiredFields = ['nome', 'email', 'cnh', 'cpf', 'endereco', 'celular', 'ativo'];
-    const missingFields = requiredFields.filter(field => !dados[field]);
-
-    if (missingFields.length > 0) {
-        return res.status(400).json({
-            erro: true,
-            info: `Campos obrigatórios ausentes: ${missingFields.join(', ')}`
-        });
+    const dadosjson = {
+        imagem: dados.imagem,
+        nome: dados.nome,
+        email: dados.email,
+        cnh: dados.cnh,
+        cpf: dados.cpf,
+        endereco: dados.endereco, // Corrigido para endereco
+        celular: dados.celular,
+        ativo: dados.ativo,
+        empresaId: id.empresaId
     }
+    console.log(dadosjson);
 
     try {
-        // Tentar atualizar os dados do motorista
-        const [updated] = await Motorista.update(dados, {
+        const [updated] = await Motorista.update(dadosjson, {
             where: { email: dados.email, empresaId: empresaId }
         });
 
         if (updated) {
+            console.log("edição feita com sucessor");
             return res.status(200).json({
                 erro: false,
                 info: "Motorista editado com sucesso"
@@ -171,11 +172,10 @@ async function editarmotoristacmiddle(dados, id, res) {
         return res.status(400).json({
             erro: true,
             info: "Erro ao editar motorista",
-            "console log": error
+            console: error
         });
     }
 }
-
 
 
 //função para deletar motorista do banco de dados.
