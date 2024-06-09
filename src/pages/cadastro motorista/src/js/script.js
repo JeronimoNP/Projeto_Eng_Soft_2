@@ -260,6 +260,7 @@ function configLeave (event){
 
 function editarMotorista (campo){
     let campoAlterado = [];
+    campoAlterado.push({name: 'email', value: campo.email});
     let count;
     const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text'];
     const name = ['imagem', 'nome', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
@@ -351,14 +352,15 @@ function alterarDados(campoAlterado) {
     });
 }
 
-async function deletarMotorista (email){
+async function deletarMotorista(email) {
     const token = sessionStorage.getItem('token');
-    const dell = [];
-    dell.push({name: "token",value: token});
-    dell.push({name: "email",value: email});
+    const dell = {
+        token: token,
+        email: email
+    };
     console.log(dell);
 
-    await fetch('http://localhost:3000/deletar', {
+    await fetch('http://localhost:3000/motorista/deletar', {
         method: 'DELETE', // Método HTTP
         headers: {
           'Content-Type': 'application/json'
@@ -373,9 +375,9 @@ async function deletarMotorista (email){
     })
     .then(data => {
         console.log('Dados deletados com sucesso: ', data); // Manipular os dados retornados
+        listarDriver();
     })
     .catch(error => {
         console.error('Erro:', error); // Manipular erros
     });
-    
 }

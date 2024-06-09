@@ -35,7 +35,7 @@ async function cadastromoto(dados, imagemB, res){
             info: errors
         });
     }
-
+    console.log(dados);
 
     //a variavel token2 é onde tera o descriptografia do token
     const token2 = await decodetoken(dados, senhatoken);
@@ -81,9 +81,11 @@ async function listarmotorista(token, res){
 
 
 //função para editar motorista
-async function editarmotorista(dados, res){
+async function editarmotorista(dados, imagemb, res){
+    dados.imagem = imagemb;
 
     //a variavel token2 é onde tera o descriptografia do token
+    console.log(dados);
     const token2 = await decodetoken(dados, senhatoken);
     if(token2 === "erro"){
         return res.status(203).json({
@@ -93,7 +95,7 @@ async function editarmotorista(dados, res){
     }
     
     //verificar email existente.
-    const emailexiste = await buscaremailbd(dados.email, empresaId.empresaId);
+    const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
     //retorno caso motorista não encontrado no db.
     if(!emailexiste){
         return res.status(404).json({
@@ -102,7 +104,7 @@ async function editarmotorista(dados, res){
         })
     }
 
-    await editarmotoristacmiddle(dados, empresaId, res);
+    await editarmotoristacmiddle(dados, token2, res);
 };
 
 
@@ -118,7 +120,7 @@ async function deletarmotorista(dados, res){
         });
     }  
 
-    await deletarmotoristadb(dados, empresaId, res);
+    await deletarmotoristadb(dados, token2, res);
     
 };
 

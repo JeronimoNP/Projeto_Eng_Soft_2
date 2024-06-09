@@ -121,27 +121,46 @@ async function listarmotoristabd(empresaId) {
 
 
 //função para editar dados de motorista
-async function editarmotoristacmiddle(dados, id, res){
-    
+async function editarmotoristacmiddle(dados, id, res) {
     const empresaId = id.empresaId;
+    const dadosjson = {
+        imagem: dados.imagem,
+        nome: dados.nome,
+        email: dados.email,
+        cnh: dados.cnh,
+        cpf: dados.cpf,
+        endereco: dados.endereco, // Corrigido para endereco
+        celular: dados.celular,
+        ativo: dados.ativo,
+        empresaId: id.empresaId
+    }
+    console.log(dadosjson);
 
-    await Motorista.update(dados, {
-        where: { email: dados.email, empresaId: empresaId }
+    try {
+        const [updated] = await Motorista.update(dadosjson, {
+            where: { email: dados.email, empresaId: empresaId }
+        });
 
-    }).then(() => {
-    
-        return res.status(200).json({
-            erro: false,
-            info: "motorista editado com sucessor"
-        })
-    }).catch(error => {
+        if (updated) {
+            console.log("edição feita com sucessor");
+            return res.status(200).json({
+                erro: false,
+                info: "Motorista editado com sucesso"
+            });
+        } else {
+            return res.status(404).json({
+                erro: true,
+                info: "Motorista não encontrado"
+            });
+        }
+    } catch (error) {
         return res.status(400).json({
             erro: true,
-            info: "erro ao editar motorista",
-            "console log": error
-        })
-    });
-};
+            info: "Erro ao editar motorista",
+            console: error
+        });
+    }
+}
 
 
 //função para deletar motorista do banco de dados.
