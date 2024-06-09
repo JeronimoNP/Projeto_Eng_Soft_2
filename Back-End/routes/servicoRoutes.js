@@ -5,14 +5,24 @@ const servicoController = require('../controllers/controlservico.js');
 
 routes.use(cors());
 
-routes.post('./cadastro', (req, res) => {
+routes.post('/cadastro', (req, res) => {
+    const dadosCadastro = req.body;
+    servicoController.cadastrarServico(dadosCadastro, res);
+});
 
-    //puxando dados necessarios do front-end
-    const dadoscadastro = req.body;
+routes.get('/listar', (req, res) => {
+    const token = req.body;//{ "token": req.token };
+    servicoController.listarServicos(token, res);
+});
 
+routes.post('/editar', (req, res) => {
+    const dados = req.body;
+    servicoController.editarServico(dados, res);
+});
 
-    //redirecionando para arquivo
-    servicoController.cadastroserve(dadoscadastro, res);
-})
+routes.delete('/deletar', (req, res) => {
+    const dados = req.body;
+    servicoController.deletarServico(dados, res);
+});
 
 module.exports = routes;

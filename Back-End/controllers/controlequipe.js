@@ -79,7 +79,7 @@ const senhatoken = process.env.KEYTOKENSECRET;
         };
 
         //verificar email existente.
-        const emailexiste = await buscaremailbd(dados.emailid, token2.empresaId);
+        const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
 
         //retorno caso Equipe não é encontrado no db.
 
