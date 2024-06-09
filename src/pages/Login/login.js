@@ -25,6 +25,7 @@ loginForm.addEventListener('submit', async (e) => {
             const tokenPass = dados.token;
             sessionStorage.setItem('token', tokenPass);
             console.log('login bem completo!');
+            console.log(dados);
             window.location.href = '../cadastro motorista/gerencia-drivers.html';
 
         }else{

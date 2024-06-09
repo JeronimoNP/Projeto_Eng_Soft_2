@@ -1,9 +1,17 @@
+<<<<<<< HEAD
+const { isUndefined } = require('util');
+const multer = require('multer');
+const upload = multer({ dest: 'uploads/'});
+const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
+=======
 const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken, verificacnh} = require('../middleware/motoristamiddle.js')
+>>>>>>> main
 const senhatoken = process.env.KEYTOKENSECRET;
 
 
 //função para cadastrar motorista
-async function cadastromoto(dados, res){
+async function cadastromoto(dados, imagemB, res){
+    dados.imagem = imagemB;
     //mandando dados para o middleware para a validação de dados
     const resultemail = verificaemail(dados.email);
     const resultcelular = verificatelefone(dados.celular);
@@ -70,6 +78,12 @@ async function listarmotorista(token, res){
     
     //variabel contendo a lista de motoristas.
     const listaMotoristas = await listarmotoristabd(token2.empresaId);
+
+    listaMotoristas.forEach(motorista => {
+        if (motorista.imagem) {
+            motorista.imagem = motorista.imagem.toString('base64');
+        }
+    });
     return res.status(200).json(listaMotoristas);
 };
 
@@ -110,7 +124,11 @@ async function deletarmotorista(dados, res){
             erro: true,
             info: "token invalido ou expirado"
         });
+<<<<<<< HEAD
+    }  
+=======
     }   
+>>>>>>> main
 
     await deletarmotoristadb(dados, token2, res);
     

@@ -119,13 +119,13 @@ const jwt = require('jsonwebtoken');
     }
 
 //função para listar os motoristar cadastrados no db
-    async function listarmotoristabd(empresaId) {
-        try {
-            let listamotorista = await Motorista.findAll({
-                attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'endereco', 'cpf'],
-                where: { empresaId: empresaId }
-            }); 
-            return listamotorista;      //retornar uma lista com os motoristas cadastrados
+async function listarmotoristabd(empresaId) {
+    try {
+        let listamotorista = await Motorista.findAll({
+            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'cpf', 'endereco'],
+            where: { empresaId: empresaId }
+        }); 
+        return listamotorista;      //retornar uma lista com os motoristas cadastrados
 
         } catch (error) {
             console.error('Erro ao listar motoristas do banco de dados:', error);
