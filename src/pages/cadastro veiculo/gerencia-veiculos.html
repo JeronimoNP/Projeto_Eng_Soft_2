@@ -31,14 +31,14 @@
                 <button class="button-cadastro" id="button-cadastro" type="button"></button>
                 
                 <section class="entrada-dados" id="entrada-dados">
-                    <form action="" id="vehicleForm">
+                    <form action="" id="formVeiculo">
                         <label class="campo ">
                             <button type="submit">Adicionar Veiculo</button>
                         </label>
                         <label class="campo image">
                             <span>Imagem do Veiculo</span>
                             <i class="fa-solid fa-upload"></i>
-                            <input type="file" accept="image/*" name="imagem" id="up_image" class="up_image">
+                            <input type="file" accept="image/*" name="imagem" id="up_image" class="up_image" onchange="verificarTamanho(this)" >
                         </label>
                         <label class="campo">
                             <input type="text" name="marca" id="" placeholder="Marca">
@@ -59,7 +59,7 @@
                             <input type="text" name="placa" id="" placeholder="Placa">
                         </label>
                         <label class="campo">
-                            <input type="text" name="ativo" id="" placeholder="Em serviço">
+                            <input type="text" name="ativo" id="" placeholder="Ativo">
                         </label>
                         <label class="campo">
                             <input type="text" name="motoristumId" id="" placeholder="Driver Atribuido">

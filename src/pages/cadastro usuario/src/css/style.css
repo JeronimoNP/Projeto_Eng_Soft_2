@@ -160,7 +160,7 @@
 .saida-dados {
     position: relative;
     width: 320px;
-    height: 460px;
+    height: calc(100dvh - 190px);
     overflow-y: auto;   
 }
 
@@ -184,12 +184,11 @@
         ". item9";
     align-items: center;
     gap: 10px;
-    /* background-color: brown; */
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
     box-shadow: 0px 0px 1px #7a7a7a;
-    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 .section-saida div p:first-of-type {
@@ -233,7 +232,6 @@
 }
 
 .item10 {
-    background-color: #afafaf;
     grid-area: item10;
     width: 30px;
     height: 30px;
@@ -244,6 +242,29 @@
 .item10 img {
     width: 100%;
     height: 100%;
+}
+
+.opcao {
+    display: none;
+    position: absolute;
+    left: -10px;
+    top: 0px;
+    width: 40px;
+    height: 50px;
+    font-size: 0.75em;
+    font-weight: 700;
+}
+
+.opcao p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #D9D9D9;
+    width: 100%;
+    height: 50%;
+    box-shadow: 0px 0px 1px #000;
+    border-radius: 1px;
+    cursor: pointer;
 }
 
 .section-saida p {
@@ -275,4 +296,40 @@
 
 .formEditar-on {
     width: calc(100% - 65px);
+}
+
+.formEditar input[type='text'] {
+    width: 100%;
+    height: 30px;
+    border: none;
+    border-radius: 3px;
+    outline: none;
+    padding: 5px;
+    margin-bottom: 10px;
+    box-shadow: 1px 1px 1px #878787;
+}
+
+.formEditar button {
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #fff;
+    display: block;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px #878787;
+    font-size: 1.2em;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.formEditar button:hover {
+    background-color: #f4f4f4;
+}
+
+.formEditar button:active {
+    background-color: #ececec;
 }

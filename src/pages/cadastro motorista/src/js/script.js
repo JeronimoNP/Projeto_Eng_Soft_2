@@ -9,7 +9,7 @@ novoIcone.classList.add('fa-solid', 'fa-circle-xmark');
 novoParagrafo.innerHTML = "Cadastro de Motorista";
 formMobile();
 resizeTela();
-let dados = '';
+
 buttonCadastro.addEventListener('click', formMobile);
 window.addEventListener('resize', resizeTela);
 
@@ -146,7 +146,7 @@ async function envioDados() {
                 }
             }
         
-    }
+}
     
     async function listarDriver() {
         // Obter o token do sessionStorage
