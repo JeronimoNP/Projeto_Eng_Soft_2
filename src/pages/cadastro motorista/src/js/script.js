@@ -1,5 +1,6 @@
 const buttonCadastro = document.getElementById('button-cadastro');
 const entradaDado = document.getElementById('entrada-dados');
+const formDado = document.getElementById('vehicleForm'); 
 const saidaDado = document.getElementById('saidaDado');
 let novoIcone = document.createElement('i');
 let novoParagrafo = document.createElement('p');
@@ -79,16 +80,14 @@ function verificarTamanho(image){
 
     }
     listarDriver();
-    entradaDado.addEventListener('submit', async function(event){
+    formDado.addEventListener('submit', function(event){
         event.preventDefault();
         setTimeout(() => {
             envioDados();
         }, 100);
     });
 
-async function envioDados() {
-
-        const formDado = document.getElementById('vehicleForm');        
+async function envioDados() {       
 
             const camposInput = formDado.querySelectorAll('input[type="text"], input[type="email"], input[type="file"]');
             let validarDados = true;
@@ -265,10 +264,10 @@ function configHover (event){
 
 function configLeave (event){
     const combobox = event.currentTarget.querySelector('.opcao')
-     combobox.style.display = 'none';
+    combobox.style.display = 'none';
 }
 
-async function editarMotorista (campo){
+ function editarMotorista (campo){
     let campoAlterado = [];
     campoAlterado.push({name: 'email', value: campo.email});
     let count;
@@ -278,6 +277,8 @@ async function editarMotorista (campo){
     const form = document.createElement('form');
     form.enctype = 'multipart/form-data';
     const buttonForm = document.createElement('button');
+    buttonForm.type = 'submit';
+    buttonForm.id = 'formEditar';
     buttonForm.textContent = 'Alterar';
     form.classList.add('formEditar');
     if(entradaDado.classList.contains('entrada-dados-on')){
@@ -318,11 +319,15 @@ async function editarMotorista (campo){
     document.querySelector('.main-content').appendChild(form);
     form.appendChild(buttonForm);
 
-    buttonForm.addEventListener('click', async function(event) {
-        event.preventDefault();
+
+    form.addEventListener('submit', function(event) {
+            event.preventDefault();
+            setTimeout(() => {
+                envioDadosEditados();
+            }, 100);
     });
-    buttonForm.addEventListener('click', async function(event) {
-        
+
+    async function envioDadosEditados () {
         name.forEach(nome =>{
             const input = form.querySelector(`input[name="${nome}"]`);
             if(input.type === 'file'){
@@ -338,7 +343,7 @@ async function editarMotorista (campo){
         setTimeout(async function() {
             await listarDriver();
         }, 1500);
-    });
+    };
 
 }
 
@@ -371,13 +376,11 @@ async function alterarDados(campoAlterado) {
     })
     .then(data => {
         console.log('Dados do motorista atualizados: ', data);
-        listarDriver();
     })
     .catch(error => {
         console.error('Erro:', error);
     });
 
-    
 }
 
 async function deletarMotorista(email) {
