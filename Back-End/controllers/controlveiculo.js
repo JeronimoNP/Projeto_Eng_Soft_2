@@ -6,6 +6,7 @@ const senhatoken = process.env.KEYTOKENSECRET;
 //função para cadastrar veiculo
 async function cadastroveic(dados, res){
     //exportando para functions para o devido tratamento de dados
+    console.log(dados);
     const resultCrlv = verificaCrlv(dados.crlv);
     const resultplaca = verificaplaca(dados.placa);
     //criando uma variavel para armazena erros de dados

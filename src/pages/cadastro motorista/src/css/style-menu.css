@@ -3,6 +3,7 @@
 .main-container{
     position: relative;
     display:flex;
+    flex-direction: row-reverse;
     width: 340px;  
     height: calc(100dvh - 60px);
 }
@@ -11,15 +12,13 @@
 
 .menu-bar{
     background-color: #d9d9d9;
-    position: absolute;
+    /* position: absolute; */
     z-index: 2;
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
     width: 65px;
     height: 100%;
     text-align: center;
     box-shadow: 1px 1px 1px #7c7c7c;
-    transition: ease-in-out 0.1s;
 }
 
 .menu-bar ul{
@@ -53,11 +52,22 @@
 /* conteudo principal */
 
 .main-content{
-    width: 340px;
+    width: 100%;
     box-shadow: 1px 0px 1px #7c7c7c;
 }
 
+.main-content-on {
+    width: calc(100% - 65px);
+}
+
+.width {
+    width: 0;
+}
 .hide{
-    opacity: 1;
-    pointer-events: initial;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.none {
+    display: none;
 }

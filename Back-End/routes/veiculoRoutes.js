@@ -1,12 +1,17 @@
 const express = require('express');
 const routes = express.Router();
+const multer = require('multer');
 const veiculoController = require('../controllers/controlveiculo.js');
 
+const storage = multer.memoryStorage();
+const upload = multer({storage: storage});
 
-routes.post('/cadastro', (req, res) => {
+routes.post('/cadastro', upload.single('imagem'), async (req, res) => {
+    
     //puxando dados necessarios do front-end
     const dadoscadastro = req.body;
-
+    const imagem = req.file ? req.file.buffer : null;
+    dadoscadastro.imagem = imagem;
     //redirecionando para arquivo control para o tratamento de dados é cadastro
     veiculoController.cadastroveic(dadoscadastro, res); 
 });

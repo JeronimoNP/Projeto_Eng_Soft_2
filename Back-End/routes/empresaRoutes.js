@@ -14,9 +14,17 @@ routes.post('/cadastro', (req, res) =>{
     controlempresa.cadastroempresa(dadosempresa, res);
 });
 
-routes.get('/login', (req, res) => {
-    //puxando dados cadastrais da empresa
+routes.post('/login', (req, res) => {
+    //pegando dados da requisição
     const login = req.body;
+    
+    //condição para verificar se não está passando um indefinido
+    if(login.email === (undefined && '') && login.senha === (undefined && '')){
+        res.status(203).json({
+            erro: true,
+            info: "dados indefinidos ou vazio", 
+        });
+    }
 
     //redirecionando para controllers para o tratamento de dados.
     controlempresa.loginempresa(login, res);
