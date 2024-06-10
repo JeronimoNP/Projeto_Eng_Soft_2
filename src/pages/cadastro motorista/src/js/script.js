@@ -25,6 +25,21 @@ function menuBarAlt() {
     
 }
 
+function verificarTamanho(image){
+    const imagem = image.files[0];
+    const maxSize = 1024 * 1024;
+    const campo = document.querySelector('.image');
+    const span = campo.querySelector('span');
+    if(imagem.size > maxSize){
+        
+        campo.style.border = '1px solid red';
+        span.textContent = 'Tamanho limite 1MB';
+        image.value = '';
+    } else {
+        campo.style.border = 'none';
+        span.textContent = 'Imagem do Motorista';
+    }
+}
 
     function resizeTela(){
 
@@ -121,7 +136,7 @@ async function envioDados() {
                     if (response.ok) {
                         const data = await response.json();
                         console.log('Motorista cadastrado com sucesso', data);
-                        listarDriver();
+                        await listarDriver();
                         
                     } else {
                         const errorData = await response.json();
@@ -137,7 +152,7 @@ async function envioDados() {
     async function listarDriver() {
         // Obter o token do sessionStorage
         const token = sessionStorage.getItem('token'); 
-            
+        
         if (!token) {
             console.error('Token não encontrado');
             return;
@@ -152,25 +167,17 @@ async function envioDados() {
             if (!response.ok) {
                 throw new Error('Erro na aquisição');
             }
-
+            
             const data = await response.json();
 
-            // Chamar a função para renderizar os dados
+                        // Chamar a função para renderizar os dados
             renderizarDados(data);    
         } catch (error) {
             console.error('Erro: ', error);
         }
     }
 
-    function isBase64Image(str) {
-        if(str.length % 4 === 0 && (/^[A-Za-z0-9+/]+={0,2}$/).test(str)){
-            const img = new Image();
-            img.src = "data:image/jpg;base64," + str;
-            return img.complete && img.naturalWidth !== 0;
-        } 
-    }
-
-    function renderizarDados(dados) {
+    async function renderizarDados(dados) {
         if (!saidaDado) {
             console.error('Elemento saidaDado não encontrado');
             return;
@@ -181,7 +188,7 @@ async function envioDados() {
 
                 // Adicionar os dados dos motoristas à tabela
         
-        dados.forEach(campo => {
+        for(const campo of dados){
             const section = document.createElement('section');
             const titulo = ['', 'ID: ', 'Nome: ', 'Email: ', 'CNH: ', 'CPF: ', 'Celular: ', 'Endereço: ', 'Ativo: '];
             const propriedade = ['imagem', 'id','nome', 'email', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
@@ -191,37 +198,40 @@ async function envioDados() {
             section.classList.add('section-saida');
             saidaDado.appendChild(section);
 
-            propriedade.forEach(propriedade => {            
-                if((typeof campo[propriedade] === 'string') && isBase64Image(campo[propriedade])){
+            for (const prop of propriedade) {
+                if (prop === 'imagem') {
                     const img = document.createElement('img');
-                    img.src = "data:image/jpg;base64," + campo[propriedade]; // aqui é onde recebe a imagem da api
+                    img.src = "src/img/engrenagem.png";
+                    const imagemDefinitiva =new Image();
+                    imagemDefinitiva.src = "data:image/jpg;base64," + campo[prop]; // aqui é onde recebe a imagem da api
+                    imagemDefinitiva.onload = function() {
+                        img.src = imagemDefinitiva.src;
+                    }
                     section.appendChild(img);
-                    img.classList.add(`item${count+1}`);
-                 
-                } else if(typeof campo[propriedade] === 'string' || typeof campo[propriedade] === 'number'){
+                    img.classList.add(`item${count + 1}`);
+                } else if (typeof campo[prop] === 'string' || typeof campo[prop] === 'number') {
                     const div = document.createElement('div');
-                    div.classList.add(`item${count+1}`);
+                    div.classList.add(`item${count + 1}`);
                     section.appendChild(div);
                     const p1 = document.createElement('p');
                     p1.textContent = titulo[count];
                     div.appendChild(p1);
                     const p2 = document.createElement('p');
-                    p2.textContent = campo[propriedade];  //aqui é onde recebe os dados da api
+                    p2.textContent = campo[prop]; // aqui é onde recebe os dados da api
                     div.appendChild(p2);
-                } else if(typeof campo[propriedade] === 'boolean'){
+                } else if (typeof campo[prop] === 'boolean') {
                     const div = document.createElement('div');
-                    div.classList.add(`item${count+1}`);
+                    div.classList.add(`item${count + 1}`);
                     section.appendChild(div);
                     const p1 = document.createElement('p');
                     p1.textContent = titulo[count];
                     div.appendChild(p1);
                     const p2 = document.createElement('p');
-                    if(campo[propriedade]) p2.textContent = 'SIM'; //aqui é onde recebe os dados da api
-                    else p2.textContent = 'NÃO'
+                    p2.textContent = campo[prop] ? 'SIM' : 'NÃO'; // aqui é onde recebe os dados da api
                     div.appendChild(p2);
-                }          
-                count++;       
-                });
+                }
+                count++;
+            }
 
             const div = document.createElement('div');
             const img = document.createElement('img');
@@ -245,7 +255,7 @@ async function envioDados() {
             div.addEventListener('mouseleave', configLeave);
             editar.addEventListener('click', ()=> editarMotorista(campo));
             deletar.addEventListener('click', ()=> deletarMotorista(campo.email));
-        });
+        }
     }
 
 function configHover (event){
@@ -258,7 +268,7 @@ function configLeave (event){
      combobox.style.display = 'none';
 }
 
-function editarMotorista (campo){
+async function editarMotorista (campo){
     let campoAlterado = [];
     campoAlterado.push({name: 'email', value: campo.email});
     let count;
@@ -284,8 +294,19 @@ function editarMotorista (campo){
             const pimagem = document.createElement('p');
             pimagem.textContent = 'Imagem do Motorista';
             input.style.display = 'none';
+            input.addEventListener('change', function() {
+                 const imagem = this.files[0];
+                 const maxSize = 1024 * 1024;
+                 if(imagem.size > maxSize){
+                    pimagem.style.border = '1px solid red';
+                    pimagem.textContent = 'Tamanho limite 1MB';
+                    this.value = '';
+                } else {
+                    pimagem.style.border = 'none';
+                    pimagem.textContent = 'Imagem do Motorista';
+                }
+                });
             label.appendChild(pimagem);
-            input.files[0] = campo[name[i]];
             label.classList.add('formImagem');
 
         }else {
@@ -293,32 +314,36 @@ function editarMotorista (campo){
         }
         form.appendChild(label);
         label.appendChild(input);
-        document.querySelector('.main-content').appendChild(form);
     }
+    document.querySelector('.main-content').appendChild(form);
     form.appendChild(buttonForm);
 
-
-    buttonForm.addEventListener('click', (event) => {
+    buttonForm.addEventListener('click', async function(event) {
         event.preventDefault();
+    });
+    buttonForm.addEventListener('click', async function(event) {
+        
         name.forEach(nome =>{
             const input = form.querySelector(`input[name="${nome}"]`);
             if(input.type === 'file'){
                 campoAlterado.push({name: input.name, value: input.files[0]});
-            }else{
+            }else if(input.type === 'text'){
                 campoAlterado.push({name: input.name, value: input.value});
             }
         });
 
         saidaDado.innerHTML = '';
         document.querySelector('.main-content').removeChild(form);
-        alterarDados(campoAlterado);
-        listarDriver();
+        await alterarDados(campoAlterado);
+        setTimeout(async function() {
+            await listarDriver();
+        }, 1500);
     });
 
 }
 
 //ESSA FUNÇÃO JOGAR OS DADOS ALTERADOS PARA UMA VARIAVEL FORMDATA E ENVIA PARA A API
-function alterarDados(campoAlterado) {
+async function alterarDados(campoAlterado) {
     const token = sessionStorage.getItem('token');
     const formData = new FormData();
 
@@ -338,18 +363,21 @@ function alterarDados(campoAlterado) {
         method: 'POST',
         body: formData
     })
-    .then(response => {
+    .then(async response => {
         if(!response.ok){
             throw new Error('Erro ao atualizar os dados do motorista');
         }
-        return response.json();
+        return await response.json();
     })
     .then(data => {
         console.log('Dados do motorista atualizados: ', data);
+        listarDriver();
     })
     .catch(error => {
         console.error('Erro:', error);
     });
+
+    
 }
 
 async function deletarMotorista(email) {
