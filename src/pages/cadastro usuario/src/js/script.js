@@ -20,11 +20,11 @@ function menuBarAlt() {
     entradaDado.classList.toggle('entrada-dados-on');
     buttonCadastro.classList.toggle('button-cadastro-on');
     saidaDado.classList.toggle('saida-dados-on');
-    // if(entradaDado.classList.contains('entrada-dados-on')){
-    //     formEditar.classList.add('formEditar-on');
-    // } else {
-    //     formEditar.classList.remove('formEditar-on');
-    // }
+    if(entradaDado.classList.contains('entrada-dados-on')){
+        formEditar.classList.add('formEditar-on');
+    } else {
+        formEditar.classList.remove('formEditar-on');
+    }
     
 }
 
@@ -233,11 +233,11 @@ function configLeave (event){
 
 function editarUser (campo){
     let campoAlterado = [];
-    campoAlterado.push({name: 'email', value: campo.email});
+    // campoAlterado.push({name: 'email', value: campo.email});
     let count;
     const tipo = ['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['', '', '', '', '', ''];
-    const placeholder = ['', '', '', '', '', ''];
+    const name = ['', '', '', '', '', '', '', '', ''];
+    const placeholder = ['Nome', 'Email', 'CPF', 'Telefone', 'Endereço', 'Sexo', 'Login', 'Senha', 'Função'];
     const form = document.createElement('form');
     form.enctype = 'multipart/form-data';
     const buttonForm = document.createElement('button');

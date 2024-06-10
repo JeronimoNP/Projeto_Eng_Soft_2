@@ -101,7 +101,7 @@
         width: 100%;
     }
     
-    .formEditar label:nth-of-type(even) input[type='text'] {
+    .formEditar label:nth-of-type(odd) input[type='text'] {
         margin-right: 10px;
     }
 

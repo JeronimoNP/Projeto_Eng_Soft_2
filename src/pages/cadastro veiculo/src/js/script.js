@@ -270,10 +270,11 @@ function configLeave (event){
 }
 
 function editarVeiculo (campo){
+    console.log('oi');
     let campoAlterado = [];
-    campoAlterado.push({name: 'email', value: campo.email});
+    // campoAlterado.push({name: 'email', value: campo.email});
     let count;
-    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
     const name = ['imagem', 'marca','modelo', 'tipo', 'cor', 'crlv', 'placa', 'ativo', 'motoristumId'];
     const placeholder = ['Imagem', 'Marca','Modelo', 'Tipo', 'Cor', 'CRLV', 'Placa', 'Ativo', 'MotoristaId'];
     const form = document.createElement('form');
@@ -286,7 +287,7 @@ function editarVeiculo (campo){
     if(entradaDado.classList.contains('entrada-dados-on')){
         form.classList.add('formEditar-on');
     }
-    for(let i=0;i < 7;i++){
+    for(let i=0;i < 9;i++){
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];

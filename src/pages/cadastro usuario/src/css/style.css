@@ -25,10 +25,11 @@
 .entrada-dados{
     display: flex;
     z-index: 0;
+    top: 40px;
+    left: 50px;
     position: absolute;
     justify-content: center;    
     align-items: center;
-    margin: 30px 40px 0 40px;
 }
 
 .entrada-dados-on {
@@ -38,8 +39,8 @@
 .button-cadastro{
     background-color: rgba(0, 0, 0, 0);
     position: absolute;
-    z-index: 1;
-    top: 80px;
+    z-index: 2;
+    top: 42px;
     left: 52px;
     border: none;
     cursor: pointer;
@@ -290,7 +291,7 @@
     top: 50px;
     width: 100%;
     height: calc(100% - 50px);
-    padding: 0 10px;
+    padding: 10px;
     box-shadow: 0 0 1px #3b3b3b;
 }
 
