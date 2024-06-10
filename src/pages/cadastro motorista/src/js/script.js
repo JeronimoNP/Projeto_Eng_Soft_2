@@ -267,7 +267,7 @@ function configLeave (event){
     combobox.style.display = 'none';
 }
 
- function editarMotorista (campo){
+function editarMotorista (campo){
     let campoAlterado = [];
     campoAlterado.push({name: 'email', value: campo.email});
     let count;

@@ -45,7 +45,7 @@ buttonMenuBar.addEventListener('click', () => {
         menuBar.classList.add('hide')
         setTimeout(() => {
             menuBar.classList.add('none');
-        }, 100);
+        }, 10);
     }
     else {
         menuBar.classList.remove('hide');
