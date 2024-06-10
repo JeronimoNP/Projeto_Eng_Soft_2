@@ -67,19 +67,49 @@
 
     .saida-dados {
         width: 100%;
+        height: calc(100dvh - 190px);
         margin: 0;
     }
 
     .section-saida {
-        grid-template-columns: 80px minmax(120px, auto) minmax(280px, auto) 120px 100px minmax(250px, auto) 100px 50px;
+        grid-template-columns: 80px minmax(40px, auto) minmax(300px, auto) minmax(300px, auto) 110px 100px 100px 200px 30px 50px;
         grid-template-rows: auto;
-        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8";
+        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8 item9 item10";
+        justify-content: start;
+        align-items: start;
+        padding-top: 10px;
+        padding-right: 10px;
         font-size: 1.3em;
-        overflow-x: auto;
+        overflow-x: overlay;
     }
 
-    .item8 {
-        width: 40px;
-        height: 40px;
+    .item10 {
+        width: 30px;
+        min-height: 30px;
+    }
+    
+    .formEditar {
+        top: 48px;
+        height: 80dvh;
+    }
+
+    .formEditar-on {
+        width: calc(100% - 220px);
+    }
+    
+    .formImagem {
+        width: 100%;
+    }
+    
+    .formEditar label:nth-of-type(even) input[type='text'] {
+        margin-right: 10px;
+    }
+
+    .formEditar input[type='text'] {
+        width: calc(50% - 5px);
+    }
+
+    .formEditar button {
+        margin-top: 200px;
     }
 }

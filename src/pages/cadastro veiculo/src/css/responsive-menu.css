@@ -2,7 +2,7 @@
     /* container principal */
     .main-container{
         min-width: 700px;
-        width: 100dvw;
+        width: 100%;
     }
 
     /* menu lateral */

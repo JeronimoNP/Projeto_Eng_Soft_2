@@ -1,38 +1,36 @@
 function criarComponente() {
-    const headerComponent = `
-        
-    <!-- titulo do cabeçalho -->
-    <h1>
-        Gestão de Frota
-    </h1>
+    const header = document.querySelector('.init-header');
+    const h1 = document.createElement('h1');
+    const nav = document.createElement('nav');
+    const button = document.createElement('button');
+    const i = document.createElement('i');
+    const ul = document.createElement('ul');
+    const aClass = ['fa-bell', 'fa-circle-user'];
+    const ids = ['', 'user-pag'];
+    
+    h1.textContent = "Gestão de Frota";
+    header.appendChild(h1);
+    header.appendChild(nav);
+    nav.appendChild(button);
+    button.id = 'buttonMenuBar';
+    button.type = 'button';
+    button.appendChild(i);
+    i.classList.add('fa-solid', 'fa-bars');
+    nav.appendChild(ul);
 
-    <!-- menu superior -->
-    <nav>
-        <!-- botão lateral esquerda do menu -->
-        <button id="buttonMenuBar" type="button">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <ul>
-            <!-- icones na lateral direita do menu -->
-            <li>
-                <a href="#">
-                    <i class="fa-regular fa-bell"></i>
-                </a>
-            </li>
-            <li>
-                <a id="user-pag" href="#">
-                <i class="fa-regular fa-circle-user"></i>
-                </a>
-            </li>
-        </ul>
-    </nav>
-    `;
+    for(index = 0; index < 2; index++){
+        const li = document.createElement('li');
+        const a = document.createElement('a');
+        a.id = ids[index];
+        a.href = '#';
+        const i = document.createElement('i');
+        i.classList.add('fa-regular', aClass[index]);
 
-    // Selecionar o corpo do documento
-    const corpoDocumento = document.querySelector('.init-header');
+        ul.appendChild(li);
+        li.appendChild(a);
+        a.appendChild(i);
+    }
 
-    // Inserir o componente no corpo do documento
-    corpoDocumento.innerHTML = headerComponent + corpoDocumento.innerHTML;
 }
 
 // Chamar a função para criar o componente

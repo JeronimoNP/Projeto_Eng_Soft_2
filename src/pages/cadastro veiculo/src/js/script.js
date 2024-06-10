@@ -55,7 +55,7 @@ function formMobile(){
 }
 
 entradaDado.addEventListener('submit', (event)=>{
-    event.preventDefault();
+
     criarDriver();
 });
 
