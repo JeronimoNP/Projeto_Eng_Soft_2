@@ -34,3 +34,22 @@ ul{
 a{
     text-decoration: none;
 }
+
+::-webkit-scrollbar {
+    width: 10px; /* Largura da scrollbar */
+    height: 10px;
+    scrollbar-color: #5F9F9F #D9D9D9;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #D9D9D9;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #5F9F9F; /* Cor da thumb (o botão da scrollbar que o usuário pode arrastar) */
+    border-radius: 5px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #599494; /* Cor da thumb quando hover */
+  }

@@ -239,7 +239,6 @@
     position: relative;
     grid-area: item10;
     width: 30px;
-    height: fit-content;
     height: 30px;
     border-radius: 10px;
     margin-left: 20px;
