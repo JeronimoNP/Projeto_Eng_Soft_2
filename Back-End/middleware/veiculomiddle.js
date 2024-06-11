@@ -126,9 +126,10 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
 //função para listar os veículos cadastrados no db
 async function listarveiculobd(empresaId) {
     try {
+        
         let listaveiculo = await Veiculodb.findAll({
             attributes: ['imagem', 'id', 'modelo', 'Crlv', 'placa', 'ativo'],
-            where: { empresaId: empresaId }
+            where: { empresaId: empresaId.empresaId }
         }); 
         return listaveiculo;      //retornar uma lista com os veículos cadastrados
 

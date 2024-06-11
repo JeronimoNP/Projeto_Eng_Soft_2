@@ -17,8 +17,11 @@ routes.post('/cadastro', upload.single('imagem'), async (req, res) => {
 });
 
 routes.get('/listar', (req, res) => {
-    const empresaId = req.body; // Obtem o empresaId da consulta na URL
-    veiculoController.listarmotorista(empresaId, res);
+    //obtem o token
+    const token = {
+        "token": req.query.token
+    } // Obtem o empresaId da consulta na URL
+    veiculoController.listarveiculo(token, res);
 });
 
 routes.post('/editar', upload.single('imagem'), async (req, res) => {
@@ -29,7 +32,7 @@ routes.post('/editar', upload.single('imagem'), async (req, res) => {
     dadoscadastro.imagem = imagem;
 
     //enviando para controller
-    veiculoController.editarveiculo(dadoscadastro, res);
+    veiculoController.listarveiculo(dadoscadastro, res);
 });
 
 routes.delete('/deletar', (req, res) => {

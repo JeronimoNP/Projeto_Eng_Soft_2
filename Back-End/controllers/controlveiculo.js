@@ -46,9 +46,10 @@ async function cadastroveic(dados, res){
 
 //função para listar os veículos do db.
 async function listarveiculo(empresaId, res){
-
+    //decodificando token
+    const empresaId2 = await decodetoken(empresaId, senhatoken);
     //variabel contendo a lista de veiculo.
-    const listaveiculo = await listarveiculobd(empresaId.token);
+    const listaveiculo = await listarveiculobd(empresaId2);
     return res.status(200).json(listaveiculo);
 };
 
@@ -96,6 +97,17 @@ async function editarveiculo(dados, res){
 
 //função para deletar veiculo do bd
 async function deletarveiculo(dados, res){
+
+    const token2 = await decodetoken(dados, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
+
+    dados.token = token2.token;
+    
     await deletarveiculodb(dados, res);
     
 };

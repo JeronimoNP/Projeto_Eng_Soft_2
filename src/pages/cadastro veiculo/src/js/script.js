@@ -90,8 +90,7 @@ listarVeiculo();
     });
 
     async function envioDados() {       
-
-        const camposInput = formDado.querySelectorAll('input[type="text"], input[type="file"]');
+        const camposInput = formVeiculo.querySelectorAll('input[type="text"], input[type="file"]');
         let validarDados = true;
         const token = sessionStorage.getItem('token');
         const formData = new FormData(); // Use FormData para construir o corpo da solicitação
@@ -170,7 +169,7 @@ async function listarVeiculo() {
         }
         
         const data = await response.json();
-
+        console.log(data)
                     // Chamar a função para renderizar os dados
         renderizarDados(data);    
     } catch (error) {
@@ -192,7 +191,7 @@ async function renderizarDados(dados) {
     for(const campo of dados){
         const section = document.createElement('section');
         const titulo = ['', 'Marca: ', 'Modelo: ', 'Tipo: ', 'Cor: ', 'CRLV: ', 'Placa: ', 'Ativo: ', 'MotoristaID: '];
-        const propriedade = ['imagem', 'marca','modelo', 'tipo', 'cor', 'crlv', 'placa', 'ativo', 'motoristumId'];
+        const propriedade = ['imagem', 'marca','modelo', 'tipo', 'cor', 'Crlv', 'placa', 'ativo', 'motoristumId'];
         let count = 0;
         
 
@@ -200,6 +199,8 @@ async function renderizarDados(dados) {
         saidaDado.appendChild(section);
 
         for (const prop of propriedade) {
+            console.log(titulo[count]);
+            console.log(campo[prop]);
             if (prop === 'imagem') {
                 const img = document.createElement('img');
                 img.src = "src/img/engrenagem.png";
