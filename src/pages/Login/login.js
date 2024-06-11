@@ -11,6 +11,11 @@ loginForm.addEventListener('submit', async (e) => {
         "email": email,
         "senha": senha
     }
+    
+    if(dadosInp.email == '' || dadosInp.senha == ''){
+        msgErro();
+        return
+    }
     try{
         console.log(dadosInp);
         const token = await fetch('http://localhost:3000/empresa/login', {
@@ -31,7 +36,7 @@ loginForm.addEventListener('submit', async (e) => {
             if(dados.erro === false){
                 window.location.href = '../cadastro motorista/gerencia-drivers.html';
             }else{
-                document.getElementById('error-message').style.display = 'block';
+                msgErro();
             }
         }else{
             const erro = await token.json();
@@ -44,6 +49,18 @@ loginForm.addEventListener('submit', async (e) => {
 });
 });
 
+function msgErro(){
+    const errorMessageElement = document.getElementById('error-message');
+    errorMessageElement.textContent = 'Email ou senha incorreta';
+    errorMessageElement.style.display = 'block';
+        setTimeout(() => {
+            errorMessageElement.style.opacity = '0';
+            setTimeout(() => {
+                errorMessageElement.style.display = 'none';
+                errorMessageElement.style.opacity = '1';
+            }, 500); // 500ms = 0.5 seconds
+        }, 1800); // 1500ms = 1.5 seconds
+}
 
 document.getElementById('path-cadastro-cadastro').addEventListener('click',()=>{
     window.location.href = '../cadastro/index.html';
