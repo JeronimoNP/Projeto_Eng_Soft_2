@@ -21,9 +21,15 @@ routes.get('/listar', (req, res) => {
     veiculoController.listarmotorista(empresaId, res);
 });
 
-routes.post('/editar', (req, res) => {
-    const dados = req.body;
-    veiculoController.editarveiculo(dados, res);
+routes.post('/editar', upload.single('imagem'), async (req, res) => {
+
+    //puxando dados necessarios do front-end
+    const dadoscadastro = req.body;
+    const imagem = req.file ? req.file.buffer : null;
+    dadoscadastro.imagem = imagem;
+
+    //enviando para controller
+    veiculoController.editarveiculo(dadoscadastro, res);
 });
 
 routes.delete('/deletar', (req, res) => {
