@@ -37,6 +37,7 @@ async function cadastroveic(dados, res){
         });
     }
 
+    console.log(dados);
     //verificando se já existe placa cadastrado no bd, caso tenha retorna true
     const placaexiste = await buscarplacabd(dados.placa, token2.empresaId);
 

@@ -95,7 +95,7 @@ listarVeiculo();
         const token = sessionStorage.getItem('token');
         const formData = new FormData(); // Use FormData para construir o corpo da solicitação
     
-        formData.append('token', token);
+        // formData.append('token', token);
     
         for (let campo of camposInput) {
             const placeholder = campo.placeholder;
@@ -152,7 +152,7 @@ listarVeiculo();
 async function listarVeiculo() {
     // Obter o token do sessionStorage
     const token = sessionStorage.getItem('token'); 
-    
+    console.log(token);
     if (!token) {
         console.error('Token não encontrado');
         return;
@@ -169,7 +169,6 @@ async function listarVeiculo() {
         }
         
         const data = await response.json();
-        console.log(data)
                     // Chamar a função para renderizar os dados
         renderizarDados(data);    
     } catch (error) {
@@ -191,7 +190,7 @@ async function renderizarDados(dados) {
     for(const campo of dados){
         const section = document.createElement('section');
         const titulo = ['', 'Marca: ', 'Modelo: ', 'Tipo: ', 'Cor: ', 'CRLV: ', 'Placa: ', 'Ativo: ', 'MotoristaID: '];
-        const propriedade = ['imagem', 'marca','modelo', 'tipo', 'cor', 'Crlv', 'placa', 'ativo', 'motoristumId'];
+        const propriedade = ['imagem', 'marca','modelo', 'tipo', 'cor', 'crlv', 'placa', 'ativo', 'motoristumid'];
         let count = 0;
         
 
@@ -199,15 +198,21 @@ async function renderizarDados(dados) {
         saidaDado.appendChild(section);
 
         for (const prop of propriedade) {
-            console.log(titulo[count]);
-            console.log(campo[prop]);
+
             if (prop === 'imagem') {
                 const img = document.createElement('img');
                 img.src = "src/img/engrenagem.png";
-                const imagemDefinitiva =new Image();
-                imagemDefinitiva.src = "data:image/jpg;base64," + campo[prop]; // aqui é onde recebe a imagem da api
-                imagemDefinitiva.onload = function() {
-                    img.src = imagemDefinitiva.src;
+                const imgjson = JSON.stringify(campo[prop]);
+                if(imgjson !== 'null'){
+                    const imgData = JSON.parse(imgjson);
+
+                    const binaryData = new Uint8Array(imgData.data);
+                    const blob = new Blob([binaryData], { type: 'image/jpeg' });
+                    const imagemDefinitiva = new Image();   // aqui é onde recebe a imagem da api
+                    imagemDefinitiva.src = URL.createObjectURL(blob);
+                    imagemDefinitiva.onload = function() {
+                        img.src = imagemDefinitiva.src;
+                    }
                 }
                 section.appendChild(img);
                 img.classList.add(`item${count + 1}`);
@@ -256,7 +261,7 @@ async function renderizarDados(dados) {
         div.addEventListener('mouseenter', configHover);
         div.addEventListener('mouseleave', configLeave);
         editar.addEventListener('click', ()=> editarVeiculo(campo));
-        deletar.addEventListener('click', ()=> deletarVeiculo(campo.email));
+        deletar.addEventListener('click', ()=> deletarVeiculo(campo.placa));
     }
 }
 
@@ -273,11 +278,12 @@ function configLeave (event){
 function editarVeiculo (campo){
     console.log('oi');
     let campoAlterado = [];
-    // campoAlterado.push({name: 'email', value: campo.email});
+    console.log(campo);
+    campoAlterado.push({name: 'placa', value: campo.placa});
     let count;
-    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['imagem', 'marca','modelo', 'tipo', 'cor', 'crlv', 'placa', 'ativo', 'motoristumId'];
-    const placeholder = ['Imagem', 'Marca','Modelo', 'Tipo', 'Cor', 'CRLV', 'Placa', 'Ativo', 'MotoristaId'];
+    const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const name = ['imagem', 'marca','modelo', 'tipo', 'cor', 'crlv', 'ativo', 'motoristumid'];
+    const placeholder = ['Imagem', 'Marca','Modelo', 'Tipo', 'Cor', 'CRLV', 'Ativo', 'MotoristaId'];
     const form = document.createElement('form');
     form.enctype = 'multipart/form-data';
     const buttonForm = document.createElement('button');
@@ -288,7 +294,7 @@ function editarVeiculo (campo){
     if(entradaDado.classList.contains('entrada-dados-on')){
         form.classList.add('formEditar-on');
     }
-    for(let i=0;i < 9;i++){
+    for(let i=0;i < 8;i++){
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];
@@ -354,7 +360,6 @@ function editarVeiculo (campo){
 async function alterarDados(campoAlterado) {
     const token = sessionStorage.getItem('token');
     const formData = new FormData();
-
     formData.append('token', token);
 
     campoAlterado.forEach(campo => {
@@ -386,11 +391,11 @@ async function alterarDados(campoAlterado) {
 
 }
 
-async function deletarVeiculo(email) {
+async function deletarVeiculo(placa) {
     const token = sessionStorage.getItem('token');
     const dell = {
         token: token,
-        email: email
+        placa: placa
     };
     console.log(dell);
 

@@ -12,6 +12,7 @@ routes.post('/cadastro', upload.single('imagem'), async (req, res) => {
     const dadoscadastro = req.body;
     const imagem = req.file ? req.file.buffer : null;
     dadoscadastro.imagem = imagem;
+   
     //redirecionando para arquivo control para o tratamento de dados é cadastro
     veiculoController.cadastroveic(dadoscadastro, res); 
 });
