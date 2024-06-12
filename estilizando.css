@@ -1,0 +1,33 @@
+*{
+	margin:0;
+	padding:0;
+	box-sizing:border-box;
+
+}
+
+gestao{
+	color-background:#7ea5a3;
+	float: right;
+}
+
+button{
+	float: left;
+
+}
+.cabecalho {
+
+	color-background: gray;
+	border-radius:20px;
+
+}
+
+input{
+	color-background:gray;
+}
+div {
+
+	color-backgroung: gray;
+	
+
+
+}
