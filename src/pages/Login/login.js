@@ -28,7 +28,6 @@ loginForm.addEventListener('submit', async (e) => {
         //verificar se a requisição foi bem sucedida
         if(token.ok){
             const dados = await token.json();
-            console.log(dados);
             const tokenPass = dados.token;
             sessionStorage.setItem('token', tokenPass);
             console.log('login bem completo!');
@@ -36,16 +35,19 @@ loginForm.addEventListener('submit', async (e) => {
             if(dados.erro === false){
                 window.location.href = '../cadastro motorista/gerencia-drivers.html';
             }else{
-                msgErro();
+
+            msgErro();
             }
         }else{
             const erro = await token.json();
             console.error('Erro ao logar:', erro);
+            msgErro();
         }
     //caso de erro de não conexão ou falha de api
     }catch(error){
         console.error("erro de rede", error);
-    }
+        
+    } 
 });
 });
 
