@@ -46,14 +46,18 @@ loginForm.addEventListener('submit', async (e) => {
     //caso de erro de não conexão ou falha de api
     }catch(error){
         console.error("erro de rede", error);
-        
+        msgErro('Erro ao acessar servidor, tente mais tarde');
     } 
 });
 });
 
-function msgErro(){
+function msgErro(text){
     const errorMessageElement = document.getElementById('error-message');
-    errorMessageElement.textContent = 'Email ou senha incorreta';
+    if(text == null || text == undefined){
+        errorMessageElement.textContent = 'Email ou senha incorreta';
+    }else{
+        errorMessageElement.textContent = text;
+    }
     errorMessageElement.style.display = 'block';
         setTimeout(() => {
             errorMessageElement.style.opacity = '0';
@@ -61,7 +65,7 @@ function msgErro(){
                 errorMessageElement.style.display = 'none';
                 errorMessageElement.style.opacity = '1';
             }, 500); // 500ms = 0.5 seconds
-        }, 1800); // 1500ms = 1.5 seconds
+        }, 2000); // 1500ms = 1.5 seconds
 }
 
 document.getElementById('path-cadastro-cadastro').addEventListener('click',()=>{
