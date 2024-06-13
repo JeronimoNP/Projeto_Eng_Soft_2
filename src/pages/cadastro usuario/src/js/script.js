@@ -162,8 +162,8 @@ async function renderizarDados(dados) {
     
     for(const campo of dados){
         const section = document.createElement('section');
-        const titulo = ['', ': ', ': ', ': ', ': ', ': ', ': ', ': ', ': '];
-        const propriedade = ['', '','', '', '', '', '', '', ''];
+        const titulo = ['Nome: ', 'Email: ', 'CPF: ', 'Telefone: ', 'Endereco: ', 'Sexo: ', 'Login: ', 'Senha: ', 'Funcao: '];
+        const propriedade = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'];
         let count = 0;
         
 
@@ -236,7 +236,7 @@ function editarUser (campo){
     // campoAlterado.push({name: 'email', value: campo.email});
     let count;
     const tipo = ['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['', '', '', '', '', '', '', '', ''];
+    const name = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'];
     const placeholder = ['Nome', 'Email', 'CPF', 'Telefone', 'Endereço', 'Sexo', 'Login', 'Senha', 'Função'];
     const form = document.createElement('form');
     form.enctype = 'multipart/form-data';
