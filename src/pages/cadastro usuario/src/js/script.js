@@ -65,7 +65,7 @@ function formMobile(){
     }
 
 }
-
+listarUser();
 formUser.addEventListener('submit', (event)=>{
     event.preventDefault();
     envioDados();
@@ -89,6 +89,7 @@ async function envioDados() {
                     campo.style.border = 'none';
                     //jogar os dados na api
                     varJson.push({name: campo.name, value: campo.value});
+                    campo.value = '';
                 }
             }
         }
@@ -158,7 +159,7 @@ async function renderizarDados(dados) {
         saidaDado.innerHTML = '';
     }
 
-            // Adicionar os dados dos motoristas à tabela
+            // Adicionar os dados dos usuarios à tabela
     
     for(const campo of dados){
         const section = document.createElement('section');
@@ -298,12 +299,12 @@ async function alterarDados(campoAlterado) {
     })
     .then(async response => {
         if(!response.ok){
-            throw new Error('Erro ao atualizar os dados do motorista');
+            throw new Error('Erro ao atualizar os dados do usuario');
         }
         return await response.json();
     })
     .then(data => {
-        console.log('Dados do motorista atualizados: ', data);
+        console.log('Dados do usuario atualizados: ', data);
     })
     .catch(error => {
         console.error('Erro:', error);
@@ -319,7 +320,7 @@ async function deletarUser(email) {
     };
     console.log(dell);
 
-    await fetch('http://localhost:3000/motorista/deletar', {
+    await fetch('http://localhost:3000/usuario/deletar', {
         method: 'DELETE', // Método HTTP
         headers: {
           'Content-Type': 'application/json'

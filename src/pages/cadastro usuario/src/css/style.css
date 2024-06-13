@@ -234,6 +234,7 @@
 
 .item10 {
     grid-area: item10;
+    position: relative;
     width: 30px;
     height: 30px;
     border-radius: 10px;

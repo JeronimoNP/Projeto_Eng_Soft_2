@@ -109,10 +109,10 @@ listarVeiculo();
                 campo.placeholder = placeholder.replace(new RegExp(': campo vazio!', 'g'), '');
                 campo.style.border = 'none';
                 formData.append(campo.name, campo.value); // Adicione os campos ao FormData
-                console.log(`Adicionado ao formData: ${campo.name} = ${campo.value}`);
+                campo.value = '';
             } else if(campo.type === 'file' && campo.files.length > 0){
                 formData.append(campo.name, campo.files[0]); // Adicione os arquivos ao FormData
-                console.log(`Adicionado ao formData: ${campo.name} = ${campo.files[0]}`);
+                campo.value = '';
             }
         }
     
@@ -152,7 +152,6 @@ listarVeiculo();
 async function listarVeiculo() {
     // Obter o token do sessionStorage
     const token = sessionStorage.getItem('token'); 
-    console.log(token);
     if (!token) {
         console.error('Token não encontrado');
         window.location.href = '../Login/Login.html';
@@ -277,9 +276,7 @@ function configLeave (event){
 }
 
 function editarVeiculo (campo){
-    console.log('oi');
     let campoAlterado = [];
-    console.log(campo);
     campoAlterado.push({name: 'placa', value: campo.placa});
     let count;
     const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
@@ -367,10 +364,6 @@ async function alterarDados(campoAlterado) {
             formData.append(campo.name, campo.value);
     });
 
-    console.log('formData:');
-    for (let pair of formData.entries()) {
-        console.log(pair[0]+ ': ' + pair[1]);
-    }
     //aqui vai ficar o fetch de update da api
 
     fetch('http://localhost:3000/veiculo/editar', {
@@ -398,7 +391,6 @@ async function deletarVeiculo(placa) {
         token: token,
         placa: placa
     };
-    console.log(dell);
 
     await fetch('http://localhost:3000/veiculo/deletar', {
         method: 'DELETE', // Método HTTP
