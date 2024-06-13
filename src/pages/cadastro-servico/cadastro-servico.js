@@ -1,35 +1,30 @@
-document.getElementById('gray-bar').addEventListener('click', function() {
-    this.style.backgroundColor = 'black';
-});
-
-document.getElementById('green-bar').addEventListener('click', function() {
-    this.style.backgroundColor = 'yellow';
-});
-
-document.getElementById('menu-button').addEventListener('click', function() {
-    alert('Menu button clicked!');
-});
-
-document.getElementById('login-button').addEventListener('click', function() {
-    alert('Login button clicked!');
-});
-
-document.getElementById('notification-button').addEventListener('click', function() {
-    alert('Notification button clicked!');
-});
-
-document.getElementById('calendar-button').addEventListener('click', function() {
-    alert('Calendar button clicked!');
-});
-
-document.getElementById('add-stop-button').addEventListener('click', function() {
-    alert('Add stop button clicked!');
-});
-
-document.getElementById('schedule-button').addEventListener('click', function() {
-    alert('Schedule button clicked!');
-});
 document.getElementById('schedule-button').addEventListener('click', function (event) {
     event.preventDefault();
-    alert('Schedule button clicked!');
+
+    const form = document.getElementById('servico-form');
+    const formData = new FormData(form);
+
+    const data = {};
+    formData.forEach((value, key) => {
+        data[key] = value;
+    });
+
+    const token = localStorage.getItem('token'); 
+
+    fetch('http://localhost:3000/servico/cadastro', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(data => {
+        alert('Serviço agendado com sucesso!');
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+        alert('Erro ao agendar serviço.');
+    });
 });
