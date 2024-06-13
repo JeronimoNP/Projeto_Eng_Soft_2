@@ -154,6 +154,7 @@ async function envioDados() {
         
         if (!token) {
             console.error('Token não encontrado');
+            window.location.href = '../login/login.html';
             return;
         }
 

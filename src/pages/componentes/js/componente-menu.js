@@ -43,11 +43,11 @@ document.getElementById("super-adm").addEventListener("click", function(e) {
 
 document.getElementById("veiculos").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../cadastro veiculo/gerencia-veiculos.html';
   });
 document.getElementById("drivers").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../cadastro motorista/gerencia-drivers.html';
   });
 
 document.getElementById("reservas").addEventListener("click", function(e) {

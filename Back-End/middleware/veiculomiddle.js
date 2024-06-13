@@ -83,14 +83,14 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
                 }
             });
         }
-
+        
         if (dados.motoristumId && !motoristaExiste) {
             return res.status(400).json({
                 erro: true,
                 mensagem: "Motorista fornecido não existe ou não pertence à sua empresa!"
             });
         }
-
+        console.log(dados);
         await Veiculodb.create({
             imagem: dados.imagem,
             marca: dados.marca,
@@ -168,7 +168,7 @@ async function editarveiculomiddle(dados, res){
 //função para deletar veiculo do banco de dados.
 async function deletarveiculodb(dados, res){
     
-await veiculo.destroy({
+await Veiculodb.destroy({
         where: { placa: dados.placa, empresaId: dados.empresaId }
     }).then(() => {
         return res.status(200).json({

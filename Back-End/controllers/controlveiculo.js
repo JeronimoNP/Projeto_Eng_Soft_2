@@ -106,8 +106,9 @@ async function deletarveiculo(dados, res){
             info: "token invalido ou expirado"
         });
     }
-
-    dados.token = token2.token;
+    console.log(dados);
+    dados.empresaId = token2.empresaId;
+    console.log(dados);
     
     await deletarveiculodb(dados, res);
     

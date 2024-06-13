@@ -31,7 +31,7 @@ routes.post('/editar', upload.single('imagem'), async (req, res) => {
     const dadoscadastro = req.body;
     const imagem = req.file ? req.file.buffer : null;
     dadoscadastro.imagem = imagem;
-
+    console.log(dadoscadastro);
     //enviando para controller
     veiculoController.listarveiculo(dadoscadastro, res);
 });

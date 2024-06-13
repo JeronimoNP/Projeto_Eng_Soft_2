@@ -383,7 +383,7 @@ async function alterarDados(campoAlterado) {
         return await response.json();
     })
     .then(data => {
-        console.log('Dados do veiculo atualizados: ', data);
+        console.log('Dados do veiculo atualizados: ', formData);
     })
     .catch(error => {
         console.error('Erro:', error);
