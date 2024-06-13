@@ -145,17 +145,20 @@ async function listarveiculobd(empresaId) {
 //função para editar dados do veículo
 async function editarveiculomiddle(dados, res){
     const empresaId = dados.empresaId;
+    
 
-    await veiculo.update(dados, {
-        where: { placa: dados.placa, empresaId: empresaId }
+    await Veiculodb.update(dados, {
+        where: { placa: dados.placa, empresaId: dados.empresaId}
 
     }).then(() => {
-    
+        console.log("middle cadastrado com sucesso");
         return res.status(200).json({
+            
             erro: false,
             info: "veículo editado com sucessor"
         })
     }).catch(error => {
+        console.log("middle cadastrado com erro");
         return res.status(400).json({
             erro: true,
             info: "erro ao editar veículo",

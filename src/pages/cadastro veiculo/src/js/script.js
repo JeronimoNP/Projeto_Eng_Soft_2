@@ -155,6 +155,7 @@ async function listarVeiculo() {
     console.log(token);
     if (!token) {
         console.error('Token não encontrado');
+        window.location.href = '../Login/Login.html';
         return;
     }
 
@@ -383,7 +384,7 @@ async function alterarDados(campoAlterado) {
         return await response.json();
     })
     .then(data => {
-        console.log('Dados do veiculo atualizados: ', formData);
+        console.log('Dados do veiculo atualizados: ', data);
     })
     .catch(error => {
         console.error('Erro:', error);

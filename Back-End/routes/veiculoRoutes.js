@@ -22,6 +22,8 @@ routes.get('/listar', (req, res) => {
     const token = {
         "token": req.query.token
     } // Obtem o empresaId da consulta na URL
+
+    //envia para o controle
     veiculoController.listarveiculo(token, res);
 });
 
@@ -29,15 +31,29 @@ routes.post('/editar', upload.single('imagem'), async (req, res) => {
 
     //puxando dados necessarios do front-end
     const dadoscadastro = req.body;
+
+    //verificando se tem dados de imagem e coloca no const se não null
     const imagem = req.file ? req.file.buffer : null;
+
+    //inserindo dados imagem no campo imagem se tiver se não coloca null
     dadoscadastro.imagem = imagem;
-    console.log(dadoscadastro);
+
+    //condição para verificar se o campo imagem e null
+    if(dadoscadastro.imagem === null){
+        //deletando campo
+        delete dadoscadastro.imagem;
+    }
+
     //enviando para controller
-    veiculoController.listarveiculo(dadoscadastro, res);
+    veiculoController.editarveiculo(dadoscadastro, res);
 });
 
 routes.delete('/deletar', (req, res) => {
+
+    //puxando dados da requisição
     const dados = req.body;
+
+    //enviando para controller
     veiculoController.deletarveiculo(dados, res);
 });
 

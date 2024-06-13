@@ -89,7 +89,8 @@ async function editarveiculo(dados, res){
             info: "token invalido ou expirado"
         });
     }
-
+    
+    dados.empresaId = token2.empresaId;
     //verificando se já existe placa cadastrado no bd, caso tenha retorna true
     const placaexiste = await buscarplacabd(dados.placa, token2.empresaId);
     await editarveiculomiddle(dados, res);
