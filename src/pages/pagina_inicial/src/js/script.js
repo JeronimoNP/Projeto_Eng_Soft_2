@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const endpoints = {
         veiculo: 'http://localhost:3000/veiculo/dashboard',
         equipe: 'http://localhost:3000/equipe/dashboard',
-        motorista: 'http://localhost:3000/motorista/dashboard'
+        motorista: 'http://localhost:3000/motorista/dashboard',
+       servico: 'http://localhost:3000/Servico/dashboard'
     };
 
     requisiApi(endpoints);
@@ -51,25 +52,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-
-//     Object.keys(endpoints).forEach(key => {
-//         fetch(endpoints[key])
-//             .then(response => {
-//                 if (!response.ok) {
-//                     throw new Error(`Erro ao buscar dados de ${key}: ${response.status} ${response.statusText}`);
-//                 }
-//                 return response.json();
-//             })
-//             .then(data => {
-//                 if (Array.isArray(data)) {
-//                     document.getElementById(key).querySelector('.count').textContent = data.length;
-//                 } else {
-//                     document.getElementById(key).querySelector('.count').textContent = 'Erro no formato';
-//                 }
-//             })
-//             .catch(error => {
-//                 console.error('Erro ao buscar dados:', error);
-//                 document.getElementById(key).querySelector('.count').textContent = 'Erro';
-//             });
-//     });
-// });
