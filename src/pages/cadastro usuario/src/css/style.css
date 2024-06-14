@@ -58,7 +58,7 @@
     background-color: #FF2000;
     padding: 5px;
     border-radius: 16px;
-    top: 46px;
+    top: 22px;
     left: 10px;
     box-shadow: 1px 1px 1px #b3b3b3;
 }
@@ -162,7 +162,12 @@
     position: relative;
     width: 320px;
     height: calc(100dvh - 190px);
+    margin-top: 60px;
     overflow-y: auto;   
+}
+
+.saida-dados-on {
+    width: 265px;
 }
 
 .section-saida:first-of-type{
@@ -171,18 +176,15 @@
 
 .section-saida {
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 60px auto auto;
     grid-template-rows: repeat(6, 1fr);
     grid-template-areas:
-        "item10 item1"
-        "item10 item2"
-        ". item3"
-        ". item4"
-        ". item5"
-        ". item6"
-        ". item7"
-        ". item8"
-        ". item9";
+        "item9 item1 item1"
+        "item9 item2 item2"
+        ". item3 item4"
+        ". item5 item5"
+        ". item6 item7"
+        ". item8 item8";
     align-items: center;
     gap: 10px;
     width: 100%;
@@ -230,17 +232,14 @@
 
 .item9 {
     grid-area: item9;
-}
-
-.item10 {
-    grid-area: item10;
+    position: relative;
     width: 30px;
     height: 30px;
     border-radius: 10px;
     margin-left: 20px;
 }
 
-.item10 img {
+.item9 img {
     width: 100%;
     height: 100%;
 }
@@ -248,8 +247,8 @@
 .opcao {
     display: none;
     position: absolute;
-    left: -10px;
-    top: 0px;
+    left: 0;
+    top: 0;
     width: 40px;
     height: 50px;
     font-size: 0.75em;

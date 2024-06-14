@@ -37,6 +37,7 @@ async function cadastroveic(dados, res){
         });
     }
 
+    console.log(dados);
     //verificando se já existe placa cadastrado no bd, caso tenha retorna true
     const placaexiste = await buscarplacabd(dados.placa, token2.empresaId);
 
@@ -46,11 +47,38 @@ async function cadastroveic(dados, res){
 
 //função para listar os veículos do db.
 async function listarveiculo(empresaId, res){
+    //decodificando token
+    const empresaId2 = await decodetoken(empresaId, senhatoken);
 
-    //variabel contendo a lista de veiculo.
-    const listaveiculo = await listarveiculobd(empresaId.token);
+    //mudando rota para listar
+    empresaId2.dashboard = true;
+
+    //passando para middle dados
+    const listaveiculo = await listarveiculobd(empresaId2);
+    
+    //retornando dados da lista do bd
     return res.status(200).json(listaveiculo);
 };
+
+async function listarVeiculoDashboard(token, res){
+    //a variavel token2 é onde tera o descriptografia do token
+   const token2 = await decodetoken(token, senhatoken);
+   if(token2 === "erro"){
+       return res.status(203).json({
+           erro: true,
+           info: "token invalido ou expirado"
+       });
+   }
+   //mudando rota para dashboard
+   token2.dashboard = true;
+   
+   //mandando dados para middleware
+   const listaveiculo = await listarveiculobd(token2);
+
+   //retorna para a requisição
+   return res.status(200).json(listaveiculo);
+
+}
 
 
 //função para editar veiculo
@@ -87,7 +115,8 @@ async function editarveiculo(dados, res){
             info: "token invalido ou expirado"
         });
     }
-
+    
+    dados.empresaId = token2.empresaId;
     //verificando se já existe placa cadastrado no bd, caso tenha retorna true
     const placaexiste = await buscarplacabd(dados.placa, token2.empresaId);
     await editarveiculomiddle(dados, res);
@@ -96,6 +125,18 @@ async function editarveiculo(dados, res){
 
 //função para deletar veiculo do bd
 async function deletarveiculo(dados, res){
+
+    const token2 = await decodetoken(dados, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
+    console.log(dados);
+    dados.empresaId = token2.empresaId;
+    console.log(dados);
+    
     await deletarveiculodb(dados, res);
     
 };
@@ -104,6 +145,7 @@ async function deletarveiculo(dados, res){
 module.exports = {
     cadastroveic,
     listarveiculo,
+    listarVeiculoDashboard,
     deletarveiculo,
     editarveiculo
 };

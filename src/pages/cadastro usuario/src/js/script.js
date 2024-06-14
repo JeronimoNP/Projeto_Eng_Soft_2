@@ -20,9 +20,9 @@ function menuBarAlt() {
     entradaDado.classList.toggle('entrada-dados-on');
     buttonCadastro.classList.toggle('button-cadastro-on');
     saidaDado.classList.toggle('saida-dados-on');
-    if(entradaDado.classList.contains('entrada-dados-on')){
+    if(entradaDado.classList.contains('entrada-dados-on') && formEditar){
         formEditar.classList.add('formEditar-on');
-    } else {
+    } else if(formEditar) {
         formEditar.classList.remove('formEditar-on');
     }
     
@@ -65,7 +65,7 @@ function formMobile(){
     }
 
 }
-
+listarUser();
 formUser.addEventListener('submit', (event)=>{
     event.preventDefault();
     envioDados();
@@ -74,80 +74,89 @@ formUser.addEventListener('submit', (event)=>{
 async function envioDados() {
     const camposInput = formUser.querySelectorAll('#entrada-dados input[type="text"]');
     let validarDados = true;
-    const varJson = [];
-        for (let campo of camposInput) {
-            const placeholder = campo.placeholder;
-            if(campo.type === 'text'){
-                if(campo.value === '') {
-                    if(!campo.placeholder.includes(': campo vazio!'))
-                        campo.placeholder = placeholder + ': campo vazio!';
-                        campo.style.border = '1px solid red';
-                        validarDados = false;
+    let camposjson = {};
+
+    // Verificação e coleta dos dados do formulário
+    camposInput.forEach(campo => {
+        const placeholder = campo.placeholder;
+        if (campo.type === 'text') {
+            if (campo.value === '') {
+                if (!campo.placeholder.includes(': campo vazio!')) {
+                    campo.placeholder = placeholder + ': campo vazio!';
                 }
-                else{
-                    campo.placeholder = placeholder.replace(new RegExp(': campo vazio!','g'),'');
-                    campo.style.border = 'none';
-                    //jogar os dados na api
-                    varJson.push({name: campo.name, value: campo.value});
-                }
+                campo.style.border = '1px solid red';
+                validarDados = false;
+            } else {
+                campo.placeholder = placeholder.replace(': campo vazio!', '');
+                campo.style.border = 'none';
+                camposjson[campo.name] = campo.value;
             }
         }
+    });
 
-    if(validarDados){
-        
-    const token = sessionStorage.getItem('token');
-    varJson.push('token', token);
+    // Se todos os campos estiverem preenchidos, envie os dados
+    if (validarDados) {
+        const token = sessionStorage.getItem('token');
+        if (!token) {
+            console.error('Token não encontrado');
+            return;
+        }
 
-        fetch('http://localhost:3000/equipe/cadastro',{
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(varJson)
-        })
-        .then(response => {
-            if(!response.ok){
+        camposjson['token'] = token;
+
+        try {
+            const response = await fetch('http://localhost:3000/equipe/cadastro', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(camposjson)
+            });
+
+            if (!response.ok) {
                 throw new Error('Erro na aquisição');
             }
-            return response.json();
-        })
-        .then(async data =>{
-            console.log('Reposta do servidor: ', data);
-            listarUser(data);
-        })
-        .catch(error => {
+
+            const data = await response.json();
+            console.log('Resposta do servidor: ', data);
+            listarUser();
+        } catch (error) {
             console.error('Erro: ', error);
-        });
+        }
     }
 }
 
-async function listarUser(camposInput) {
-    const token = sessionStorage.getItem('token'); 
+async function listarUser() {
+    const token = sessionStorage.getItem('token');
 
     if (!token) {
         console.error('Token não encontrado');
+        window.location.href = '../Login/Login.html';
         return;
     }
 
-     // Realizar a requisição GET com o token como parâmetro na URL
-     try {
-        const response = await fetch(`http://localhost:3000/equipe/listar`, {
+    try {
+        const response = await fetch(`http://localhost:3000/equipe/listar?token=${encodeURIComponent(token)}`, {
             method: 'GET'
         });
 
         if (!response.ok) {
             throw new Error('Erro na aquisição');
         }
-        
-        const data = await response.json();
 
-                    // Chamar a função para renderizar os dados
-        renderizarDados(data);    
+        const data = await response.json();
+        renderizarDados(data);
     } catch (error) {
         console.error('Erro: ', error);
     }
 }
+
+function renderizarDados(data) {
+    // Função para renderizar os dados obtidos do servidor
+    console.log(data);
+}
+
 
 async function renderizarDados(dados) {
     if (!saidaDado) {
@@ -158,12 +167,12 @@ async function renderizarDados(dados) {
         saidaDado.innerHTML = '';
     }
 
-            // Adicionar os dados dos motoristas à tabela
+            // Adicionar os dados dos usuarios à tabela
     
     for(const campo of dados){
         const section = document.createElement('section');
-        const titulo = ['', ': ', ': ', ': ', ': ', ': ', ': ', ': ', ': '];
-        const propriedade = ['', '','', '', '', '', '', '', ''];
+        const titulo = ['Nome: ', 'Email: ', 'CPF: ', 'Telefone: ', 'Endereco: ', 'Sexo: ', 'Login: ', 'Funcao: '];
+        const propriedade = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'funcao'];
         let count = 0;
         
 
@@ -201,7 +210,7 @@ async function renderizarDados(dados) {
         const combobox = document.createElement('div');
         const editar = document.createElement('p');
         const deletar = document.createElement('p');
-        div.classList.add('item10');
+        div.classList.add('item9');
         combobox.classList.add('opcao');
         editar.classList.add('editar');
         editar.textContent = 'Editar';
@@ -231,13 +240,11 @@ function configLeave (event){
     combobox.style.display = 'none';
 }
 
-function editarUser (campo){
-    let campoAlterado = [];
-    // campoAlterado.push({name: 'email', value: campo.email});
-    let count;
-    const tipo = ['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['', '', '', '', '', '', '', '', ''];
-    const placeholder = ['Nome', 'Email', 'CPF', 'Telefone', 'Endereço', 'Sexo', 'Login', 'Senha', 'Função'];
+function editarUser(campo) {
+    let campoAlterado = {};
+    const tipo = ['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const name = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'funcao'];
+    const placeholder = ['Nome', 'Email', 'CPF', 'Telefone', 'Endereço', 'Sexo', 'Login', 'Função'];
     const form = document.createElement('form');
     form.enctype = 'multipart/form-data';
     const buttonForm = document.createElement('button');
@@ -245,10 +252,10 @@ function editarUser (campo){
     buttonForm.id = 'formEditar';
     buttonForm.textContent = 'Alterar';
     form.classList.add('formEditar');
-    if(entradaDado.classList.contains('entrada-dados-on')){
+    if (entradaDado.classList.contains('entrada-dados-on')) {
         form.classList.add('formEditar-on');
     }
-    for(let i=0;i < 9;i++){
+    for (let i = 0; i < 8; i++) {
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];
@@ -262,22 +269,21 @@ function editarUser (campo){
     document.querySelector('.main-content').appendChild(form);
     form.appendChild(buttonForm);
 
-
     form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            setTimeout(() => {
-                envioDadosEditados();
-            }, 100);
+        event.preventDefault();
+        setTimeout(() => {
+            envioDadosEditados();
+        }, 100);
     });
 
-    async function envioDadosEditados () {
+    async function envioDadosEditados() {
         const token = sessionStorage.getItem('token');
-        campoAlterado.push('token', token);
+        campoAlterado['token'] = token;
 
-        name.forEach(nome =>{
-            const input = form.querySelector(`input[name="${nome}"]`);
-            campoAlterado.push({name: input.name, value: input.value}); 
-        });
+        const formData = new FormData(form);
+        for (let [key, value] of formData.entries()) {
+            campoAlterado[key] = value;
+        }
 
         saidaDado.innerHTML = '';
         document.querySelector('.main-content').removeChild(form);
@@ -289,27 +295,27 @@ function editarUser (campo){
 }
 
 async function alterarDados(campoAlterado) {
-    
-    //aqui vai ficar o fetch de update da api
-
     fetch('http://localhost:3000/equipe/editar', {
         method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
         body: JSON.stringify(campoAlterado)
     })
     .then(async response => {
-        if(!response.ok){
-            throw new Error('Erro ao atualizar os dados do motorista');
+        if (!response.ok) {
+            throw new Error('Erro ao atualizar os dados do usuario');
         }
         return await response.json();
     })
     .then(data => {
-        console.log('Dados do motorista atualizados: ', data);
+        console.log('Dados do usuario atualizados: ', data);
     })
     .catch(error => {
         console.error('Erro:', error);
     });
-
 }
+
 
 async function deletarUser(email) {
     const token = sessionStorage.getItem('token');
@@ -319,7 +325,7 @@ async function deletarUser(email) {
     };
     console.log(dell);
 
-    await fetch('http://localhost:3000/motorista/deletar', {
+    await fetch('http://localhost:3000/equipe/deletar', {
         method: 'DELETE', // Método HTTP
         headers: {
           'Content-Type': 'application/json'

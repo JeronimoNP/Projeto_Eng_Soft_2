@@ -4,7 +4,6 @@ const upload = multer({ dest: 'uploads/'});
 const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
 const senhatoken = process.env.KEYTOKENSECRET;
 
-
 //função para cadastrar motorista
 async function cadastromoto(dados, imagemB, res){
     dados.imagem = imagemB;
@@ -58,7 +57,7 @@ async function cadastromoto(dados, imagemB, res){
 
 //função para listar os motoristas do db.
 async function listarmotorista(token, res){
-
+    
      //a variavel token2 é onde tera o descriptografia do token
     const token2 = await decodetoken(token, senhatoken);
     if(token2 === "erro"){
@@ -67,9 +66,12 @@ async function listarmotorista(token, res){
             info: "token invalido ou expirado"
         });
     }
+
+    //mudando rota de listar
+    token2.dashboard = false;
     
     //variabel contendo a lista de motoristas.
-    const listaMotoristas = await listarmotoristabd(token2.empresaId);
+    const listaMotoristas = await listarmotoristabd(token2);
 
     listaMotoristas.forEach(motorista => {
         if (motorista.imagem) {
@@ -79,6 +81,25 @@ async function listarmotorista(token, res){
     return res.status(200).json(listaMotoristas);
 };
 
+async function listarmotoristadashboard(token, res){
+     //a variavel token2 é onde tera o descriptografia do token
+    const token2 = await decodetoken(token, senhatoken);
+    if(token2 === "erro"){
+        return res.status(203).json({
+            erro: true,
+            info: "token invalido ou expirado"
+        });
+    }
+    //mudando rota para dashboard
+    token2.dashboard = true;
+    
+    //mandando dados para middleware
+    const listaMotoristas = await listarmotoristabd(token2);
+
+    //retorna para a requisição
+    return res.status(200).json(listaMotoristas);
+
+}
 
 //função para editar motorista
 async function editarmotorista(dados, imagemb, res){
@@ -107,7 +128,6 @@ async function editarmotorista(dados, imagemb, res){
     await editarmotoristacmiddle(dados, token2, res);
 };
 
-
 //função para deletar motorista do bd
 async function deletarmotorista(dados, res){
 
@@ -128,6 +148,7 @@ async function deletarmotorista(dados, res){
 module.exports = {
     cadastromoto,
     listarmotorista,
+    listarmotoristadashboard,
     deletarmotorista,
     editarmotorista
 };

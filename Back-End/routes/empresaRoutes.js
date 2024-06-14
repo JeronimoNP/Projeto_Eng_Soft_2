@@ -9,7 +9,7 @@ routes.use(cors());//3
 routes.post('/cadastro', (req, res) =>{
     //puxando dados cadastrais da empresa
     const dadosempresa = req.body;
-
+    console.log(req.body);
     //redirecionando para controllers para o tratamento de dados.
     controlempresa.cadastroempresa(dadosempresa, res);
 });

@@ -72,9 +72,9 @@
     }
 
     .section-saida {
-        grid-template-columns: minmax(120px, auto) minmax(250px, auto) 100px 90px minmax(250px, auto) 80px 100px 80px 150px 40px;
+        grid-template-columns: minmax(120px, auto) minmax(250px, auto) 100px 90px minmax(250px, auto) 80px 100px 150px 40px;
         grid-template-rows: auto;
-        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8 item9 item10";
+        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8 item9";
         justify-content: start;
         align-items: start;
         padding-top: 10px;
@@ -83,7 +83,7 @@
         overflow-x: overlay;
     }
 
-    .item10 {
+    .item9 {
         width: 40px;
         height: 40px;
     }
