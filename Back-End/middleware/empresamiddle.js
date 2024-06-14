@@ -61,7 +61,7 @@ async function cadastrar(dados, emailexiste, res){
             });
         });
     } else {
-        return res.status(406).json({
+        return res.status(400).json({
             erro: true,
             mensagem: "Email já existente no banco de dados!"
         });

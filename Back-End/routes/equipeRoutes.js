@@ -2,8 +2,8 @@ const express = require('express');
 const routes = express.Router();
 const cors = require('cors');
 const equipeController = require('../controllers/controlequipe.js');
-const Motoristadb = require('../models/Motorista.js');
-const e = require('cors');
+
+
 
 routes.use(cors());
 
