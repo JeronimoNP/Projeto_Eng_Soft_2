@@ -4,7 +4,6 @@ const upload = multer({ dest: 'uploads/'});
 const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
 const senhatoken = process.env.KEYTOKENSECRET;
 
-
 //função para cadastrar motorista
 async function cadastromoto(dados, imagemB, res){
     dados.imagem = imagemB;
