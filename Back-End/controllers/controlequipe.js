@@ -61,9 +61,32 @@ const senhatoken = process.env.KEYTOKENSECRET;
             });
         }
 
+        //mudando rota para listar
+        token2.dashboard = false;
+
         const listaequipe = await listarequipedb(token2.empresaId);
         return res.status(200).json(listaequipe);
     };
+
+    async function listarEquipedashboard(token, res){
+        //a variavel token2 é onde tera o descriptografia do token
+       const token2 = await decodetoken(token, senhatoken);
+       if(token2 === "erro"){
+           return res.status(203).json({
+               erro: true,
+               info: "token invalido ou expirado"
+           });
+       }
+       //mudando rota para dashboard
+       token2.dashboard = true;
+       
+       //mandando dados para middleware
+       const listaMotoristas = await listarequipedb(token2);
+   
+       //retorna para a requisição
+       return res.status(200).json(listaMotoristas);
+   
+   }
 
 
 //função para editar equipe
@@ -113,6 +136,7 @@ const senhatoken = process.env.KEYTOKENSECRET;
 module.exports = {
     cadastroequipe,
     listaequipe,
+    listarEquipedashboard,
     editarEquipe,
     deletarfuncionario
 }

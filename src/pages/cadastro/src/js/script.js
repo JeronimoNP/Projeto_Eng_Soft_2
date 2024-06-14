@@ -1,90 +1,133 @@
 function removerAdicionarClasses() {
+    const login_page = document.getElementById('login-page');
+    const area_cadastro = document.getElementById('area-cadastro');
+
     if (window.innerWidth > 699) {
-
-        const login_page = document.getElementById('login-page');
-        const area_cadastro = document.getElementById('area-cadastro');
-
-        //remover a classe hide e adiciona a classe visible
         login_page.classList.remove('hide');
         login_page.classList.add('visible');
-        //remover a classe hide e adiciona a classe visible
         area_cadastro.classList.remove('hide');
         area_cadastro.classList.add('visible');
-    } else if (window.innerWidth < 700) {
-        const area_cadastro = document.getElementById('area-cadastro');
-        //remover a classe visible
+    } else {
         area_cadastro.classList.remove('visible');
-        //adicionar a classe hide
         area_cadastro.classList.add('hide');
     }
 }
 
 const cadastroClick = (event) => {
-    //evitar comportamento da tag
     event.preventDefault();
     if (window.innerWidth < 700) {
-
         const login_page = document.getElementById('login-page');
-        //remover a classe visible
+        const area_cadastro = document.getElementById('area-cadastro');
+
         login_page.classList.remove('visible');
-        //adicionar a classe hide
         login_page.classList.add('hide');
 
-        const area_cadastro = document.getElementById('area-cadastro');
-        //remover a classe hide
         area_cadastro.classList.remove('hide');
-        //adicionar a classe visible
         area_cadastro.classList.add('visible');
     }
-}
+};
 
 const loginClick = (event) => {
-    //evitar comportamento da tag
     event.preventDefault();
     if (window.innerWidth < 700) {
-
         const area_cadastro = document.getElementById('area-cadastro');
-        //remover a classe visible
+        const login_page = document.getElementById('login-page');
+
         area_cadastro.classList.remove('visible');
-        //adicionar a classe hide
         area_cadastro.classList.add('hide');
 
-        const login_page = document.getElementById('login-page');
-        //remover a classe hide
         login_page.classList.remove('hide');
-        //adicionar a classe visible
         login_page.classList.add('visible');
     }
-}
+};
 
 const mostrarSenha = (event) => {
-    //evitar comportamento da tag
     event.preventDefault();
-    var senhaInput = document.getElementById('senha');
-    if (senhaInput.type == "password") {
-        //mostrar a senha e trocar o icone 'mostrar-senha'
+    const senhaInput = document.getElementById('senha');
+    const mostrarSenhaIcon = document.getElementById('mostrar-senha');
+
+    if (senhaInput.type === "password") {
         senhaInput.type = "text";
-        document.getElementById('mostrar-senha').classList.remove('fa-eye');
-        document.getElementById('mostrar-senha').classList.add('fa-eye-slash');
-
+        mostrarSenhaIcon.classList.remove('fa-eye');
+        mostrarSenhaIcon.classList.add('fa-eye-slash');
     } else {
-        //ocultar a senha e trocar o icone 'mostrar-senha'
         senhaInput.type = "password";
-        document.getElementById('mostrar-senha').classList.remove('fa-eye-slash');
-        document.getElementById('mostrar-senha').classList.add('fa-eye');
+        mostrarSenhaIcon.classList.remove('fa-eye-slash');
+        mostrarSenhaIcon.classList.add('fa-eye');
+    }
+};
 
+// Captar os eventos de click 
+document.getElementById('acesso-cadastro').addEventListener("click", cadastroClick);
+document.getElementById('button-retorno').addEventListener("click", loginClick);
+document.getElementById('mostrar-senha').addEventListener("click", mostrarSenha);
+window.addEventListener('resize', removerAdicionarClasses);
+
+document.getElementById('path-login').addEventListener('click', () => {
+    window.location.href = '../login/login.html';
+});
+
+// Adicionar evento de submit ao formulário
+const formUser = document.getElementById('formUser');
+formUser.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    await envioDados();
+});
+
+async function envioDados() {
+    console.log('Função envioDados chamada');
+    
+    const formUser = document.getElementById('formUser');
+    if (!formUser) {
+        console.error('Formulário não encontrado');
+        return;
+    }
+
+    const camposInput = formUser.querySelectorAll('input[type="text"], input[type="email"], input[type="tel"], input[type="password"]');
+    let validarDados = true;
+    let camposjson = {};
+
+    // Verificação e coleta dos dados do formulário
+    camposInput.forEach(campo => {
+        const placeholder = campo.placeholder;
+        if (campo.value === '') {
+            if (!campo.placeholder.includes(': campo vazio!')) {
+                campo.placeholder = placeholder + ': campo vazio!';
+            }
+            campo.style.border = '1px solid red';
+            validarDados = false;
+        } else {
+            campo.placeholder = placeholder.replace(': campo vazio!', '');
+            campo.style.border = 'none';
+            camposjson[campo.name] = campo.value;
+        }
+    });
+
+    // Se todos os campos estiverem preenchidos, envie os dados
+    if (validarDados) {
+        fetch('http://localhost:3000/empresa/cadastro', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(camposjson)
+        })
+        .then(async response => {
+            if(!response.ok){
+                throw new Error('email já em uso');
+            }
+            return await response.json();
+        })
+        .then(data => {
+            console.log('Cadastro concluido com sucesso', data);
+            window.location.href = '../Login/Login.html';
+
+        })
+        .catch(error => {
+            console.log("Erro:", error);
+        })
     }
 }
 
-    //captar os eventos de click 
-    document.getElementById('acesso-cadastro').addEventListener("click", cadastroClick);
-    document.getElementById('button-retorno').addEventListener("click", loginClick);
-    document.getElementById('mostrar-senha').addEventListener("click", mostrarSenha);
-    window.addEventListener('resize', removerAdicionarClasses);
 
-    document.getElementById('path-login').addEventListener('click',()=>{
-        window.location.href = '../login/login.html';
-    });
-    
-
-    removerAdicionarClasses();
+removerAdicionarClasses();

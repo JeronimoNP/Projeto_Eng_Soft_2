@@ -126,18 +126,30 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
 
 //função para listar os veículos cadastrados no db
 async function listarveiculobd(empresaId) {
-    try {
-        
-        let listaveiculo = await Veiculodb.findAll({
-            attributes: ['imagem', 'id', 'modelo', 'crlv', 'placa', 'ativo', 'tipo', 'cor', 'motoristumid', 'marca'],
-            where: { empresaId: empresaId.empresaId }
-        }); 
-        console.log(listarveiculobd);
-        return listaveiculo;      //retornar uma lista com os veículos cadastrados
+    if(empresaId.dashboard === false){
+        try {
+            
+            let listaveiculo = await Veiculodb.findAll({
+                attributes: ['imagem', 'id', 'modelo', 'crlv', 'placa', 'ativo', 'tipo', 'cor', 'motoristumid', 'marca'],
+                where: { empresaId: empresaId.empresaId }
+            }); 
+            console.log(listarveiculobd);
+            return listaveiculo;      //retornar uma lista com os veículos cadastrados
 
-    } catch (error) {
-        console.error('Erro ao listar veículos do banco de dados:', error);
-        throw error; // Lança o erro para ser tratado onde a função for chamada
+        } catch (error) {
+            console.error('Erro ao listar veículos do banco de dados:', error);
+            throw error; // Lança o erro para ser tratado onde a função for chamada
+        }
+    }else{
+        try {
+            const amount = await Veiculodb.count({
+                where: {empresaId: empresaId.empresaId}
+            });
+            return amount;
+        } catch (error) {
+            console.error('Erro ao contar veiculo no bd');
+            throw error;
+        }
     }
 };
 

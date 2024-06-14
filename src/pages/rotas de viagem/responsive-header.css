@@ -1,0 +1,17 @@
+@media screen and (min-width: 700px) {
+    .init-header{
+        width: 100dvw;
+        min-width: 700px;
+       
+    }
+
+    .init-header h1{
+        width: 220px;
+        font-size: 1.75em;
+    }
+
+    .init-header nav{
+        width: calc(100% - 220px);
+        min-width: 480px;
+    }
+}
