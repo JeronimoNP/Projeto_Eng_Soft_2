@@ -10,7 +10,6 @@ routes.use(cors());
 routes.post('/cadastro', (req, res) =>{
     //puxando dados do front
     const dadoscadastro = req.body;
-
     //condição para verificar se não está passando um indefinido
 
     //redirecionando para arquivo control para o tratamento de dados e cadastro
@@ -18,7 +17,6 @@ routes.post('/cadastro', (req, res) =>{
 });
 
 routes.get('/listar', (req, res) => {
-    console.log(req);
     //obtem o token
     const token = {
         "token": req.query.token

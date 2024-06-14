@@ -9,11 +9,11 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/style-header.css">
-    <link rel="stylesheet" href="src/css/responsive-header.css">
-    <link rel="stylesheet" href="src/css/style-menu.css">
-    <link rel="stylesheet" href="src/css/responsive-menu.css">
+    <link rel="stylesheet" href="../componentes/css/reset.css">
+    <link rel="stylesheet" href="../componentes/css/style-header.css">
+    <link rel="stylesheet" href="../componentes/css/responsive-header.css">
+    <link rel="stylesheet" href="../componentes/css/style-menu.css">
+    <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/style-reponsive.css">
 </head>
@@ -31,14 +31,14 @@
                 <button class="button-cadastro" id="button-cadastro" type="button"></button>
                 
                 <section class="entrada-dados" id="entrada-dados">
-                    <form action="" id="vehicleForm">
+                    <form action="" id="formVeiculo">
                         <label class="campo ">
                             <button type="submit">Adicionar Veiculo</button>
                         </label>
                         <label class="campo image">
                             <span>Imagem do Veiculo</span>
                             <i class="fa-solid fa-upload"></i>
-                            <input type="file" accept="image/*" name="imagem" id="up_image" class="up_image">
+                            <input type="file" accept="image/*" name="imagem" id="up_image" class="up_image"  >
                         </label>
                         <label class="campo">
                             <input type="text" name="marca" id="" placeholder="Marca">
@@ -59,7 +59,7 @@
                             <input type="text" name="placa" id="" placeholder="Placa">
                         </label>
                         <label class="campo">
-                            <input type="text" name="ativo" id="" placeholder="Em serviço">
+                            <input type="text" name="ativo" id="" placeholder="Ativo">
                         </label>
                         <label class="campo">
                             <input type="text" name="motoristumId" id="" placeholder="Driver Atribuido">
@@ -70,8 +70,8 @@
             </main>
         </section>
     </main>
-    <script src="src/js/componente-header.js"></script>
-    <script src="src/js/componente-menu.js" refer></script>
+    <script src="../componentes/js/componente-header.js"></script>
+    <script src="../componentes/js/componente-menu.js" refer></script>
     <script src="src/js/script.js"></script>
 </body>
 </html>

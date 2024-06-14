@@ -89,7 +89,7 @@ const senhatoken = process.env.KEYTOKENSECRET;
                 info: "Equipe não encontrada no bd"
             })
         }
-
+        console.log(token2);
         await editarEquipemiddle(dados, token2, res);
     };
 

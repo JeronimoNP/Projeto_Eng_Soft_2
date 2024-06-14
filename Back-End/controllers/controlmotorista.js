@@ -1,7 +1,7 @@
 const { isUndefined } = require('util');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/'});
-const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken, verificacnh} = require('../middleware/motoristamiddle.js')
+const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
 const senhatoken = process.env.KEYTOKENSECRET;
 
 //função para cadastrar motorista
@@ -11,15 +11,9 @@ async function cadastromoto(dados, imagemB, res){
     const resultemail = verificaemail(dados.email);
     const resultcelular = verificatelefone(dados.celular);
     const resultcpf = verificacpf(dados.cpf);
-    const resultcnh = verificacnh(dados.cnh);
-
     //criando uma variavel para armazena erros de dados
     let errors = [];
-
     //condição para informar erros
-    if(resultcnh === false){
-        errors.push("Cnh incorreto");
-    }
 
     if (resultemail === false) {
         errors.push("Email com o domínio incorreto.");
@@ -40,7 +34,7 @@ async function cadastromoto(dados, imagemB, res){
             info: errors
         });
     }
-
+    
 
     //a variavel token2 é onde tera o descriptografia do token
     const token2 = await decodetoken(dados, senhatoken);
@@ -55,6 +49,8 @@ async function cadastromoto(dados, imagemB, res){
     //verificando se já existe um email cadastrado no bd, caso tenha retorna true
     const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
 
+    
+    // const emp = await jwt.verify()
 
     await cadastrarmotoristabd(dados, emailexiste, token2, res);
 };
@@ -84,29 +80,31 @@ async function listarmotorista(token, res){
 
 
 //função para editar motorista
-async function editarmotorista(dados, res) {
-    // Verificar se o token é válido
+async function editarmotorista(dados, imagemb, res){
+    dados.imagem = imagemb;
+
+    //a variavel token2 é onde tera o descriptografia do token
+    console.log(dados);
     const token2 = await decodetoken(dados, senhatoken);
-    if (token2 === "erro") {
+    if(token2 === "erro"){
         return res.status(203).json({
             erro: true,
-            info: "Token inválido ou expirado"
+            info: "token invalido ou expirado"
         });
     }
-
-    // Verificar se o email existe no banco de dados
+    
+    //verificar email existente.
     const emailexiste = await buscaremailbd(dados.email, token2.empresaId);
-    if (!emailexiste) {
+    //retorno caso motorista não encontrado no db.
+    if(!emailexiste){
         return res.status(404).json({
             erro: true,
             info: "Motorista não encontrado"
-        });
+        })
     }
 
-    // Chamar a função para editar o motorista
     await editarmotoristacmiddle(dados, token2, res);
-}
-
+};
 
 
 //função para deletar motorista do bd

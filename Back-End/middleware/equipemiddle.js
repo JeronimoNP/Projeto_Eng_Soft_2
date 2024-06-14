@@ -160,7 +160,7 @@ const jwt = require('jsonwebtoken');
                 info: "Equipe não encontrada no bd"
             })
         }
-
+        console.log("deletando",empresaId);
         await Equipedb.destroy({
                 where: { email: dados.email, empresaId: empresaId.empresaId }
             }).then(() => {

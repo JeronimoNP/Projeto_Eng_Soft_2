@@ -9,11 +9,11 @@
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="src/css/style-header.css">
-    <link rel="stylesheet" href="src/css/responsive-header.css">
-    <link rel="stylesheet" href="src/css/style-menu.css">
-    <link rel="stylesheet" href="src/css/responsive-menu.css">
+    <link rel="stylesheet" href="../componentes/css/reset.css">
+    <link rel="stylesheet" href="../componentes/css/style-header.css">
+    <link rel="stylesheet" href="../componentes/css/responsive-header.css">
+    <link rel="stylesheet" href="../componentes/css/style-menu.css">
+    <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
     <link rel="stylesheet" href="src/css/style.css">
     <link rel="stylesheet" href="src/css/style-reponsive.css">
 </head>
@@ -31,43 +31,37 @@
                 <button class="button-cadastro" id="button-cadastro" type="button"></button>
                 
                 <section class="entrada-dados" id="entrada-dados">
-                    <form action="">
+
+                    <form id="formUser">
                         <label class="campo ">
                             <button type="submit">Adicionar Usuário</button>
                         </label>
-                        <!-- alterar aqui para excluir -->
-                        <!-- <label class="campo image">
-                            <span>Imagem do Motorista</span>
-                            <i class="fa-solid fa-upload"></i>
-                            <input type="file" accept="image/*" name="up_image" id="up_image" class="up_image">
-                        </label> -->
-                        <!-- alterar aqui para excluir -->
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Nome">
+                            <input type="text" name="nome" id="" placeholder="Nome">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Email">
+                            <input type="text" name="email" id="" placeholder="Email">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="CPF">
+                            <input type="text" name="cpf" id="" placeholder="CPF">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Telefone">
+                            <input type="text" name="celular" id="" placeholder="Telefone">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Endereço">
+                            <input type="text" name="endereco" id="" placeholder="Endereço">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Sexo">
+                            <input type="text" name="sexo" id="" placeholder="Sexo">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Login">
+                            <input type="text" name="login" id="" placeholder="Login">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Senha">
+                            <input type="text" name="senha" id="" placeholder="Senha">
                         </label>
                         <label class="campo">
-                            <input type="text" name="" id="" placeholder="Função">
+                            <input type="text" name="funcao" id="" placeholder="Função">
                         </label>
                     </form>
                 </section>
@@ -75,8 +69,8 @@
             </main>
         </section>
     </main>
-    <script src="src/js/componente-header.js"></script>
-    <script src="src/js/componente-menu.js" refer></script>
+    <script src="../componentes/js/componente-header.js"></script>
+    <script src="../componentes/js/componente-menu.js" refer></script>
     <script src="src/js/script.js"></script>
 </body>
 </html>
