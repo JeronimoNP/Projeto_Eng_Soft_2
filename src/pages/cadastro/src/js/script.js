@@ -120,6 +120,7 @@ async function envioDados() {
         })
         .then(data => {
             console.log('Cadastro concluido com sucesso', data);
+            window.location.href = '../Login/Login.html';
 
         })
         .catch(error => {
