@@ -38,7 +38,7 @@ criarComponente();
 
 document.getElementById("super-adm").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../pagina_inicial/index.html';
   });
 
 document.getElementById("veiculos").addEventListener("click", function(e) {
@@ -82,7 +82,7 @@ document.getElementById("equipe").addEventListener("click", function(e) {
 
 document.getElementById("config").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = "../configuração/menu.html";
   });
 
 document.getElementById("inqueritos").addEventListener("click", function(e) {

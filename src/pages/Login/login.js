@@ -33,7 +33,7 @@ loginForm.addEventListener('submit', async (e) => {
             console.log('login bem completo!');
             console.log(dados);
             if(dados.erro === false){
-                window.location.href = '../cadastro motorista/gerencia-drivers.html';
+                window.location.href = '../pagina_inicial/index.html';
             }else{
 
             msgErro();
