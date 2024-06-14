@@ -17,7 +17,7 @@ function verificaCrlv(Crlv){
 
     if(validade === true){
         const quantidadenumber = Crlv.toString().length;
-        if(quantidadenumber != 12){
+        if(quantidadenumber != 11){
             return false;
         }
     }
@@ -26,7 +26,7 @@ function verificaCrlv(Crlv){
 
 //verificar se tem os 7 caracteres na placa é que não contenha string
 function verificaplaca(placa){
-    const numero = /^[0-9]{9}$/;
+    const numero = /^[0-9a-zA-Z]{9}$/;
     const validade = !numero.test(placa);
 
     if(validade === true){
@@ -83,22 +83,23 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
                 }
             });
         }
-
+        
         if (dados.motoristumId && !motoristaExiste) {
             return res.status(400).json({
                 erro: true,
                 mensagem: "Motorista fornecido não existe ou não pertence à sua empresa!"
             });
         }
-
+        console.log(dados);
         await Veiculodb.create({
-           // imagem: dados.imagem, comentando pois está com bug de imagem
+            imagem: dados.imagem,
             marca: dados.marca,
             modelo: dados.modelo,
             crlv: dados.crlv,
             placa: dados.placa,
             ativo: dados.ativo,
             tipo: dados.tipo,
+            cor: dados.cor,
             empresaId: decoded.empresaId,
             motoristumId: dados.motoristumId ||null
         }).then(() => {
@@ -126,10 +127,12 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
 //função para listar os veículos cadastrados no db
 async function listarveiculobd(empresaId) {
     try {
+        
         let listaveiculo = await Veiculodb.findAll({
-            attributes: ['imagem', 'id', 'modelo', 'Crlv', 'placa', 'ativo'],
-            where: { empresaId: empresaId }
+            attributes: ['imagem', 'id', 'modelo', 'crlv', 'placa', 'ativo', 'tipo', 'cor', 'motoristumid', 'marca'],
+            where: { empresaId: empresaId.empresaId }
         }); 
+        console.log(listarveiculobd);
         return listaveiculo;      //retornar uma lista com os veículos cadastrados
 
     } catch (error) {
@@ -142,17 +145,20 @@ async function listarveiculobd(empresaId) {
 //função para editar dados do veículo
 async function editarveiculomiddle(dados, res){
     const empresaId = dados.empresaId;
+    
 
-    await veiculo.update(dados, {
-        where: { placa: dados.placa, empresaId: empresaId }
+    await Veiculodb.update(dados, {
+        where: { placa: dados.placa, empresaId: dados.empresaId}
 
     }).then(() => {
-    
+        console.log("middle cadastrado com sucesso");
         return res.status(200).json({
+            
             erro: false,
             info: "veículo editado com sucessor"
         })
     }).catch(error => {
+        console.log("middle cadastrado com erro");
         return res.status(400).json({
             erro: true,
             info: "erro ao editar veículo",
@@ -165,7 +171,7 @@ async function editarveiculomiddle(dados, res){
 //função para deletar veiculo do banco de dados.
 async function deletarveiculodb(dados, res){
     
-await veiculo.destroy({
+await Veiculodb.destroy({
         where: { placa: dados.placa, empresaId: dados.empresaId }
     }).then(() => {
         return res.status(200).json({

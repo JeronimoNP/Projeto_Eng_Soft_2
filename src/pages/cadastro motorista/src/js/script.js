@@ -108,10 +108,10 @@ async function envioDados() {
                     campo.placeholder = placeholder.replace(new RegExp(': campo vazio!', 'g'), '');
                     campo.style.border = 'none';
                     formData.append(campo.name, campo.value); // Adicione os campos ao FormData
-                    console.log(`Adicionado ao formData: ${campo.name} = ${campo.value}`);
+                    campo.value = '';
                 } else if(campo.type === 'file' && campo.files.length > 0){
                     formData.append(campo.name, campo.files[0]); // Adicione os arquivos ao FormData
-                    console.log(`Adicionado ao formData: ${campo.name} = ${campo.files[0]}`);
+                    campo.value = '';
                 }
             }
         
@@ -154,6 +154,7 @@ async function envioDados() {
         
         if (!token) {
             console.error('Token não encontrado');
+            window.location.href = '../login/login.html';
             return;
         }
 
@@ -358,10 +359,6 @@ async function alterarDados(campoAlterado) {
             formData.append(campo.name, campo.value);
     });
 
-    console.log('formData:');
-    for (let pair of formData.entries()) {
-        console.log(pair[0]+ ': ' + pair[1]);
-    }
     //aqui vai ficar o fetch de update da api
 
     fetch('http://localhost:3000/motorista/editar', {
@@ -389,7 +386,6 @@ async function deletarMotorista(email) {
         token: token,
         email: email
     };
-    console.log(dell);
 
     await fetch('http://localhost:3000/motorista/deletar', {
         method: 'DELETE', // Método HTTP

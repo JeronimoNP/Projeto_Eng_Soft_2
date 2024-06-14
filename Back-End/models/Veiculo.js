@@ -47,6 +47,10 @@ const Veiculodb = db.define('veiculo', {
         allowNull: false
     },
 
+    cor: {
+        type: Sequelize.STRING(25),
+        allowNull: false
+    }
 
 });
 
