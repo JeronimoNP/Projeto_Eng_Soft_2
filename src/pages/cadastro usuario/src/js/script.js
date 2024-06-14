@@ -20,9 +20,9 @@ function menuBarAlt() {
     entradaDado.classList.toggle('entrada-dados-on');
     buttonCadastro.classList.toggle('button-cadastro-on');
     saidaDado.classList.toggle('saida-dados-on');
-    if(entradaDado.classList.contains('entrada-dados-on')){
+    if(entradaDado.classList.contains('entrada-dados-on') && formEditar){
         formEditar.classList.add('formEditar-on');
-    } else {
+    } else if(formEditar) {
         formEditar.classList.remove('formEditar-on');
     }
     
@@ -171,8 +171,8 @@ async function renderizarDados(dados) {
     
     for(const campo of dados){
         const section = document.createElement('section');
-        const titulo = ['Nome: ', 'Email: ', 'CPF: ', 'Telefone: ', 'Endereco: ', 'Sexo: ', 'Login: ', 'Senha: ', 'Funcao: '];
-        const propriedade = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'];
+        const titulo = ['Nome: ', 'Email: ', 'CPF: ', 'Telefone: ', 'Endereco: ', 'Sexo: ', 'Login: ', 'Funcao: '];
+        const propriedade = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'funcao'];
         let count = 0;
         
 
@@ -210,7 +210,7 @@ async function renderizarDados(dados) {
         const combobox = document.createElement('div');
         const editar = document.createElement('p');
         const deletar = document.createElement('p');
-        div.classList.add('item10');
+        div.classList.add('item9');
         combobox.classList.add('opcao');
         editar.classList.add('editar');
         editar.textContent = 'Editar';
@@ -242,9 +242,9 @@ function configLeave (event){
 
 function editarUser(campo) {
     let campoAlterado = {};
-    const tipo = ['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
-    const name = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'];
-    const placeholder = ['Nome', 'Email', 'CPF', 'Telefone', 'Endereço', 'Sexo', 'Login', 'Senha', 'Função'];
+    const tipo = ['text', 'text', 'text', 'text', 'text', 'text', 'text', 'text'];
+    const name = ['nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'funcao'];
+    const placeholder = ['Nome', 'Email', 'CPF', 'Telefone', 'Endereço', 'Sexo', 'Login', 'Função'];
     const form = document.createElement('form');
     form.enctype = 'multipart/form-data';
     const buttonForm = document.createElement('button');
@@ -255,7 +255,7 @@ function editarUser(campo) {
     if (entradaDado.classList.contains('entrada-dados-on')) {
         form.classList.add('formEditar-on');
     }
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 8; i++) {
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];
