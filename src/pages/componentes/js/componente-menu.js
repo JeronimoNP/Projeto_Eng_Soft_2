@@ -77,7 +77,7 @@ document.getElementById("lembretes-servico").addEventListener("click", function(
 
 document.getElementById("equipe").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../cadastro usuario/gerencia-usuarios.html';
   });
 
 document.getElementById("config").addEventListener("click", function(e) {
