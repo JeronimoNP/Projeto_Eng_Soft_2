@@ -1,0 +1,78 @@
+.main-content {
+    width: 100%;
+    height: 100%;
+}
+.main-content header{
+    display: flex;
+    background-color: #5F9F9F;
+    height: 70px;
+    align-items: center;
+}
+
+header h3 {
+    color: #FFF;
+    padding: 10px;
+}
+
+.main-section {
+    width: 100%;
+    padding: 10px;
+}
+
+.main-section > div {
+    margin-bottom: 100px;
+}
+
+.main-section > div > P {
+    font-weight: 600;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.main-section section {
+    width: 100%;
+}
+
+.main-section section > p {
+    font-weight: 600;
+    font-size: 0.95em;
+    margin-bottom: 30px;
+}
+
+div .opcao {
+    border: none;
+    height: fit-content;
+    margin-top: 10px;
+    gap: 10px;
+    padding: 0;
+}
+
+.opcao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 30px;
+    border-bottom: 1px dashed #000;
+    padding-left: 10px;
+}
+
+.opcao p {
+    font-weight: 600;
+    font-size: 0.9em;
+}
+
+.opcao button {
+    background-color: rgba(0, 0, 0, 0);
+    width: 100px;
+    border: none;
+    color: #1ba3f1;
+    font-weight: 600;
+}
+
+.opcao button:hover {
+    color: #700505;
+}
+
+.opcao button:active {
+    color: #1ba3f1;
+}
