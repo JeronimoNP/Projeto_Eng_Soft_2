@@ -34,4 +34,14 @@ routes.delete('/deletar', (req, res) => {
     equipeController.deletarfuncionario(dados, res);
 });
 
+routes.get('/dashboard', (req, res) => {
+    //obtem o token
+    const token = {
+        "token": req.query.token
+    } // Obtem o empresaId da consulta na URL
+
+    //passa os dados para o controller para tratar o token
+    equipeController.listarEquipedashboard(token, res);
+})
+
 module.exports = routes;
