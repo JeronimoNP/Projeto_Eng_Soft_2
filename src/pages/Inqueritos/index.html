@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../componentes/css/responsive-header.css">
     <link rel="stylesheet" href="../componentes/css/style-menu.css">
     <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
+    <link real ="stylesheet" href = "src/css/style.css">
 </head>
 <body>
     <!-- iniciar componente-header -->
@@ -21,9 +22,41 @@
     <!-- iniciar componente-menu -->
     <main class="main-container">
         <!-- section padrao ja estilizada -->
-        <section class="main-content"></section>
+        <section class="main-content">
+            <header class="header-section">
+                <h2>Inquérito</h2>
+            </header>
+            <main class="main-section">
+                <section class="entrada-dados" id="entrada-dados">
+                    <h3>Gostaria de relatar algum problema ?</h3>
+                    <img src="src/img/imgInquerito.png" alt="imagem de inquerito" class="img-inquerito">
+                    <br>
+                    <br>
+                    <br>
+                    <form id="surveyForm">                    
+                        <div class="form-group">
+                            <label for="message" id="msg"></label>
+                            <textarea id="message" name="message" rows="10" required placeholder="Mande sua Mensagem:"></textarea>
+                        </div>
+                        <button type="submit">Enviar</button>
+                    </form>
+                    <div id="thankYouMessage" class="hidden">
+                        <p>Obrigado por participar do nosso inquérito!</p>
+                    </div>
+                    <div class="contact-info">
+                        <p>Ou, se preferir, entre em contato conosco por via:</p>
+                        <br>
+                        <div class="contact-buttons">
+                            <button id="emailButton">frota@exemple.com</button>
+                            <button id="phoneButton">0800-761-0890</button>
+                    </div>
+                </section>
+                <section id="saida-dados" class="saida-dados"></section>
+            </main>
+        </section>
     </main>
     <script src="../componentes/js/componente-header.js"></script>
     <script src="../componentes/js/componente-menu.js"></script>
+    <script src="src/js/scripts.js"></script>
 </body>
 </html>

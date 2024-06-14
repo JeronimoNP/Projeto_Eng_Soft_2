@@ -38,7 +38,7 @@ criarComponente();
 
 document.getElementById("super-adm").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../pagina_inicial/index.html';
   });
 
 document.getElementById("veiculos").addEventListener("click", function(e) {
@@ -52,7 +52,7 @@ document.getElementById("drivers").addEventListener("click", function(e) {
 
 document.getElementById("reservas").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../cadastro_serviços/index.html';
   });
 
 document.getElementById("relatorio").addEventListener("click", function(e) {
@@ -62,7 +62,7 @@ document.getElementById("relatorio").addEventListener("click", function(e) {
 
 document.getElementById("combustivel").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../combustivel/index.html';
   });
 
 document.getElementById("ordem-trabalho").addEventListener("click", function(e) {
@@ -82,11 +82,11 @@ document.getElementById("equipe").addEventListener("click", function(e) {
 
 document.getElementById("config").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = "../configuração/menu.html";
   });
 
 document.getElementById("inqueritos").addEventListener("click", function(e) {
     e.preventDefault();
     
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = "../Inqueritos/index.html";
   });

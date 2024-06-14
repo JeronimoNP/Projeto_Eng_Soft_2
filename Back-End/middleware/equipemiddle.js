@@ -107,18 +107,30 @@ const jwt = require('jsonwebtoken');
 
 //função para listar as equipes cadastradas no db
     async function listarequipedb(empresaId){
-        try {
-            let listamotorista = await Equipedb.findAll({
-                attributes: ['id', 'nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'],
-                where: { empresaId: empresaId }
-            }); 
-            return listamotorista;      //retornar uma lista com os motoristas cadastrados
-    
-        } catch (error) {
-            console.error('Erro ao listar motoristas do banco de dados:', error);
-            throw error; // Lança o erro para ser tratado onde a função for chamada
+        if(empresaId.dashboard === false){
+            try {
+                let listamotorista = await Equipedb.findAll({
+                    attributes: ['id', 'nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'],
+                    where: { empresaId: empresaId }
+                }); 
+                return listamotorista;      //retornar uma lista com os motoristas cadastrados
+        
+            } catch (error) {
+                console.error('Erro ao listar motoristas do banco de dados:', error);
+                throw error; // Lança o erro para ser tratado onde a função for chamada
+            }
+        }else{
+            try {
+                const amount = await Equipedb.count({
+                    where: {empresaId: empresaId.empresaId}
+                });
+                return amount;
+            } catch (error) {
+                console.error('Erro ao contar equipe no bd');
+                throw error;
+            }
         }
-    }
+    };
 
     async function editarEquipemiddle(dados, id, res){
         const empresaId = id.empresaId;

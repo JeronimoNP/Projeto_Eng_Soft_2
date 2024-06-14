@@ -23,8 +23,33 @@ async function listarServicos(token, res) {
         return res.status(403).json({ erro: true, info: "Token inválido ou expirado" });
     }
 
-    const listaServicos = await listarServicosBd(tokenDecodificado.empresaId);
+    //mudando regra de requisição de listar serviços
+    tokenDecodificado.dashboard = false;
+
+    //mandando dados para o middle
+    const listaServicos = await listarServicosBd(tokenDecodificado);
     return res.status(200).json(listaServicos);
+}
+
+//Rota de listar serviços dashboard
+async function listarServicoDashboard(token, res){
+    //a variavel token2 é onde tera o descriptografia do token
+   const token2 = await decodetoken(token, senhatoken);
+   if(token2 === "erro"){
+       return res.status(203).json({
+           erro: true,
+           info: "token invalido ou expirado"
+       });
+   }
+   //mudando rota para dashboard
+   token2.dashboard = true;
+   
+   //mandando dados para middleware
+   const listaMotoristas = await listarServicosBd(token2);
+
+   //retorna para a requisição
+   return res.status(200).json(listaMotoristas);
+
 }
 
 async function editarServico(dados, res) {
@@ -54,6 +79,7 @@ async function deletarServico(dados, res) {
 module.exports = {
     cadastrarServico,
     listarServicos,
+    listarServicoDashboard,
     editarServico,
     deletarServico
 };

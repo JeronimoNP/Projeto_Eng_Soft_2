@@ -1,0 +1,156 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f4f4f9;
+}
+
+header {
+    background-color: #5F9F9F;
+    color: white;
+    padding: 10px 20px;
+    width: 100%;
+    text-align: left;
+}
+
+main {
+    background-color: rgb(248, 248, 248);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+h3 {
+    font-size: 24px;
+    color: black;
+    margin-bottom: 20px;
+
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+textarea {
+    width: 75%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #D9D9D9;
+    background-color: #C0C0C0;
+    border-radius: 4px;
+    margin-top: -200px;
+}
+#msg{
+    margin-left: -463px;
+    font-size: 20px;
+
+}
+button {
+    background-color: #5F9F9F;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+
+}
+#emailButton{
+    background-color: #C0C0C0;
+    cursor: pointer;
+}
+
+#phoneButton{
+ background-color: #C0C0C0;
+ cursor: pointer;
+}
+
+button:hover {
+    background-color: #5F9F9F;
+}
+
+.hidden {
+    display: none;
+}
+
+#thankYouMessage {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.contact-info {
+    margin-top: 20px;
+}
+
+.contact-buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.contact-buttons button {
+    background-color: #f4f4f9;
+    color: black;
+    border: 1px solid #ccc;
+    padding: 10px;
+    cursor: default;
+    border-radius: 4px;
+    width: auto;
+}
+
+.contact-buttons button:hover {
+    background-color: #D9D9D9;
+}
+
+.main-section{
+  margin-left: -30px;
+}
+
+.img-inquerito{
+    padding: 2px 450px ;
+    margin-top: -55px;
+}
+
+@media (max-width: 600px) {
+    main {
+        width: 95%;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    textarea {
+        font-size: 16px;
+    }
+
+    .contact-buttons {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 600px) {
+    main {
+        width: 95%;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    textarea {
+        font-size: 16px;
+    }
+}

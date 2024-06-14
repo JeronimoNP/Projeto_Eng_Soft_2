@@ -119,17 +119,30 @@ const jwt = require('jsonwebtoken');
     }
 
 //função para listar os motoristar cadastrados no db
-async function listarmotoristabd(empresaId) {
-    try {
-        let listamotorista = await Motorista.findAll({
-            attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'cpf', 'endereco'],
-            where: { empresaId: empresaId }
-        }); 
-        return listamotorista;      //retornar uma lista com os motoristas cadastrados
+    async function listarmotoristabd(empresaId) {
+        if(empresaId.dashboard === false){
 
-        } catch (error) {
-            console.error('Erro ao listar motoristas do banco de dados:', error);
-            throw error; // Lança o erro para ser tratado onde a função for chamada
+            try {
+                let listamotorista = await Motorista.findAll({
+                    attributes: ['imagem', 'id', 'nome', 'email', 'celular', 'ativo', 'cnh', 'cpf', 'endereco'],
+                    where: { empresaId: empresaId.empresaId}
+                }); 
+                return listamotorista;      //retornar uma lista com os motoristas cadastrados
+
+            } catch (error) {
+                console.error('Erro ao listar motoristas do banco de dados:', error);
+                throw error; // Lança o erro para ser tratado onde a função for chamada
+            }
+        }else{
+            try {
+                const amount = await Motorista.count({
+                    where: {empresaId: empresaId.empresaId}
+                });
+                return amount;
+            } catch (error) {
+                console.error('Erro ao contar motoristas no bd');
+                throw error;
+            }
         }
     };
 

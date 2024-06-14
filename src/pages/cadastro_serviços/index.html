@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>dado</title>
+    <title>cadastro de serviço</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
         integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
@@ -14,16 +14,62 @@
     <link rel="stylesheet" href="../componentes/css/responsive-header.css">
     <link rel="stylesheet" href="../componentes/css/style-menu.css">
     <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
+    <!-- <link rel="stylesheet" href="src/css/style.css">  -->
 </head>
 <body>
-    <!-- iniciar componente-header -->
     <header class="init-header"></header>
     <!-- iniciar componente-menu -->
     <main class="main-container">
         <!-- section padrao ja estilizada -->
-        <section class="main-content"></section>
+        <section class="main-content">
+            <header class="header-section">
+                <h2>Cadastro de Serviço</h2>
+            </header> 
+        <main class="main-section">     
+            <form id="servico-form">
+                <label for="service-name">Nome do Serviço:</label>
+                <input type="text" id="service-name" name="service-name">
+                <br>
+                
+                <label for="search-date">Data da Busca:</label>
+                <input type="date" id="search-date" name="search-date">
+                <label for="search-time">Horário da Busca:</label>
+                <input type="time" id="search-time" name="search-time">
+                <br>
+                
+                <label for="search-address">Endereço de Busca:</label>
+                <input type="text" id="search-address" name="search-address">
+                <label for="search-cep">CEP:</label>
+                <input type="text" id="search-cep" name="search-cep">
+                <br>
+                
+                <label for="delivery-address">Endereço de Entrega:</label>
+                <input type="text" id="delivery-address" name="delivery-address">
+                <label for="delivery-cep">CEP:</label>
+                <input type="text" id="delivery-cep" name="delivery-cep">
+                <br>
+                
+                <label>Paradas:</label>
+                <input type="text" id="stop" name="stop">
+                <button id="add-stop-button" type="button">+</button>
+                <br>
+                
+                <label for="km">KM:</label>
+                <input type="text" id="km" name="km">
+                <br>
+                
+                <label for="transporting">O que está transportando:</label><br>
+                <textarea id="transporting" name="transporting" rows="5"></textarea>
+                <br>
+                
+                <button id="schedule-button" type="submit">Agendar</button>
+            </form>
+            </main>  
+        </section>
+
     </main>
     <script src="../componentes/js/componente-header.js"></script>
     <script src="../componentes/js/componente-menu.js"></script>
+    <script src="src/js/cadastro-servico.js"></script>
 </body>
 </html>

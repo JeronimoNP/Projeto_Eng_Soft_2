@@ -57,5 +57,14 @@ routes.delete('/deletar', (req, res) => {
     veiculoController.deletarveiculo(dados, res);
 });
 
+routes.get('/dashboard', (req, res) => {
+    //obtem o token
+    const token = {
+        "token": req.query.token
+    } // Obtem o empresaId da consulta na URL
+    console.log("passei por aqui");
+    //passa os dados para o controller para tratar o token
+    veiculoController.listarVeiculoDashboard(token, res);
+})
 
 module.exports = routes;
