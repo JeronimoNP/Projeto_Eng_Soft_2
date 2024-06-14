@@ -88,5 +88,5 @@ document.getElementById("config").addEventListener("click", function(e) {
 document.getElementById("inqueritos").addEventListener("click", function(e) {
     e.preventDefault();
     
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = "../Inqueritos/index.html";
   });
