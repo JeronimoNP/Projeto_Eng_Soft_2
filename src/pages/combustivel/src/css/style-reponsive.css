@@ -1,0 +1,120 @@
+@media screen and (min-width: 700px) {
+
+    .main-section{
+        padding: 10px;
+    }
+    
+    .entrada-dados{
+        position: static;
+        margin: 0;
+    }
+
+    .entrada-dados form{
+        background-color: rgba(0, 0, 0, 0);
+        flex-direction: row;
+        justify-content: start;
+        flex-wrap: wrap;
+        gap: 10px;
+        width: 100%;
+        height: fit-content;
+        margin: 10px 10px;
+    }
+
+    .entrada-dados label{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        margin: 0;
+        margin-right: 5px;
+    }
+
+    .campo {
+        width: 152px;
+    }
+
+    .campo:first-of-type {
+        width: 110px;
+    }
+
+    .campo button{
+        width: 110px;
+        font-size: 0.67em;
+        font-weight: 700;
+    }
+
+    .campo input{
+        background-color: #D9D9D9;
+        width: 100%;
+        height: 20px;
+    }
+    .campo option{
+        background-color: #D9D9D9;
+        width: 100%;
+        height: 20px;
+    }
+
+    .entrada-dados .image{
+        background-color: #D9D9D9;
+        width: 150px;
+        height: 20px;
+    }
+
+    .image span{
+        font-size: 0.9em;
+        text-wrap: nowrap;
+    }
+
+    .image i{
+        width: 12px;
+        margin-left: 5px;
+    }
+
+    .saida-dados {
+        width: 100%;
+        height: calc(100dvh - 220px);
+        margin: 0;
+    }
+
+    .section-saida {
+        grid-template-columns: minmax(120px, auto) minmax(250px, auto) 100px 90px minmax(250px, auto) 80px 100px 150px 40px;
+        grid-template-rows: auto;
+        grid-template-areas: "item1 item2 item3 item4 item5 item6 item7 item8 item9";
+        justify-content: start;
+        align-items: start;
+        padding-top: 10px;
+        padding-right: 10px;
+        font-size: 1.3em;
+        overflow-x: overlay;
+    }
+
+    .item9 {
+        width: 40px;
+        height: 40px;
+    }
+
+    .formEditar {
+        top: 48px;
+        height: 80dvh;
+    }
+
+    .formEditar-on {
+        width: calc(100% - 220px);
+    }
+    
+    .formImagem {
+        width: 100%;
+    }
+    
+    .formEditar label:nth-of-type(odd) input[type='text'] {
+        margin-right: 10px;
+    }
+
+    .formEditar input[type='text'] {
+        width: calc(50% - 5px);
+    }
+
+    .formEditar button {
+        margin-top: 200px;
+    }
+}

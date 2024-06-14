@@ -61,14 +61,26 @@ async function buscarServicoBd(id, idEmpresa) {
 
 
 async function listarServicosBd(empresaId) {
-    try {
-        return await Servico.findAll({
-            attributes: ['id', 'nome', 'dataBusca', 'horarioBusca', 'enderecoBusca', 'cepBusca', 'enderecoEntrega', 'cepEntrega', 'paradas', 'km', 'transporte'],
-            where: { empresaId: empresaId }
-        });
-    } catch (error) {
-        console.error('Erro ao listar serviços:', error);
-        throw error;
+    if(empresaId.dashboard === false){
+        try {
+            return await Servico.findAll({
+                attributes: ['id', 'nome', 'dataBusca', 'horarioBusca', 'enderecoBusca', 'cepBusca', 'enderecoEntrega', 'cepEntrega', 'paradas', 'km', 'transporte'],
+                where: { empresaId: empresaId }
+            });
+        } catch (error) {
+            console.error('Erro ao listar serviços:', error);
+            throw error;
+        }
+    }else{
+        try {
+            const amount = await Servico.count({
+                where: {empresaId: empresaId.empresaId}
+            });
+            return amount;
+        } catch (error) {
+            console.error('Erro ao contar servicos no bd');
+            throw error;
+        }
     }
 }
 
