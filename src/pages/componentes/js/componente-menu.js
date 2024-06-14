@@ -62,7 +62,7 @@ document.getElementById("relatorio").addEventListener("click", function(e) {
 
 document.getElementById("combustivel").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../combustivel/index.html';
   });
 
 document.getElementById("ordem-trabalho").addEventListener("click", function(e) {
