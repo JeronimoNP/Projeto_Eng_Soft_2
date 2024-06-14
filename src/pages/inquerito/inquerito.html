@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquérito</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="style-header.css">
+    <link rel="stylesheet" href="responsive-header.css">
+    <link rel="stylesheet" href="style-menu.css">
+    <link rel="stylesheet" href="responsive-menu.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style-reponsive.css">
+
+</head>
+<body>
+    <!-- iniciar componente-header -->
+    <header class="init-header"></header>
+    <!-- iniciar componente-menu -->
+    <main class="main-container">
+        <!-- section padrao ja estilizada -->
+        <section class="main-content">
+            <header class="header-section">
+                <h2>Inquérito</h2>
+            </header>
+            <main class="main-section">
+                <section class="entrada-dados" id="entrada-dados">
+                    <form action="">
+                        <h3>Gostaria de relatar algum problema ?</h3><img src="img\imgInquerito.png" alt="imagem de inquerito" class="img-inquerito">
+                        <br>
+                        <br>
+                        <br>
+
+                      
+
+
+                <form id="surveyForm">
+
+                    
+                    <div class="form-group">
+                        <label for="message" id="msg"></label>
+                        <textarea id="message" name="message" rows="10" required placeholder="Mande sua Mensagem:"></textarea>
+                    </div>
+                    <button type="submit">Enviar</button>
+                </form>
+                <div id="thankYouMessage" class="hidden">
+                    <p>Obrigado por participar do nosso inquérito!</p>
+                </div>
+                <div class="contact-info">
+                    <p>Ou, se preferir, entre em contato conosco por via:</p>
+                    <br>
+                    <div class="contact-buttons">
+                        <button id="emailButton">frota@exemple.com</button>
+                        <button id="phoneButton">0800-761-0890</button>
+        
+
+                
+                    
+                </section>
+                <section id="saida-dados" class="saida-dados"></section>
+                
+            </main>
+        </section>
+    </main>
+    <script src="componente-header.js"></script>
+    <script src="componente-menu.js" refer></script>
+    <script src="script.js"></script>
+</body>
+</html>
