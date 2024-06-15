@@ -12,6 +12,8 @@
 }
 
 .main-section {
+    position: relative;
+    height: calc(100% - 60px);
     padding: 10px 20px;
 }
 
@@ -23,6 +25,8 @@
 .container-init h3{
     width: 75%;
     max-width: 600px;
+    font-size: calc(2vw + 0.5em);
+    padding-right: 20px;
 }
 
 .container-img {
@@ -65,4 +69,62 @@
     padding: 10px 20px;
     border: none;
     border-radius: 10px;
+}
+
+.msg {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    padding: 20px;
+}
+
+.msg p {
+    width: 70%;
+    margin-top: 30px;
+    text-align: center;
+    font-weight: 700;
+}
+
+.contact-info {
+    width: calc(100% - 40px);
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 10px;
+}
+
+.contact-info p {
+    font-size: 0.9em;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.contact-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-buttons button {
+    background-color: #D9D9D9;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 3px;
+}
+
+.contact-buttons button:hover {
+    background-color: #cacaca;
+}
+
+.contact-buttons button:active {
+    background-color: #c0c0c0;
+}
+
+.contact-buttons button:nth-of-type(1) {
+    margin-bottom: 10px;
+}
+
+.hidden{
+    display: none;
 }
