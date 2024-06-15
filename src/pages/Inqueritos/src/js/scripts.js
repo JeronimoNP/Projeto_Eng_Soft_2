@@ -15,3 +15,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
 });
 
+function replaceButton() {
+    const buttonForm = document.getElementById('surveyForm').querySelector('button');
+    const form = document.getElementById('surveyForm');
+    if(form.offsetWidth >= 600){
+        buttonForm.style.left ='600px';
+        buttonForm.style.transform = 'translate(-100%, 0)';
+    } else{
+        buttonForm.style.left ='';
+        buttonForm.style.transform = '';
+    }
+}
+
+window.addEventListener('resize', replaceButton);

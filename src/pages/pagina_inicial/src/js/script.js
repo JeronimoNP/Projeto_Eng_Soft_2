@@ -28,6 +28,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.error(`Erro na aquisição dos dados para o endpoint ${endpointKey}: `, result.reason);
             }
         });
+
+
+        resizeText();    
+        
     }
 
     async function fetchData(endpoint, token) {
@@ -50,5 +54,23 @@ document.addEventListener('DOMContentLoaded', () => {
             countElement.textContent = "erro";
         }
     }
+
+    
 });
 
+function resizeText() {
+    const content = document.querySelectorAll('.count');
+
+    content.forEach(element => {
+    if(element.textContent !== "Carregando..."){
+            if(window.innerWidth <= 700){
+                element.style.fontSize = "2em";
+            }else {
+                element.style.fontSize = "3em";
+            }
+    }
+
+});
+}
+
+window.addEventListener('resize', resizeText);

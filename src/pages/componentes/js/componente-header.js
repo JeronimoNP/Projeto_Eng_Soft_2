@@ -61,7 +61,8 @@ buttonMenuBar.addEventListener('click', () => {
         document.querySelector('.main-content').classList.remove('main-content-on');
     }
 
-    menuBarAlt();
+    if(menuBar) menuBarAlt();
+    if(document.getElementById('buttonInquerito')) replaceButton();
 
 });
 
