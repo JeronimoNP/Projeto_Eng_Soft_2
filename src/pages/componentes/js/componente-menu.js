@@ -67,7 +67,7 @@ document.getElementById("combustivel").addEventListener("click", function(e) {
 
 document.getElementById("ordem-trabalho").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../ordem-serviços/index.html';
   });
 
 document.getElementById("lembretes-servico").addEventListener("click", function(e) {
