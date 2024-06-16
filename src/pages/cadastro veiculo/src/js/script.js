@@ -20,9 +20,9 @@ function menuBarAlt() {
     entradaDado.classList.toggle('entrada-dados-on');
     buttonCadastro.classList.toggle('button-cadastro-on');
     saidaDado.classList.toggle('saida-dados-on');
-    if(entradaDado.classList.contains('entrada-dados-on')){
+    if(entradaDado.classList.contains('entrada-dados-on') && formEditar){
         formEditar.classList.add('formEditar-on');
-    } else {
+    } else if(formEditar){
         formEditar.classList.remove('formEditar-on');
     }
     
