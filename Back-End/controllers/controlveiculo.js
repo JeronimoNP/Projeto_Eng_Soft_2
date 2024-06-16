@@ -51,7 +51,7 @@ async function listarveiculo(empresaId, res){
     const empresaId2 = await decodetoken(empresaId, senhatoken);
 
     //mudando rota para listar
-    empresaId2.dashboard = true;
+    empresaId2.dashboard = false;
 
     //passando para middle dados
     const listaveiculo = await listarveiculobd(empresaId2);
