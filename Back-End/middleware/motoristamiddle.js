@@ -99,15 +99,15 @@ const jwt = require('jsonwebtoken');
             }).then(() => {
                 return res.status(201).json({
                     erro: false,
-                    mensagem: "Usuário cadastrado com sucesso!!",
+                    mensagem: "Usuário motorista com sucesso!!",
                     nome: dados.nome,
                     email: dados.email
                 });
             }).catch((error) => { // Adicione o parâmetro de erro aqui para poder capturar e exibir a mensagem de erro
-                console.error("Erro ao cadastrar usuário:", error); // Exibir o erro no console para depuração
+                console.error("Erro ao cadastrar motorista:", error); // Exibir o erro no console para depuração
                 return res.status(400).json({
                     erro: true,
-                    mensagem: "Erro ao cadastrar usuário!"
+                    mensagem: "Erro ao cadastrar motorista!"
                 });
             });
         } else {

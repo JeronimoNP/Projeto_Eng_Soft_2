@@ -84,6 +84,7 @@ const empresa = require('./routes/empresaRoutes.js');
 const veiculo = require('./routes/veiculoRoutes.js');
 const equipe = require('./routes/equipeRoutes.js');
 const servico = require('./routes/servicoRoutes.js');
+const combustivel = require('./routes/combustivelRoutes.js');
 
 
 
@@ -101,6 +102,7 @@ api.use('/equipe', equipe);
 
 api.use('/servico', servico);
 
+api.use('/combustivel', combustivel);
 
 api.listen(3000, () => {
     console.log('Servidor conectado!\nHost http://localhost:3000/');
