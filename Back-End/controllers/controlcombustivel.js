@@ -64,6 +64,9 @@ async function listarcombustivel(token, res){
             info: "erro ao listar no bd"
         })
     }
+
+    //retornando para o front os dados
+    return res.status(200).json(listarcombustivel);
 }
 
 module.exports = {
