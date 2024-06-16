@@ -1,0 +1,62 @@
+@media screen and (min-width: 700px) {
+    .form {
+        position: relative;
+        display: grid;
+        grid-template-columns: minmax(200px, 300px) minmax(200px, 300px) minmax(200px, 300px);
+        grid-template-rows: repeat(5, 50px) 150px 50px;
+        grid-template-areas: "item1 item2 item3"
+                             "item4 item4 item5"
+                             "item6 item6 item7" 
+                             "item8 item8 ."
+                             "item9 item9 ."
+                             "item10 item10 item10"
+                             "item11 item11 item11";
+        column-gap: 30px;
+    }
+    .item1 {
+        grid-area: item1;
+    }
+    .item2 {
+        grid-area: item2;
+    }
+    .item3 {
+        grid-area: item3;
+    }
+    .item4 {
+        grid-area: item4;
+    }
+    .item5 {
+        grid-area: item5;
+    }
+    .item6 {
+        grid-area: item6;
+    }
+    .item7 {
+        grid-area: item7;
+    }
+    .item8 {
+        grid-area: item8;
+    }
+    .item9 {
+        grid-area: item9;
+    }
+    .item10 {
+        grid-area: item10;
+        width: 100%;
+    }
+    .item11 {
+        grid-area: item11;
+        align-self: start;
+        width: 75%;
+        margin-top: 20px;
+    }
+    
+    .item11 button {
+        width: 250px;
+    }
+
+    .campo:nth-of-type(10) textarea {
+        width: 75%;
+        height: 100%;
+    }
+}   

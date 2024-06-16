@@ -60,8 +60,12 @@ buttonMenuBar.addEventListener('click', () => {
     }else {
         document.querySelector('.main-content').classList.remove('main-content-on');
     }
-
-    menuBarAlt();
+    if(typeof menuBarAlt === 'function') {
+        menuBarAlt();
+    }
+    if(document.getElementById('buttonInquerito')) {
+        replaceButton();
+    }
 
 });
 

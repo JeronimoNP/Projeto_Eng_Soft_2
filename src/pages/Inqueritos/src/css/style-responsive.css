@@ -1,0 +1,17 @@
+@media screen and (min-width: 700px) {
+    .container-init h3 {
+        font-size: 2em;
+    }
+
+    .contact-info p {
+        font-size: 1.2em;
+    }
+    .contact-buttons {
+        flex-direction: row;
+        gap: 20px;
+    }
+
+    .contact-buttons button:nth-of-type(1) {
+        margin: 0;
+    }
+}
