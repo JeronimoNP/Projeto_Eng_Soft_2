@@ -33,6 +33,12 @@ routes.get('/dashboard', (req, res) => {
 
     //passa os dados para o controller para tratar o token
     motoristaController.listarServicoDashboard(token, res);
-})
+});
+
+routes.get('/servico/:id', (req, res) => {
+    const id = req.params.id;
+    const token = req.query.token; // ou de outra fonte, dependendo de como você gerencia a autenticação
+    servicoController.buscarServico(id, token, res);
+});
 
 module.exports = routes;

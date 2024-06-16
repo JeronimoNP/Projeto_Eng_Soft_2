@@ -75,11 +75,24 @@ async function deletarServico(dados, res) {
 
     await deletarServicoBd(dados, tokenDecodificado, res);
 }
+async function buscarServico(id, token, res) {
+    const tokenDecodificado = await decodificarToken(token, senhatoken);
+    if (tokenDecodificado === "erro") {
+        return res.status(403).json({ erro: true, info: "Token inválido ou expirado" });
+    }
 
+    const servico = await buscarServicoBd(id, tokenDecodificado.empresaId);
+    if (!servico) {
+        return res.status(404).json({ erro: true, mensagem: "Serviço não encontrado" });
+    }
+
+    return res.status(200).json(servico);
+}
 module.exports = {
     cadastrarServico,
     listarServicos,
     listarServicoDashboard,
     editarServico,
-    deletarServico
+    deletarServico,
+    buscarServico
 };

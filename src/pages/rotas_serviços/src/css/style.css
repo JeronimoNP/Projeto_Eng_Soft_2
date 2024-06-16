@@ -1,0 +1,35 @@
+  /* cabeçalho */
+  .header-section{
+    background-color: #5F9F9F;
+    padding: 5px;
+}
+.header-section h2{
+    color: #fff;
+}
+#map {
+    height: 500px;
+    width: 80%;
+    margin-top: 20px;
+}
+#controls {
+    margin: 20px;
+}
+#search-icon {
+    cursor: pointer;
+}
+
+.busca {
+    display: flex;
+
+    width: 140px;
+    padding: 5px;
+    border: 1px solid #000;
+    border-radius: 5px;
+}
+
+.busca input {
+    width: 110px;
+    padding-left: 5px;
+    border: none;
+    outline: none;
+}

@@ -57,7 +57,7 @@ document.getElementById("reservas").addEventListener("click", function(e) {
 
 document.getElementById("relatorio").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = "../rotas_serviços/index.html";
   });
 
 document.getElementById("combustivel").addEventListener("click", function(e) {
