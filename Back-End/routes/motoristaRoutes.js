@@ -5,7 +5,7 @@ const multer = require('multer');
 const fs = require('fs'); // Importe o módulo fs
 const motoristaController = require('../controllers/controlmotorista.js');
 
-//usando cors para poder ter a comunição da requisição do front para a api
+//usando cors para poder ter a comunicação da requisição do front para a api
 routes.use(cors());
 
 //salvando temporariamente o arquivo imagem enviada do front

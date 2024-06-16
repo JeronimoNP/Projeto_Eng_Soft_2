@@ -1,4 +1,3 @@
-const { isUndefined } = require('util');
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/'});
 const {verificaemail, verificacpf, verificatelefone, buscaremailbd, listarmotoristabd, cadastrarmotoristabd, editarmotoristacmiddle, deletarmotoristadb, decodetoken} = require('../middleware/motoristamiddle.js')
@@ -39,7 +38,7 @@ async function cadastromoto(dados, imagemB, res){
     //a variavel token2 é onde tera o descriptografia do token
     const token2 = await decodetoken(dados, senhatoken);
     if(token2 === "erro"){
-        return res.status(203).json({
+        return res.status(498).json({
             erro: true,
             info: "token invalido ou expirado"
         });
