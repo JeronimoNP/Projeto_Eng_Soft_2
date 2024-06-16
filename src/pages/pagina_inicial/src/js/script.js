@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
         veiculo: 'http://localhost:3000/veiculo/dashboard',
         equipe: 'http://localhost:3000/equipe/dashboard',
         motorista: 'http://localhost:3000/motorista/dashboard',
-       servico: 'http://localhost:3000/Servico/dashboard'
+        servico: 'http://localhost:3000/servico/dashboard'
     };
 
     requisiApi(endpoints);

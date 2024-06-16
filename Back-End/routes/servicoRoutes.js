@@ -32,7 +32,7 @@ routes.get('/dashboard', (req, res) => {
     } // Obtem o empresaId da consulta na URL
 
     //passa os dados para o controller para tratar o token
-    motoristaController.listarServicoDashboard(token, res);
+    servicoController.listarServicoDashboard(token, res);
 })
 
 module.exports = routes;
