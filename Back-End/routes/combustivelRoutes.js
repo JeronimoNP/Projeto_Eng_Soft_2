@@ -1,5 +1,5 @@
 const express = require('express');
-const routes = require.Router();
+const routes = express.Router();
 const cors = require('cors');
 const combustivelController = require('../controllers/controlcombustivel.js');
 

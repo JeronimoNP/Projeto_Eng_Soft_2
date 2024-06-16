@@ -14,11 +14,11 @@ const CombustivelBd = db.define('combustivel', {
     },
 
     valor:{
-        type: Sequelize.MONEY,
+        type: Sequelize.FLOAT,
         allowNull: false
     },
     km:{
-        type: Sequelize.NUMBER,
+        type: Sequelize.FLOAT,
         allowNull: false
     }
 });
@@ -26,3 +26,6 @@ const CombustivelBd = db.define('combustivel', {
 CombustivelBd.belongsTo(Empresadb);
 CombustivelBd.belongsTo(Veiculodb);
 CombustivelBd.belongsTo(Motoristadb);
+CombustivelBd.sync()
+
+module.exports = CombustivelBd;

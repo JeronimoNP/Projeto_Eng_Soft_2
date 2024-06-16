@@ -1,6 +1,6 @@
 const { isNumberObject } = require('util/types');
 const CombustivelBd = require('../models/Combustivel.js');
-const empresas = require('./models/Empresa.js');
+const empresas = require('../models/Empresa.js');
 const carroBd = require('../models/Veiculo.js');
 const motoristadb = require('../models/Motorista.js');
 const jwt = require('jsonwebtoken');
