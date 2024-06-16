@@ -72,7 +72,7 @@ formUser.addEventListener('submit', (event)=>{
 });
 
 async function envioDados() {
-    const camposInput = formUser.querySelectorAll('#entrada-dados input[type="text"]');
+    const camposInput = formUser.querySelectorAll('input[type="text"]');
     let validarDados = true;
     let camposjson = {};
 
