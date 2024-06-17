@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="../componentes/css/responsive-header.css">
     <link rel="stylesheet" href="../componentes/css/style-menu.css">
     <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
-    <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
     <!-- iniciar componente-header -->
@@ -23,26 +22,35 @@
     <main class="main-container">
         <!-- section padrao ja estilizada -->
         <section class="main-content">
-            <div id="calendario">
-                <ul id="dias"></ul>
-            </div>
-            <div id="tabela-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Serviço</th>
-                            <th>Detalhes</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabela-corpo">
-                        <!-- Dados da tabela serão inseridos aqui -->
-                    </tbody>
-                </table>
-            </div>
-        </section>
+            <header class="header-section">
+                <h1>Serviços Cadastrados</h1>
+            </header>
+            <main class="main-section">
+<table id="servicosTable">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Data Busca</th>
+            <th>Horário Busca</th>
+            <th>Endereço Busca</th>
+            <th>CEP Busca</th>
+            <th>Endereço Entrega</th>
+            <th>CEP Entrega</th>
+            <th>Paradas</th>
+            <th>KM</th>
+            <th>Transporte</th>
+            <th>Empresa</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+        </table>
     </main>
-    <script src="../componentes/js/componente-header.js"></script>
-    <script src="../componentes/js/componente-menu.js"></script>
-    <script src="src/js/script.js"></script>
+    </section>
+    </main>
+        <script src="../componentes/js/componente-header.js"></script>
+        <script src="../componentes/js/componente-menu.js"></script>
+        <script src="src/js/script.js"></script>
 </body>
 </html>

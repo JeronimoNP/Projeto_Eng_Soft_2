@@ -72,7 +72,7 @@ document.getElementById("ordem-trabalho").addEventListener("click", function(e) 
 
 document.getElementById("lembretes-servico").addEventListener("click", function(e) {
     e.preventDefault();
-    window.location.href = "https://chat.openai.com/";
+    window.location.href = '../agenda_serviços/index.html';
   });
 
 document.getElementById("equipe").addEventListener("click", function(e) {
