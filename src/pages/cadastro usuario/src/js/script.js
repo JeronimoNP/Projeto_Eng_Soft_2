@@ -290,7 +290,7 @@ function editarUser(campo) {
         await alterarDados(campoAlterado);
         setTimeout(async function() {
             await listarUser();
-        }, 1500);
+        }, 2500);
     };
 }
 

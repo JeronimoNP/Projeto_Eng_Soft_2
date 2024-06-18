@@ -111,7 +111,7 @@ const jwt = require('jsonwebtoken');
             try {
                 let listamotorista = await Equipedb.findAll({
                     attributes: ['id', 'nome', 'email', 'cpf', 'celular', 'endereco', 'sexo', 'login', 'senha', 'funcao'],
-                    where: { empresaId: empresaId }
+                    where: { empresaId: empresaId.empresaId }
                 }); 
                 return listamotorista;      //retornar uma lista com os motoristas cadastrados
         

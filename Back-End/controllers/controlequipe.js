@@ -64,7 +64,7 @@ const senhatoken = process.env.KEYTOKENSECRET;
         //mudando rota para listar
         token2.dashboard = false;
 
-        const listaequipe = await listarequipedb(token2.empresaId);
+        const listaequipe = await listarequipedb(token2);
         return res.status(200).json(listaequipe);
     };
 

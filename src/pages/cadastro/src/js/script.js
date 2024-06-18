@@ -114,6 +114,7 @@ async function envioDados() {
         })
         .then(async response => {
             if(!response.ok){
+                alert("email já utilizado!");
                 throw new Error('email já em uso');
             }
             return await response.json();
