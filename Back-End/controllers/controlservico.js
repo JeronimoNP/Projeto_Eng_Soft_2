@@ -34,7 +34,7 @@ async function listarServicos(token, res) {
 //Rota de listar serviços dashboard
 async function listarServicoDashboard(token, res){
     //a variavel token2 é onde tera o descriptografia do token
-   const token2 = await decodetoken(token, senhatoken);
+   const token2 = await decodificarToken(token, senhatoken);
    if(token2 === "erro"){
        return res.status(203).json({
            erro: true,

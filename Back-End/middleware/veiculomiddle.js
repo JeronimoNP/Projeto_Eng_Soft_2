@@ -133,7 +133,7 @@ async function listarveiculobd(empresaId) {
                 attributes: ['imagem', 'id', 'modelo', 'crlv', 'placa', 'ativo', 'tipo', 'cor', 'motoristumid', 'marca'],
                 where: { empresaId: empresaId.empresaId }
             }); 
-            console.log(listarveiculobd);
+            console.log(listaveiculo);
             return listaveiculo;      //retornar uma lista com os veículos cadastrados
 
         } catch (error) {
