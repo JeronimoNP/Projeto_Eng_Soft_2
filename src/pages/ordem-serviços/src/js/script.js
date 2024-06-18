@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
     const token = sessionStorage.getItem('token');
-
-    fetch('http://localhost:3000/servico/listar', {
+    if (!token) {
+        console.error('Token não encontrado');
+        window.location.href = '../Login/Login.html';
+        return;
+    }    
+    fetch(`http://localhost:3000/servico/listar?token=${token}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+           'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {

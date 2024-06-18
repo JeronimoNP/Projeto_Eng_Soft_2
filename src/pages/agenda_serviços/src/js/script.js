@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Token:', token); // Verificar se o token está sendo lido corretamente
 
         try {
-            const response = await fetch('http://localhost:3000/servico/listar', {
+            const response = await fetch(`http://localhost:3000/servico/listar?token=${token}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
