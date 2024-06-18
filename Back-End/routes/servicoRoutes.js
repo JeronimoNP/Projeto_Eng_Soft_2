@@ -11,7 +11,7 @@ routes.post('/cadastro', (req, res) => {
 });
 
 routes.get('/listar', (req, res) => {
-    const token = req.body;//{ "token": req.token };
+    const token = { "token": req.query.token };
     servicoController.listarServicos(token, res);
 });
 

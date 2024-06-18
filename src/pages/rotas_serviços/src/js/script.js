@@ -3,7 +3,7 @@ document.getElementById('search-icon').addEventListener('click', fetchRouteAndSh
 async function fetchRouteAndShowMap() {
     const routeId = document.getElementById('route-id').value;
     const token = sessionStorage.getItem('token');
-    
+    listar();
     if (!token) {
         console.error('Token não encontrado');
         window.location.href = '../Login/Login.html';
@@ -84,3 +84,42 @@ function showMap(coordsOrigem, coordsDestino, distancia) {
 
     document.getElementById('distance').textContent = `Distância: ${distancia}`;
 }
+
+//função para listar todos os serviços do bd
+async function listar(){
+
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+        console.error('Token não encontrado');
+        window.location.href = '../Login/Login.html';
+        return;
+    }
+
+    fetch(`http://localhost:3000/servico/listar?token=${token}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        
+    })
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(errorData => {
+                console.error('Erro na resposta do servidor:', errorData);
+                throw new Error(JSON.stringify(errorData));
+            });
+        }
+        return response.json();
+
+    })
+    .then(data => {
+        console.log('Dados recebidos do servidor:', data);
+        if (data.cepBusca && data.cepEntrega) {
+            showMap(data.cepBusca, data.cepEntrega, data.km);
+        }
+    })
+    .catch(error => {
+        console.error('Erro:', error);
+        alert('Erro ao buscar serviço. Detalhes: ' + error.message);
+    });
+};
