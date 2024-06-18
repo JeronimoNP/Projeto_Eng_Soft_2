@@ -6,10 +6,16 @@
 .header-section h2{
     color: #fff;
 }
-#map {
-    height: 500px;
-    width: 80%;
+#map-container {
+    display: flex;
+    justify-content: center;
     margin-top: 20px;
+}
+#map {
+    width: 500px;
+    height: 300px;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 5px rgba(0,0,0,0.3);
 }
 #controls {
     margin: 20px;
@@ -32,4 +38,7 @@
     padding-left: 5px;
     border: none;
     outline: none;
+}
+.leaflet-routing-alt {
+    display: none;
 }

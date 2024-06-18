@@ -1,33 +1,59 @@
 #calendario {
-    width: 200px;
-    border-right: 1px solid #ccc;
-    padding-right: 10px;
+    width: 100%;
+    max-width: 600px;
+    margin: auto;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    overflow: hidden;
 }
-#calendario ul {
-    list-style-type: none;
-    padding: 0;
+
+.calendario-header, .calendario-dias {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
 }
-#calendario li {
-    cursor: pointer;
-    margin: 5px 0;
-    padding: 5px;
+
+.calendario-header div {
     background-color: #f4f4f4;
+    text-align: center;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.calendario-dias div {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #f4f4f4;
+    text-align: center;
     border-radius: 5px;
 }
-#calendario li:hover {
+
+.calendario-dias div:hover {
     background-color: #ddd;
 }
+
+.dia-com-servico {
+    background-color: rgba(255, 0, 0, 0.3) !important; /* Vermelho fraco */
+}
+
+.dia-disponivel {
+    background-color: rgba(0, 255, 0, 0.3) !important; /* Verde fraco */
+}
+
 #tabela-container {
     flex-grow: 1;
     padding-left: 10px;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
 }
+
 table, th, td {
     border: 1px solid #ccc;
 }
+
 th, td {
     padding: 8px;
     text-align: left;

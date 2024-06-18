@@ -1,18 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     const diasContainer = document.getElementById('dias');
     const tabelaCorpo = document.getElementById('tabela-corpo');
-    
+
     // Função para criar os dias do calendário
     function criarDias() {
         const diasNoMes = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
         for (let i = 1; i <= diasNoMes; i++) {
-            const li = document.createElement('li');
-            li.textContent = i;
-            li.addEventListener('click', () => carregarServicos(i));
-            diasContainer.appendChild(li);
+            const div = document.createElement('div');
+            div.textContent = i;
+            div.addEventListener('click', () => carregarServicos(i));
+            diasContainer.appendChild(div);
         }
+        marcarDiasComServicos();
     }
-    
+
     // Função para carregar todos os serviços
     async function carregarServicos(dia) {
         const token = sessionStorage.getItem('token');
@@ -46,7 +47,49 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Erro ao carregar serviços:', error);
         }
     }
-    
+
+    // Função para marcar os dias com serviços
+    async function marcarDiasComServicos() {
+        const token = sessionStorage.getItem('token');
+
+        if (!token) {
+            console.error('Token não encontrado');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/servico/listar?token=${token}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                if (response.status === 403) {
+                    console.error('Acesso negado. Verifique se o token está correto e possui as permissões necessárias.');
+                }
+                throw new Error('Erro na aquisição');
+            }
+
+            const data = await response.json();
+            const diasComServicos = new Set(data.map(servico => new Date(servico.dataBusca).getDate()));
+
+            const diasNoMes = new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate();
+            for (let i = 1; i <= diasNoMes; i++) {
+                const diaDiv = diasContainer.children[i - 1];
+                if (diasComServicos.has(i)) {
+                    diaDiv.classList.add('dia-com-servico');
+                } else {
+                    diaDiv.classList.add('dia-disponivel');
+                }
+            }
+        } catch (error) {
+            console.error('Erro ao carregar serviços:', error);
+        }
+    }
+
     // Função para filtrar os serviços por dia
     function filtrarServicosPorDia(servicos, dia) {
         const servicosFiltrados = servicos.filter(servico => {
@@ -55,7 +98,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         preencherTabela(servicosFiltrados);
     }
-    
+
     // Função para preencher a tabela com os serviços
     function preencherTabela(servicos) {
         tabelaCorpo.innerHTML = '';
@@ -63,15 +106,15 @@ document.addEventListener('DOMContentLoaded', function() {
             const tr = document.createElement('tr');
             const tdServico = document.createElement('td');
             const tdDetalhes = document.createElement('td');
-            
+
             tdServico.textContent = servico.nome;
             tdDetalhes.textContent = `Endereço de Busca: ${servico.enderecoBusca}, Endereço de Entrega: ${servico.enderecoEntrega}, Transporte: ${servico.transporte}`;
-            
+
             tr.appendChild(tdServico);
             tr.appendChild(tdDetalhes);
             tabelaCorpo.appendChild(tr);
         });
     }
-    
+
     criarDias();
 });
