@@ -22,7 +22,7 @@ routes.get('/listar', (req, res) => {
     const token = {
         "token": req.query.token
     } // Obtem o empresaId da consulta na URL
-
+    
     //envia para o controle
     veiculoController.listarveiculo(token, res);
 });

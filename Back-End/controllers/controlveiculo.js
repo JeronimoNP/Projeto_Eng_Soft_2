@@ -49,7 +49,6 @@ async function cadastroveic(dados, res){
 async function listarveiculo(empresaId, res){
     //decodificando token
     const empresaId2 = await decodetoken(empresaId, senhatoken);
-
     //mudando rota para listar
     empresaId2.dashboard = false;
 

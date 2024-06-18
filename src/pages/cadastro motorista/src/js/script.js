@@ -268,9 +268,9 @@ function configLeave (event){
     combobox.style.display = 'none';
 }
 
-function editarMotorista (campo){
+function editarMotorista(campo) {
     let campoAlterado = [];
-    campoAlterado.push({name: 'email', value: campo.email});
+    campoAlterado.push({ name: 'email', value: campo.email });
     let count;
     const tipo = ['file', 'text', 'text', 'text', 'text', 'text', 'text'];
     const name = ['imagem', 'nome', 'cnh', 'cpf', 'celular', 'endereco', 'ativo'];
@@ -282,24 +282,25 @@ function editarMotorista (campo){
     buttonForm.id = 'formEditar';
     buttonForm.textContent = 'Alterar';
     form.classList.add('formEditar');
-    if(entradaDado.classList.contains('entrada-dados-on')){
+    if (entradaDado.classList.contains('entrada-dados-on')) {
         form.classList.add('formEditar-on');
     }
-    for(let i=0;i < 7;i++){
+
+    for (let i = 0; i < 7; i++) {
         const label = document.createElement('label');
         const input = document.createElement('input');
         input.type = tipo[i];
         input.name = name[i];
         input.placeholder = placeholder[i];
-        
-        if(input.type === 'file'){
+
+        if (input.type === 'file') {
             const pimagem = document.createElement('p');
             pimagem.textContent = 'Imagem do Motorista';
             input.style.display = 'none';
             input.addEventListener('change', function() {
-                 const imagem = this.files[0];
-                 const maxSize = 1024 * 1024;
-                 if(imagem.size > maxSize){
+                const imagem = this.files[0];
+                const maxSize = 1024 * 1024;
+                if (imagem.size > maxSize) {
                     pimagem.style.border = '1px solid red';
                     pimagem.textContent = 'Tamanho limite 1MB';
                     this.value = '';
@@ -307,11 +308,20 @@ function editarMotorista (campo){
                     pimagem.style.border = 'none';
                     pimagem.textContent = 'Imagem do Motorista';
                 }
-                });
+            });
             label.appendChild(pimagem);
             label.classList.add('formImagem');
 
-        }else {
+            // Mostrar a imagem atual
+            if (campo.imagem) {
+                const img = document.createElement('img');
+                img.src = "data:image/jpg;base64," + campo.imagem;
+                img.style.maxWidth = '100px';
+                img.style.maxHeight = '100px';
+                label.appendChild(img);
+            }
+
+        } else {
             input.value = campo[name[i]];
         }
         form.appendChild(label);
@@ -320,21 +330,22 @@ function editarMotorista (campo){
     document.querySelector('.main-content').appendChild(form);
     form.appendChild(buttonForm);
 
-
     form.addEventListener('submit', function(event) {
-            event.preventDefault();
-            setTimeout(() => {
-                envioDadosEditados();
-            }, 100);
+        event.preventDefault();
+        setTimeout(() => {
+            envioDadosEditados();
+        }, 100);
     });
 
-    async function envioDadosEditados () {
-        name.forEach(nome =>{
+    async function envioDadosEditados() {
+        name.forEach(nome => {
             const input = form.querySelector(`input[name="${nome}"]`);
-            if(input.type === 'file'){
-                campoAlterado.push({name: input.name, value: input.files[0]});
-            }else if(input.type === 'text'){
-                campoAlterado.push({name: input.name, value: input.value});
+            if (input.type === 'file') {
+                if (input.files.length > 0) {
+                    campoAlterado.push({ name: input.name, value: input.files[0] });
+                }
+            } else if (input.type === 'text') {
+                campoAlterado.push({ name: input.name, value: input.value });
             }
         });
 
@@ -344,29 +355,26 @@ function editarMotorista (campo){
         setTimeout(async function() {
             await listarDriver();
         }, 1500);
-    };
-
+    }
 }
 
-//ESSA FUNÇÃO JOGAR OS DADOS ALTERADOS PARA UMA VARIAVEL FORMDATA E ENVIA PARA A API
+// ESSA FUNÇÃO JOGAR OS DADOS ALTERADOS PARA UMA VARIÁVEL FORMDATA E ENVIA PARA A API
 async function alterarDados(campoAlterado) {
     const token = sessionStorage.getItem('token');
     const formData = new FormData();
 
     formData.append('token', token);
-
     campoAlterado.forEach(campo => {
-            formData.append(campo.name, campo.value);
+        formData.append(campo.name, campo.value);
     });
 
-    //aqui vai ficar o fetch de update da api
-
+    // aqui vai ficar o fetch de update da api
     fetch('http://localhost:3000/motorista/editar', {
         method: 'POST',
         body: formData
     })
     .then(async response => {
-        if(!response.ok){
+        if (!response.ok) {
             throw new Error('Erro ao atualizar os dados do motorista');
         }
         return await response.json();
@@ -377,8 +385,8 @@ async function alterarDados(campoAlterado) {
     .catch(error => {
         console.error('Erro:', error);
     });
-
 }
+
 
 async function deletarMotorista(email) {
     const token = sessionStorage.getItem('token');

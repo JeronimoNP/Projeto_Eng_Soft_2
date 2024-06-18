@@ -64,7 +64,7 @@ async function buscarplacabd(placa, idEmpresa) {
         });
         return veiculo; // Retorna o veículo encontrado ou não
 
-    } catch (error) {//Erro interno ao encontrar o veículo
+    } catch (error) {
         console.error('Erro ao buscar veículo:', error);
         throw new Error('Erro ao buscar veículo');
     }
@@ -87,7 +87,7 @@ async function cadastrarveiculobd(dados, placaexiste, decoded,  res){
         if (dados.motoristumId && !motoristaExiste) {
             return res.status(400).json({
                 erro: true,
-                mensagem: "Motorista fornecido não existe ou não pertence à sua empresa!"
+                mensagem: "Id motorista fornecido não existe ou incorreto!"
             });
         }
         console.log(dados);

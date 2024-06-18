@@ -141,6 +141,7 @@ listarVeiculo();
                 } else {
                     const errorData = await response.json();
                     console.error('ERRO ao cadastrar veiculo', errorData);
+                    alert(errorData.mensagem);
                 }
             } catch (error) {
                 console.error("Erro de rede", error);
@@ -350,7 +351,7 @@ function editarVeiculo (campo){
         await alterarDados(campoAlterado);
         setTimeout(async function() {
             await listarVeiculo();
-        }, 1500);
+        }, 2000);
     };
 
 }
