@@ -28,7 +28,6 @@ Este projeto, "Minha Gestão de Frota", visa auxiliar no desenvolvimento e imple
 
 - Cadastro de novas empresas.
 - Cadastro de funcionários da empresa.
-- Edição e exclusão de contas.
 
 ### Gerenciamento de Motoristas e Veículos
 
@@ -39,15 +38,13 @@ Este projeto, "Minha Gestão de Frota", visa auxiliar no desenvolvimento e imple
 - Visualização do status da frota.
 - Histórico de rotas de veículos.
 
-### Relatórios e Planejamento
+### Planejamento
 
-- Geração de relatórios completos de operações.
 - Planejamento de rotas para motoristas e veículos.
 - Sistema de notificações para administradores e usuários.
 
 ### Outros Recursos
-
-- Sistema de pagamento de mensalidades.
+.
 - Calendário com as atividades dos veículos.
 - Sistema de inquérito para relatar bugs ou problemas no sistema.
 
@@ -63,16 +60,5 @@ Este projeto, "Minha Gestão de Frota", visa auxiliar no desenvolvimento e imple
 - **Banco de Dados**
   - Microsoft SQL Server
 
-## Requisitos de Instalação
 
-1. **Pré-requisitos**
-   - Node.js
-   - NPM ou Yarn
-   - Banco de dados Microsoft SQL Server
-
-2. **Instalação**
-   Clone o repositório:
-   ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
 
