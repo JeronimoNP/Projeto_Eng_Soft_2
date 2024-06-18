@@ -35,9 +35,10 @@ routes.get('/dashboard', (req, res) => {
     motoristaController.listarServicoDashboard(token, res);
 });
 
-routes.get('/servico/:id', (req, res) => {
-    const id = req.params.id;
+routes.get('/buscar', (req, res) => {
+    const id = req.query.id;
     const token = req.query.token; // ou de outra fonte, dependendo de como você gerencia a autenticação
+    console.log(token, id);
     servicoController.buscarServico(id, token, res);
 });
 

@@ -1,17 +1,24 @@
 document.getElementById('search-icon').addEventListener('click', function () {
     const routeId = document.getElementById('route-id').value;
     const token = sessionStorage.getItem('token');
+    if (!token) {
+        console.error('Token não encontrado');
+        window.location.href = '../Login/Login.html';
+        return;
+    }
 
     if (!routeId) {
         alert('Por favor, insira o ID da rota.');
         return;
     }
+    console.log(token, routeId);
 
-    fetch(`http://localhost:3000/servico/${routeId}?token=${token}`, {
+    fetch(`http://localhost:3000/servico/buscar?id=${routeId}&token=${token}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
         }
+        
     })
     .then(response => {
         if (!response.ok) {
@@ -21,6 +28,7 @@ document.getElementById('search-icon').addEventListener('click', function () {
             });
         }
         return response.json();
+
     })
     .then(data => {
         console.log('Dados recebidos do servidor:', data);
