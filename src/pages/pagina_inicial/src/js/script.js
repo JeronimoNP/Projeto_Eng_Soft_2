@@ -44,6 +44,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         return response.json();
+        
     }
 
     function updateCount(endpointKey, data) {
