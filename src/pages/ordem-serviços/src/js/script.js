@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-           'Authorization': `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         }
     })
     .then(response => {
@@ -39,7 +39,9 @@ document.addEventListener('DOMContentLoaded', function() {
             tr.appendChild(tdDataBusca);
 
             const tdHorarioBusca = document.createElement('td');
-            tdHorarioBusca.textContent = servico.horarioBusca;
+            // Aqui você formata o horário conforme necessário
+            const horario = new Date(servico.horarioBusca).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            tdHorarioBusca.textContent = horario;
             tr.appendChild(tdHorarioBusca);
 
             const tdEnderecoBusca = document.createElement('td');
