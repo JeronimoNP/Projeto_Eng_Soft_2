@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="../componentes/css/responsive-header.css">
     <link rel="stylesheet" href="../componentes/css/style-menu.css">
     <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
+    <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body>
     <!-- iniciar componente-header -->
@@ -21,9 +22,27 @@
     <!-- iniciar componente-menu -->
     <main class="main-container">
         <!-- section padrao ja estilizada -->
-        <section class="main-content"></section>
+        <section class="main-content">
+            <div id="calendario">
+                <ul id="dias"></ul>
+            </div>
+            <div id="tabela-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Serviço</th>
+                            <th>Detalhes</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tabela-corpo">
+                        <!-- Dados da tabela serão inseridos aqui -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
     <script src="../componentes/js/componente-header.js"></script>
     <script src="../componentes/js/componente-menu.js"></script>
+    <script src="src/js/script.js"></script>
 </body>
 </html>

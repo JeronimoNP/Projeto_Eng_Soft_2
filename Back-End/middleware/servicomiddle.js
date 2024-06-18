@@ -65,7 +65,7 @@ async function listarServicosBd(empresaId) {
         try {
             return await Servico.findAll({
                 attributes: ['id', 'nome', 'dataBusca', 'horarioBusca', 'enderecoBusca', 'cepBusca', 'enderecoEntrega', 'cepEntrega', 'paradas', 'km', 'transporte'],
-                where: { empresaId: empresaId }
+                where: { empresaId: empresaId.empresaId }
             });
         } catch (error) {
             console.error('Erro ao listar serviços:', error);

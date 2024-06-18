@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="../componentes/css/responsive-header.css">
     <link rel="stylesheet" href="../componentes/css/style-menu.css">
     <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
-    <!-- <link rel="stylesheet" href="src/css/style.css">  -->
+    <link rel="stylesheet" href="src/css/style.css"> 
+    <link rel="stylesheet" href="src/css/style-responsive.css">
+
 </head>
 <body>
     <header class="init-header"></header>
@@ -26,43 +28,65 @@
                 <h2>Cadastro de Serviço</h2>
             </header> 
         <main class="main-section">     
-            <form id="servico-form">
-                <label for="service-name">Nome do Serviço:</label>
-                <input type="text" id="service-name" name="service-name">
-                <br>
+            <form id="servico-form" class="form">
+                <div class="campo item1">
+                    <label for="service-name">Nome do Serviço:</label>
+                    <input type="text" id="service-name" name="service-name">
+                </div>
                 
-                <label for="search-date">Data da Busca:</label>
-                <input type="date" id="search-date" name="search-date">
-                <label for="search-time">Horário da Busca:</label>
-                <input type="time" id="search-time" name="search-time">
-                <br>
+                <div class="campo item2">
+                    <label for="search-date">Data da Busca:</label>
+                    <input type="date" id="search-date" name="search-date">
+                </div>
+
+                <div class="campo item3">
+                    <label for="search-time">Horário da Busca:</label>
+                    <input type="time" id="search-time" name="search-time">
+                </div>
+
                 
-                <label for="search-address">Endereço de Busca:</label>
-                <input type="text" id="search-address" name="search-address">
-                <label for="search-cep">CEP:</label>
-                <input type="text" id="search-cep" name="search-cep">
-                <br>
+                <div class="campo item4">
+                    <label for="search-address">Endereço de Busca:</label>
+                    <input type="text" id="search-address" name="search-address">
+                </div>
+
+                <div class="campo item5">
+                    <label for="search-cep">CEP:</label>
+                    <input type="text" id="search-cep" name="search-cep">
+                </div>
+
+                <div class="campo item6">
+                    <label for="delivery-address">Endereço de Entrega:</label>
+                    <input type="text" id="delivery-address" name="delivery-address">
+                </div>
+
+                <div class="campo item7">
+                    <label for="delivery-cep">CEP:</label>
+                    <input type="text" id="delivery-cep" name="delivery-cep">
+                </div>
+
+                <div class="campo item8">
+                    <label>Paradas:</label>
+                    <div>
+                        <input type="text" id="stop" name="stop">
+                        <button id="add-stop-button" class="buttonParada" type="button">+</button>
+                    </div>
+                </div>
+
+                <div class="campo item9">
+                    <label for="km">KM:</label>
+                    <input type="text" id="km" name="km">
+                </div>
+
+                <div class="campo item10">
+                    <label for="transporting">O que está transportando:</label>
+                    <textarea id="transporting" name="transporting" rows="5"></textarea>
+                </div>
                 
-                <label for="delivery-address">Endereço de Entrega:</label>
-                <input type="text" id="delivery-address" name="delivery-address">
-                <label for="delivery-cep">CEP:</label>
-                <input type="text" id="delivery-cep" name="delivery-cep">
-                <br>
                 
-                <label>Paradas:</label>
-                <input type="text" id="stop" name="stop">
-                <button id="add-stop-button" type="button">+</button>
-                <br>
-                
-                <label for="km">KM:</label>
-                <input type="text" id="km" name="km">
-                <br>
-                
-                <label for="transporting">O que está transportando:</label><br>
-                <textarea id="transporting" name="transporting" rows="5"></textarea>
-                <br>
-                
-                <button id="schedule-button" type="submit">Agendar</button>
+                <div class="item11">
+                    <button id="schedule-button" type="submit">Agendar</button>
+                </div>
             </form>
             </main>  
         </section>

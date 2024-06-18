@@ -11,7 +11,7 @@ routes.post('/cadastro', (req, res) => {
 });
 
 routes.get('/listar', (req, res) => {
-    const token = req.body;//{ "token": req.token };
+    const token = { "token": req.query.token };
     servicoController.listarServicos(token, res);
 });
 
@@ -32,7 +32,17 @@ routes.get('/dashboard', (req, res) => {
     } // Obtem o empresaId da consulta na URL
 
     //passa os dados para o controller para tratar o token
+
     servicoController.listarServicoDashboard(token, res);
-})
+
+});
+
+routes.get('/buscar', (req, res) => {
+    const id = req.query.id;
+    const token = req.query.token; // ou de outra fonte, dependendo de como você gerencia a autenticação
+    console.log(token, id);
+    servicoController.buscarServico(id, token, res);
+});
+
 
 module.exports = routes;

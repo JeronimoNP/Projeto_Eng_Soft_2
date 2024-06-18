@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="../componentes/css/responsive-header.css">
     <link rel="stylesheet" href="../componentes/css/style-menu.css">
     <link rel="stylesheet" href="../componentes/css/responsive-menu.css">
-    <link real ="stylesheet" href = "src/css/style.css">
+    <link rel="stylesheet" href="src/css/style.css">
+    <link rel="stylesheet" href="src/css/style-responsive.css">
 </head>
 <body>
     <!-- iniciar componente-header -->
@@ -28,30 +29,31 @@
             </header>
             <main class="main-section">
                 <section class="entrada-dados" id="entrada-dados">
-                    <h3>Gostaria de relatar algum problema ?</h3>
-                    <img src="src/img/imgInquerito.png" alt="imagem de inquerito" class="img-inquerito">
-                    <br>
-                    <br>
-                    <br>
-                    <form id="surveyForm">                    
-                        <div class="form-group">
-                            <label for="message" id="msg"></label>
-                            <textarea id="message" name="message" rows="10" required placeholder="Mande sua Mensagem:"></textarea>
+                    <div class="container-init">
+                        <h3>Gostaria de relatar algum problema ?</h3>
+                        <div class="container-img">
+                            <img src="src/img/imgInquerito.png" alt="imagem de inquerito" class="img-inquerito">
                         </div>
-                        <button type="submit">Enviar</button>
+                    </div>
+
+                    <form id="surveyForm" class="form-inquerito">                    
+                        <label for="message" id="msg">
+                            <textarea id="message" name="message" rows="10" required placeholder="Mande sua Mensagem:"></textarea>
+                        </label>
+                            
+                        <button id="buttonInquerito" type="submit">Enviar</button>
                     </form>
-                    <div id="thankYouMessage" class="hidden">
+                    <div id="thankYouMessage" class="msg hidden">
                         <p>Obrigado por participar do nosso inquérito!</p>
                     </div>
                     <div class="contact-info">
                         <p>Ou, se preferir, entre em contato conosco por via:</p>
-                        <br>
+
                         <div class="contact-buttons">
                             <button id="emailButton">frota@exemple.com</button>
                             <button id="phoneButton">0800-761-0890</button>
                     </div>
                 </section>
-                <section id="saida-dados" class="saida-dados"></section>
             </main>
         </section>
     </main>
